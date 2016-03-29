@@ -318,9 +318,9 @@ void AddBkgData(RooWorkspace* w, std::vector<string> cat_names) {
 
 
 
-  TString infile = inDir + "dijetHH_miniTree.root"; 
+  TString infile = inDir + "dijetHH_data_miniTree.root"; 
   if (filePOSTfix.find("subtr") != string::npos) 
-    infile = inDir + "dijetHH_subtr_miniTree.root"; 
+    infile = inDir + "dijetHH_data_subtr_miniTree.root"; 
 
   TFile dataFile(infile.Data());
 
@@ -448,10 +448,10 @@ void BkgModelFit(RooWorkspace* w, Bool_t dobands, std::vector<string> cat_names,
 
 
     // EXO-12-053 1-parameter function
-    RooAbsPdf* bkg_fitTmp_2par = new RooGenericPdf(TString::Format("bkg_fit_%s",cat_names.at(c).c_str()), "exp(@1*@0)", RooArgList(*x, *p1mod_clone));
+    RooAbsPdf* bkg_fitTmp_2par = new RooGenericPdf(TString::Format("bkg_fit_%s",cat_names.at(c).c_str()), "exp(-1*@1*@1*@0)", RooArgList(*x, *p1mod_clone));
     fitresult[c] = bkg_fitTmp_2par->fitTo(*data[c], Strategy(1),Minos(kFALSE), Range(minMassFit,maxMassFit),SumW2Error(kTRUE), Save(kTRUE),RooFit::PrintEvalErrors(-1));
 
-    RooAbsPdf* bkg_fitTmp = new RooGenericPdf(TString::Format("bkg_fit_%s",cat_names.at(c).c_str()), "exp(@1*@0/(1+@1*@2*@0))", RooArgList(*x, *p1mod, *p2mod));
+    RooAbsPdf* bkg_fitTmp = new RooGenericPdf(TString::Format("bkg_fit_%s",cat_names.at(c).c_str()), "exp(-1*@1*@1*@0/(1+@1*@1*@2*@0))", RooArgList(*x, *p1mod, *p2mod));
 
     bkg_fitTmp->fitTo(*data[c], Strategy(1),Minos(kFALSE), Range(minMassFit,maxMassFit),SumW2Error(kTRUE), Save(kTRUE),RooFit::PrintEvalErrors(-1));
  
