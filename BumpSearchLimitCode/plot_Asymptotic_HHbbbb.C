@@ -17,7 +17,7 @@
 #include "TPaveText.h"
 #define nXm 6
 
-const float intLumi = 1.93;
+const float intLumi = 2.4;
 const string dirXSect = "./";
 
 // 10 = radion_2cat, 11 = radion_4btag_cat0, 12 = radion_3btag_HPHP_cat1 
@@ -233,6 +233,12 @@ void plot_Asymptotic_HHbbbb(string outputdir, int sigHyp, int subtr)
   double xs10[nXm], xs10_uperr[nXm], xs10_downerr[nXm];
   int nMassEff = 0;
   
+  string sOutput = string("BrazilianFlags/Limits_") + sCat + "_HH.txt";
+
+  ofstream myfile;
+  myfile.open (sOutput.c_str());
+  myfile << "mX\tobserved\texpected\n";
+
   for (int im = 0; im < nXm; im++) {
 
 
@@ -265,13 +271,16 @@ void plot_Asymptotic_HHbbbb(string outputdir, int sigHyp, int subtr)
       up95err[nMassEff] = (v_95h.at(im) - v_median.at(im)) * fl_xs;
       down95err[nMassEff] = (v_median.at(im) - v_95l.at(im)) * fl_xs;
     
-      cout<<"fl_xs: "<< double(v_xs.at(im)) <<" median_lim_cls : " <<medianD[nMassEff] <<" mass : "<<mass[nMassEff]<<endl;
+      cout<<"fl_xs: "<< double(v_xs.at(im)) <<" median_lim_cls : " <<medianD[nMassEff] << " obs: " << obs_lim_cls[nMassEff] <<" mass : "<<mass[nMassEff]<<endl;
  
+      myfile << Form("%.1f\t%.2f\t%.2f\n", mass[nMassEff],  obs_lim_cls[nMassEff], medianD[nMassEff]);
+
       nMassEff++;
     
     
   }//end loop over im (mass points)
 
+  myfile.close();
 
 
   /// The TGraphs themselves.
@@ -364,7 +373,7 @@ void plot_Asymptotic_HHbbbb(string outputdir, int sigHyp, int subtr)
   grthSM->Draw("L3");
   grmedian_cls->Draw("L");
   // observed limit
-  //grobslim_cls->Draw("LP");
+  grobslim_cls->Draw("LP");
 
   /*
   TFile *fUnMPlus=new TFile("AsymptoticCLs_UnmatchedPlus_TGraph.root","READ");
