@@ -353,7 +353,7 @@ void AddBkgData(RooWorkspace* w, std::vector<string> cat_names) {
 void SigModelFit(RooWorkspace* w, Float_t mass, TString signalname, std::vector<string> cat_names) {
 
   Int_t ncat = NCAT;
-  Float_t MASS(mass);
+  Float_t MASS = mass - 50;
 
 //******************************************//
 // Fit signal with model pdfs
