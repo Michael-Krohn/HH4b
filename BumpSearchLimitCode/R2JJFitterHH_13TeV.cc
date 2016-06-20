@@ -704,7 +704,7 @@ void BkgModelFit(RooWorkspace* w, Bool_t dobands, std::vector<string> cat_names,
       legmc->AddEntry(plotbkg_fit[c]->getObject(3),"Data ","EP");
       legmc->AddEntry(plotbkg_fit[c]->getObject(1),"Background model","L");
       legmc->AddEntry(plotbkg_fit[c]->getObject(2),"Alternative background model","L");
-      legmc->AddEntry(plotbkg_fit[c]->getObject(4),"Bulk Graviton, #sigma(M_{X}=1.6 TeV) = 10 fb","L");
+      legmc->AddEntry(plotbkg_fit[c]->getObject(4),"Bulk Graviton, #sigma(M_{X}=1.6 TeV) = 20 fb","L");
 
       if(dobands)legmc2->AddEntry(onesigma,"68% CL","F");
       if(dobands)legmc2->AddEntry(twosigma,"95% CL","F"); // not...
