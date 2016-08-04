@@ -15,9 +15,10 @@
 #include "TLegend.h"
 #include "TStyle.h"
 #include "TPaveText.h"
-#define nXm 6
+#define nXm 14
+#define nXm_thr 6
 
-const float intLumi = 2.4;
+const float intLumi = 2.69;
 const string dirXSect = "./";
 
 // 10 = radion_2cat, 11 = radion_4btag_cat0, 12 = radion_3btag_HPHP_cat1 
@@ -130,7 +131,8 @@ void plot_Asymptotic_HHbbbb(string outputdir, int sigHyp, int subtr)
  
   TFile *fFREQ[nXm];
   TTree *t[nXm];
-  int Xmass[nXm]={1200,1400,1600,1800,2000,2500};  
+  int Xmass[nXm]={1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500};  
+  int Xmass_thr[nXm_thr]={1200,1400,1600,1800,2000,2500};  
   //  int Xmass[nXm]={1200,1400,1600,1800,2000};  
   vector<double> v_mh, v_median, v_68l, v_68h, v_95l, v_95h, v_obs;
  
@@ -229,8 +231,6 @@ void plot_Asymptotic_HHbbbb(string outputdir, int sigHyp, int subtr)
   double mass[nXm], obs_lim_cls[nXm];
   double medianD[nXm];
   double up68err[nXm], down68err[nXm], up95err[nXm], down95err[nXm];
-  double xs[nXm], xs_uperr[nXm], xs_downerr[nXm];
-  double xs10[nXm], xs10_uperr[nXm], xs10_downerr[nXm];
   int nMassEff = 0;
   
   string sOutput = string("BrazilianFlags/Limits_") + sCat + "_HH.txt";
@@ -241,37 +241,24 @@ void plot_Asymptotic_HHbbbb(string outputdir, int sigHyp, int subtr)
 
   for (int im = 0; im < nXm; im++) {
 
+    double fl_xs = 1;
+    double fl_xs10 = 0;
 
-    double fl_xs = double(v_xs.at(im)); //*1000.0
-    double fl_xs10 = 0;//double(v_xs10.at(ind)); //*1000.0
-    fl_xs = (1);
-    fl_xs10 = (fl_xs10);
-
-      mass[nMassEff] = Xmass[im];
+    mass[nMassEff] = Xmass[im];
 
     /// This is the part where we multiply the limits in terms of signal strength
     /// by the cross-section, in order to have limits in picobarns.
     //std::cerr << mass[nMassEff] << ":" << v_obs.at(im) << std::endl;
       obs_lim_cls[nMassEff] = v_obs.at(im) * fl_xs;
  
-      
       medianD[nMassEff] = v_median.at(im) * fl_xs;
       up68err[nMassEff] = (v_68h.at(im) - v_median.at(im)) * fl_xs;
       down68err[nMassEff] = (v_median.at(im) - v_68l.at(im)) * fl_xs;
 
-      //scale factor 100 for making the xsect visible
-      xs[nMassEff] =  double(v_xs.at(im)); //*100.0;
-      xs_uperr[nMassEff] = double(v_toterrh.at(im)) * xs[nMassEff] - xs[nMassEff];
-      xs_downerr[nMassEff] =  xs[nMassEff] - double(v_toterrl.at(im)) * xs[nMassEff];
-
-      xs10[nMassEff] = fl_xs10; //*100.0;
-      xs10_uperr[nMassEff] = double(v_toterrh.at(im)) * xs10[nMassEff] - xs10[nMassEff];
-      xs10_downerr[nMassEff] =  xs10[nMassEff] - double(v_toterrl.at(im)) * xs10[nMassEff];
-     
       up95err[nMassEff] = (v_95h.at(im) - v_median.at(im)) * fl_xs;
       down95err[nMassEff] = (v_median.at(im) - v_95l.at(im)) * fl_xs;
     
-      cout<<"fl_xs: "<< double(v_xs.at(im)) <<" median_lim_cls : " <<medianD[nMassEff] << " obs: " << obs_lim_cls[nMassEff] <<" mass : "<<mass[nMassEff]<<endl;
+      cout<<"i " << im <<" median_lim_cls : " <<medianD[nMassEff] << " obs: " << obs_lim_cls[nMassEff] <<" mass : "<<mass[nMassEff]<<endl;
  
       myfile << Form("%.1f\t%.2f\t%.2f\n", mass[nMassEff],  obs_lim_cls[nMassEff], medianD[nMassEff]);
 
@@ -280,8 +267,34 @@ void plot_Asymptotic_HHbbbb(string outputdir, int sigHyp, int subtr)
     
   }//end loop over im (mass points)
 
+
   myfile.close();
 
+  double xs[nXm_thr], xs_uperr[nXm_thr], xs_downerr[nXm_thr];
+  double xs10[nXm_thr], xs10_uperr[nXm_thr], xs10_downerr[nXm_thr];
+  double mass_thr[nXm_thr];
+  int nMassEff_thr = 0;
+  
+ for (int im = 0; im < nXm_thr; im++) {
+  //scale factor 100 for making the xsect visible
+
+    double fl_xs = double(v_xs.at(im)); //*1000.0
+    double fl_xs10 = double(v_xs.at(im))*10;//double(v_xs10.at(ind)); //*1000.0
+
+   mass_thr[nMassEff_thr] = Xmass_thr[im]; 
+   xs[nMassEff_thr] =  double(v_xs.at(im)); //*100.0;    
+ 
+  xs_uperr[nMassEff_thr] = double(v_toterrh.at(im)) * xs[nMassEff_thr] - xs[nMassEff_thr];
+  xs_downerr[nMassEff_thr] =  xs[nMassEff_thr] - double(v_toterrl.at(im)) * xs[nMassEff_thr];
+
+  xs10[nMassEff_thr] = fl_xs10; //*100.0;
+  xs10_uperr[nMassEff_thr] = double(v_toterrh.at(im)) * xs10[nMassEff_thr] - xs10[nMassEff_thr];
+  xs10_downerr[nMassEff_thr] =  xs10[nMassEff_thr] - double(v_toterrl.at(im)) * xs10[nMassEff_thr];
+
+  nMassEff_thr++;
+
+ }
+  
 
   /// The TGraphs themselves.
 
@@ -296,12 +309,12 @@ void plot_Asymptotic_HHbbbb(string outputdir, int sigHyp, int subtr)
   gr95_cls->SetName("Limit95CLs");
 
   // TGraphAsymmErrors *grthSM=new TGraphAsymmErrors(nMassEff1,mass1,xs,0,0,0,0);//xs_downerr,xs_uperr);
-  TGraph *grthSM=new TGraph(nMassEff,mass,xs);//xs_downerr,xs_uperr);
+  TGraph *grthSM=new TGraph(nMassEff_thr,mass_thr,xs);//xs_downerr,xs_uperr);
   grthSM->SetName("SMXSection");
 
 
   // TGraphAsymmErrors *grthSM10=new TGraphAsymmErrors(nMassEff1,mass1,xs10,0,0,0,0);
-  TGraph *grthSM10=new TGraph(nMassEff,mass,xs10);
+  TGraph *grthSM10=new TGraph(nMassEff_thr,mass_thr,xs10);
   grthSM10->SetName("SMXSection_2nd");
 
   // double fr_left = 590.0, fr_down = 1E-5, fr_right = 2000.0, fr_up = 0.5; 
