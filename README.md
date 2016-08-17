@@ -3,12 +3,14 @@ Follow this recipe:
 https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideHiggsAnalysisCombinedLimit#ROOT6_SLC6_release_CMSSW_7_4_X
 
 then checkout this directory
+
 cd HH4b/BumpSearchLimitCode
+
 cmsenv
+
 python ProduceWorkspacesHH_13TeV.py
 
-creates bunch of datacards in datacards
-and workspaces quite a few workspaces
+creates bunch of datacards in datacards and workspaces quite a few workspaces
 
 normally you can then simply run
 
@@ -25,13 +27,19 @@ limits;1
 In this TTree the values are:
 
 0 :  2 sigma Up
+
 1 :  1 sigma Up
+
 2 :  median
+
 3 :  1 sigma Down
+
 4 :  1 sigma Down
+
 5 :  Observed
 
 And obtain a limit in units of 1 fb. So if you have a limit of  5.8594 it means 5.8594 fb.
+
 The datacard for the moment is simply based on 4btag category. A bit of work would be required to add both categories.
 One need to write properly th function MakeDataCard_1Channel in
 R2JJFitterHH_13TeV.cc
