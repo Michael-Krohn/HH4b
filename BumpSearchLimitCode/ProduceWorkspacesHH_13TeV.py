@@ -6,11 +6,11 @@ ROOT.gROOT.SetBatch(True)
 #masses = []
 #signals = ["Graviton"]
 #subtrs = ["_subtr"]
-#masses =[1200,1400,1600,1800,2000,2500]
-masses =[1800]
+masses =[1200,1400,1600,1800,2000,2500]
+#masses =[1800]
 #masses =[1300,1500,1700,1900,2100,2200,2300,2400]
-#signals = ["Radion", "Graviton"]
-signals = ["Graviton"]
+signals = ["Radion", "Graviton"]
+#signals = ["Graviton"]
 #subtrs = ["", "_subtr"]
 subtrs = ["_subtr"]
 
@@ -40,10 +40,10 @@ for mass in masses:
       
 #--noFitAsimov
 
-#      outputfile.write("mv higgsCombine" + signal +  ".Asymptotic.mH"+str(mass)+".root LimitOutput\n")
+      outputfile.write("mv higgsCombine" + signal +  ".Asymptotic.mH"+str(mass)+".root LimitOutput\n")
     #  outputfile.write("mv higgsCombine" + signal +  "_3btag_HPLP_cat2.Asymptotic.mH"+str(mass)+".root LimitOutput\n") 
-#      outputfile.write("mv higgsCombine" + signal +  "_3btag_HPHP_cat1.Asymptotic.mH"+str(mass)+".root LimitOutput\n") 
-#      outputfile.write("mv higgsCombine" + signal +  "_4btag_cat0.Asymptotic.mH"+str(mass)+".root LimitOutput\n")
+      outputfile.write("mv higgsCombine" + signal +  "_3btag_cat1.Asymptotic.mH"+str(mass)+".root LimitOutput\n") 
+      outputfile.write("mv higgsCombine" + signal +  "_4btag_cat0.Asymptotic.mH"+str(mass)+".root LimitOutput\n")
       
     # ============================ Make post nuisance plots ===================
       
@@ -77,17 +77,17 @@ for mass in masses:
      # nuisancs.SaveAs("nuisances/nuisances_" + signal + "_mjj_"+str(mass)+".png")
      # fileIN.Close()
 
-#outputname = "make_brazilian_flag.src"
-#logname = "make_brazilian_flag.log"
-#outputfile = open(outputname,'w')
-#outputfile.write('#!/bin/bash\n')
+outputname = "make_brazilian_flag.src"
+logname = "make_brazilian_flag.log"
+outputfile = open(outputname,'w')
+outputfile.write('#!/bin/bash\n')
 #outputfile.write("source RunLimit.sh LimitOutput 0 0\n")
-#outputfile.write("source RunLimit.sh LimitOutput 0 1\n")
-#outputfile.close()
+outputfile.write("source RunLimit.sh LimitOutput 0 1\n")
+outputfile.close()
 
-#command="rm "+logname
-#print command
-#os.system(command)
-#command="chmod 755 ./"+outputname+";./"+outputname
-#print command
-#os.system(command)
+command="rm "+logname
+print command
+os.system(command)
+command="chmod 755 ./"+outputname+";./"+outputname
+print command
+os.system(command)
