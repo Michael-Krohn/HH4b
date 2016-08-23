@@ -36,6 +36,7 @@ for mass in masses:
   outputfile.write("eval `scramv1 run -sh`\n")
   outputfile.write("root -b -q 'R2JJFitterHH_13TeV.cc("+str(mass)+","+'"Graviton_subtr"'+",true,50000.)'\n")
   outputfile.write("root -b -q 'R2JJDatacardsMakerHH_13TeV.C("+str(mass)+","+'"Graviton_subtr"'+",true,50000.)'\n")
+  outputfile.write("root -b -q 'R2JJPlotsMakerHH_13TeV.C("+str(mass)+","+'"Graviton_subtr"'+",true,50000.)'\n")
   outputfile.close()
   
   command="rm "+logname
