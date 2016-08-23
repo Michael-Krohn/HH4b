@@ -66,7 +66,7 @@ void runfits(const Float_t mass=1600, int signalsample = 0, Bool_t dobands = fal
   { signalname="HH";
   }
 
-  TString fileBaseName(TString::Format("%s_%.0f_13TeV", signalname.Data(), mass));
+  TString fileBaseName(TString::Format("%s_%.0f_13TeV",signalname.Data(), mass));
 
   vector<string> cat_names;
   cat_names.push_back("4btag_cat0");
@@ -100,11 +100,14 @@ void runfits(const Float_t mass=1600, int signalsample = 0, Bool_t dobands = fal
 
 
   // =======================
+  TFile* tf1=new TFile(Form("makeDatacards/%s_%s.root",filePOSTfix.data(),fileBaseName.Data()),"recreate");
+  w->Write();
+  tf1->Close();
 
   cout << "CREATE DATACARD" << endl;
-  MakeDataCard_1Channel(w, fileBaseName, fileBkgName, 0, signalname, signalsample, cat_names, mass);
-  MakeDataCard_1Channel(w, fileBaseName, fileBkgName, 1, signalname, signalsample, cat_names, mass);
-  MakeDataCard_1Channel(w, fileBaseName, fileBkgName, 2, signalname, signalsample, cat_names, mass);
+  //MakeDataCard_1Channel(w, fileBaseName, fileBkgName, 0, signalname, signalsample, cat_names, mass);
+  //MakeDataCard_1Channel(w, fileBaseName, fileBkgName, 1, signalname, signalsample, cat_names, mass);
+  //MakeDataCard_1Channel(w, fileBaseName, fileBkgName, 2, signalname, signalsample, cat_names, mass);
 
   cout << "MAKE PLOTS" << endl;
   
