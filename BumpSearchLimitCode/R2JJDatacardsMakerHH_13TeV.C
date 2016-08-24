@@ -12,7 +12,7 @@ static const Int_t NCAT = 3;
 Double_t MMIN = 1000.;
 Double_t MMAX = 2650;
 std::string filePOSTfix="";
-double analysisLumi = 2.69; // Luminosity you use in your analysis
+double analysisLumi = 12.9; // Luminosity you use in your analysis
 double nEventsInSignalMC = 0.; //number of events in Signal MC sample
 int iGraviton = 0;
 
