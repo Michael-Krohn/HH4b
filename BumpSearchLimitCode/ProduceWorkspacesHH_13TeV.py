@@ -7,10 +7,10 @@ ROOT.gROOT.SetBatch(True)
 #signals = ["Graviton"]
 #subtrs = ["_subtr"]
 masses =[1200,1400,1600,1800,2000,2500]
-#masses =[1800]
+#masses =[1200]
 #masses =[1300,1500,1700,1900,2100,2200,2300,2400]
-signals = ["Radion", "Graviton"]
-#signals = ["Graviton"]
+#signals = ["Radion", "Graviton"]
+signals = ["Graviton"]
 #subtrs = ["", "_subtr"]
 subtrs = ["_subtr"]
 
@@ -28,9 +28,12 @@ for mass in masses:
 
       if (mass == 1600 and signalin == "Radion") or (mass == 2000 and signalin == "Radion") or (mass == 2500 and signalin == "Radion"):
         outputfile.write("root -b -q 'R2JJFitterHH_13TeV.cc("+str(mass)+', "' + signal + '",0,49200.)'+"'\n")
+        outputfile.write("root -b -q 'R2JJDatacardsMakerHH_13TeV.C("+str(mass)+', "' + signal + '",0,49200.)'+"'\n")
+        #outputfile.write("root -b -q 'R2JJPlotsMakerHH_13TeV.C("+str(mass)+', "' + signal + '",0,49200.)'+"'\n")
       else: 
         outputfile.write("root -b -q 'R2JJFitterHH_13TeV.cc("+str(mass)+', "' + signal + '",0,50000.)'+"'\n")
-
+        outputfile.write("root -b -q 'R2JJDatacardsMakerHH_13TeV.C("+str(mass)+', "' + signal + '",0,50000.)'+"'\n")
+    
       outputfile.write("combineCards.py datacards/" + signal +  "HH_"+str(mass)+"_13TeV_3btag_cat1.txt datacards/" + signal +  "HH_"+str(mass)+"_13TeV_4btag_cat0.txt &>datacards/" + signal +  "HH_"+str(mass)+"_13TeV_2cat.txt\n")
 #      outputfile.write("combine datacards/" + signal +  "CMS_jj_HH_"+str(mass)+"_13TeV_CMS_jj_2cat.txt -M Asymptotic --noFitAsimov -n " + signal +  " -m "+str(mass)+"\n")
       outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_2cat.txt -M Asymptotic --rMin=0.1 -n " + signal +  " -m "+str(mass)+"\n")
