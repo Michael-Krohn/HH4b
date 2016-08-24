@@ -15,10 +15,12 @@
 #include "TLegend.h"
 #include "TStyle.h"
 #include "TPaveText.h"
-#define nXm 6
-#define nXm_thr 6
+//#define nXm 6
+//#define nXm_thr 6
+#define nXm 5                                                                                                   
+#define nXm_thr 5
 
-const float intLumi = 2.69;
+const float intLumi = 12.9;
 const string dirXSect = "./";
 
 // 10 = radion_2cat, 11 = radion_4btag_cat0, 12 = radion_3btag_HPHP_cat1 
@@ -132,8 +134,10 @@ void plot_Asymptotic_HHbbbb(string outputdir, int sigHyp, int subtr)
   TFile *fFREQ[nXm];
   TTree *t[nXm];
   //  int Xmass[nXm]={1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500};  
-  int Xmass_thr[nXm_thr]={1200,1400,1600,1800,2000,2500};  
-  int Xmass[nXm]={1200,1400,1600,1800,2000,2500};  
+  //int Xmass_thr[nXm_thr]={1200,1400,1600,1800,2000,2500};
+  //int Xmass[nXm]={1200,1400,1600,1800,2000,2500};
+  int Xmass_thr[nXm_thr]={1200,1400,1600,1800,2500};  
+  int Xmass[nXm]={1200,1400,1600,1800,2500};  
   vector<double> v_mh, v_median, v_68l, v_68h, v_95l, v_95h, v_obs;
  
  
@@ -387,7 +391,7 @@ void plot_Asymptotic_HHbbbb(string outputdir, int sigHyp, int subtr)
   grthSM->Draw("L3");
   grmedian_cls->Draw("L");
   // observed limit
-  grobslim_cls->Draw("LP");
+  //grobslim_cls->Draw("LP");
 
   /*
   TFile *fUnMPlus=new TFile("AsymptoticCLs_UnmatchedPlus_TGraph.root","READ");
