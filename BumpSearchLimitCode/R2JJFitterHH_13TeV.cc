@@ -187,7 +187,8 @@ void AddBkgData(RooWorkspace* w, std::vector<string> cat_names) {
 
   TString infile = inDir + "dijetHH_data_miniTree.root"; 
   if (filePOSTfix.find("subtr") != string::npos) 
-    infile = inDir + "dijetHH_data_subtr_miniTree.root"; 
+    //infile = inDir + "dijetHH_data_subtr_miniTree.root"; 
+    infile = inDir + "dijetHH_qcd_subtr_miniTree.root";
 
   TFile dataFile(infile.Data());
 
