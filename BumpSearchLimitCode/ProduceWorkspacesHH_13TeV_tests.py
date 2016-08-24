@@ -25,7 +25,7 @@ for mass in masses:
   os.system(command)
 
 #masses=[1200, 1400, 1600, 1800, 2000, 2500]
-masses=[2000]
+masses=[1200]
 
 for mass in masses:
   outputname = "submit_HH_Graviton_"+str(mass)+".src"
@@ -36,7 +36,7 @@ for mass in masses:
   outputfile.write("eval `scramv1 run -sh`\n")
   outputfile.write("root -b -q 'R2JJFitterHH_13TeV.cc("+str(mass)+","+'"Graviton_subtr"'+",true,50000.)'\n")
   outputfile.write("root -b -q 'R2JJDatacardsMakerHH_13TeV.C("+str(mass)+","+'"Graviton_subtr"'+",true,50000.)'\n")
-  outputfile.write("root -b -q 'R2JJPlotsMakerHH_13TeV.C("+str(mass)+","+'"Graviton_subtr"'+",true,50000.)'\n")
+#  outputfile.write("root -b -q 'R2JJPlotsMakerHH_13TeV.C("+str(mass)+","+'"Graviton_subtr"'+",true,50000.)'\n")
   outputfile.close()
   
   command="rm "+logname
