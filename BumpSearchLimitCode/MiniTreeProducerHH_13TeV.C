@@ -7,12 +7,12 @@
  evWeight = 1.0;
  normWeight = 1;
  bool bSubstr = true;
- bool bData = true;
+ bool bData = false;
 
  // string sInFile = string("input/MassPlotFineBins_Moriond_Silver_tau21cut.root");
  // if (bSubstr) sInFile = string("input/MassPlotFineBins_subtr_Moriond_Silver_tau21cut.root");
 
- for (int itech= 0; itech < 2; itech++){
+ for (int itech= 1; itech < 2; itech++){
 
    bSubstr = itech;
 

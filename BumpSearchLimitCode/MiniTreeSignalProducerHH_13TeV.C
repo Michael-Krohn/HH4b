@@ -8,9 +8,9 @@
   normWeight = 1;
 
   //bool bSubtr = true;//false;
-  bool bSubtr = false;
+  bool bSubtr = true;
 
-  for (int itech= 0; itech < 2; itech++){
+  for (int itech= 1; itech < 2; itech++){
 
     bSubstr = itech;
 
@@ -18,11 +18,11 @@
 
     string inFile("input/MassPlotFineBins_Moriond_Silver.root");
     if (bSubtr) inFile = string("input/MassPlotFineBins_subtr_Moriond_Silver.root");
- 
+    cout<<itech<<","<<bSubtr<<","<<inFile<<endl;
 
     TFile* file0 = new TFile(inFile.c_str(), "read");
  
-    for (int sighyp = 0; sighyp <2; sighyp++){
+    for (int sighyp = 1; sighyp <2; sighyp++){
    
       cout << "bla 1" << endl;
 
