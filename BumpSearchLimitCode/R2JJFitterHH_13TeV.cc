@@ -26,22 +26,22 @@
 
 void R2JJFitterHH_13TeV(double mass, std::string postfix="", bool dobands=false, int graviton = 0, double nEvents = 50000.)
 {
-    filePOSTfix=postfix;
-    if (postfix.find("Graviton") != string::npos) iGraviton = true;
-    nEventsInSignalMC = nEvents;
-    signalScaler=analysisLumi/nEventsInSignalMC;
-    style();
+  filePOSTfix=postfix;
+  if (postfix.find("Graviton") != string::npos) iGraviton = true;
+  nEventsInSignalMC = nEvents;
+  signalScaler=analysisLumi/nEventsInSignalMC;
+  style();
 
-    for (int i = 0; i < np; i++){
-      if ( fabs(mass - masses[i]) < 1e-5 ) {
-	inTheList = true;
-	break;
-      }
+  for (int i = 0; i < np; i++){
+    if ( fabs(mass - masses[i]) < 1e-5 ) {
+      inTheList = true;
+      break;
     }
+  }
 
 
 
-    runfits(mass, 0, dobands);
+  runfits(mass, 0, dobands);
 
 }
 
@@ -50,28 +50,34 @@ void R2JJFitterHH_13TeV(double mass, std::string postfix="", bool dobands=false,
 void runfits(const Float_t mass=1600, int signalsample = 0, Bool_t dobands = false)
 {
 
-//******************************************************************//
-//  Running mode  corresponds to the following cases
-//         - full run set:
-//         - create signal and background data sets 
-//         - make and fit signal and background  models 
-//         - write signal and background workspaces in root files
-//         - write data card
+  //******************************************************************//
+  //  Running mode  corresponds to the following cases
+  //         - full run set:
+  //         - create signal and background data sets 
+  //         - make and fit signal and background  models 
+  //         - write signal and background workspaces in root files
+  //         - write data card
 
-//*******************************************************************//
+  //*******************************************************************//
 
 
   TString signalname;
   if (signalsample==0)
-  { signalname="HH";
-  }
+    { signalname="HH";
+    }
 
   TString fileBaseName(TString::Format("%s_%.0f_13TeV", signalname.Data(), mass));
 
-  vector<string> cat_names;
   cat_names.push_back("4btag_cat0");
   cat_names.push_back("3btag_cat1");
   cat_names.push_back("2btag_cat2");
+
+  // classical bump hunt
+  method_names.push_back("bumphunt");
+  // fit 2btag cateogry and use in 3,4 btag
+  method_names.push_back("seqfrank");
+  // fit at the same time 2 btag and 3 or 4 btag
+  method_names.push_back("simfrank");
 
 
   TString fileBkgName("bkg_HH_13TeV");
@@ -83,33 +89,36 @@ void runfits(const Float_t mass=1600, int signalsample = 0, Bool_t dobands = fal
   w->var("mgg")->setMin(MMIN);
   w->var("mgg")->setMax(MMAX);
 
-// Add data to the workspace
+  // Add data to the workspace
 
   cout << "CREATE SIGNAL" << endl;
 
-  if (inTheList) AddSigData(w, mass, signalsample,cat_names);
+  if (inTheList) AddSigData(w, mass, signalsample);
 
-  SigModelFit(w, mass, signalname, cat_names);
-  MakeSigWS(w, fileBaseName, signalname,cat_names);
+  SigModelFit(w, mass, signalname);
+  MakeSigWS(w, fileBaseName, signalname);
 
   // ===============================
 
-  AddBkgData(w,cat_names);
-  BkgModelFit(w, dobands,cat_names, fitresults, signalname, mass);
-  MakeBkgWS(w, fileBkgName,cat_names);
+  AddBkgData(w);
+  BkgModelFit(w, dobands, fitresults, signalname, mass);
+  MakeBkgWS(w, fileBkgName);
 
 
   // =======================
 
   cout << "CREATE DATACARD" << endl;
-  MakeDataCard_1Channel(w, fileBaseName, fileBkgName, 0, signalname, signalsample, cat_names, mass);
-  MakeDataCard_1Channel(w, fileBaseName, fileBkgName, 1, signalname, signalsample, cat_names, mass);
-  MakeDataCard_1Channel(w, fileBaseName, fileBkgName, 2, signalname, signalsample, cat_names, mass);
+
+
+  MakeDataCard_1Channel(w, fileBaseName, fileBkgName, 0, signalname, signalsample, mass);
+  MakeDataCard_1Channel(w, fileBaseName, fileBkgName, 1, signalname, signalsample, mass);
+  MakeDataCard_1Channel(w, fileBaseName, fileBkgName, 2, signalname, signalsample, mass);
+
 
   cout << "MAKE PLOTS" << endl;
   
-// Make plots for signal shape
-  MakePlots(w, mass, fitresults, signalname, cat_names);
+  // Make plots for signal shape
+  MakePlots(w, mass, fitresults, signalname);
 
 
   return;
@@ -120,21 +129,21 @@ void runfits(const Float_t mass=1600, int signalsample = 0, Bool_t dobands = fal
 
 
 
-void AddSigData(RooWorkspace* w, Float_t mass, int signalsample, std::vector<string> cat_names) {
+void AddSigData(RooWorkspace* w, Float_t mass, int signalsample) {
 
   Int_t ncat = NCAT;
   TString inDir   = "./MiniTrees/Signal_HH_13TeV/";
 
 
-//****************************//
-// Signal Data Set
-//****************************//
+  //****************************//
+  // Signal Data Set
+  //****************************//
 
   // Variables
   RooArgSet* ntplVars = defineVariables();
 
 
-//signal300_tree_radcut.root
+  //signal300_tree_radcut.root
   int iMass = abs(mass);       
   string signal(inDir.Data());
   signal = signal +"dijetHH_" + filePOSTfix + "" + string(Form("HHOUT%d_miniTree.root", iMass));
@@ -145,15 +154,15 @@ void AddSigData(RooWorkspace* w, Float_t mass, int signalsample, std::vector<str
 
   TTree* sigTree1 = (TTree*) sigFile1.Get("TCVARS");
 
-// common preselection cut
+  // common preselection cut
 
   sigTree1->Print();
 
-//****************************//
-// Signal  Data Set
-//****************************//
-// Create non scaled signal dataset composed with  different productions 
-// according to their cross sections
+  //****************************//
+  // Signal  Data Set
+  //****************************//
+  // Create non scaled signal dataset composed with  different productions 
+  // according to their cross sections
 
   RooDataSet sigScaled("sigScaled","Signal",sigTree1,*ntplVars,mainCut, "normWeight");
 
@@ -176,22 +185,22 @@ void AddSigData(RooWorkspace* w, Float_t mass, int signalsample, std::vector<str
 }
 
 
-void AddBkgData(RooWorkspace* w, std::vector<string> cat_names) {
+void AddBkgData(RooWorkspace* w) {
 
   Int_t ncat = NCAT;
   TString inDir   = "./MiniTrees/Background_HH_13TeV/";
 
-// common preselection cut
+  // common preselection cut
 
 
   Float_t minMassFit(MMIN),maxMassFit(MMAX); 
 
 
-//****************************//
-// CMS Data Set
-//****************************//
-// retrieve the data tree;
-// no common preselection cut applied yet; 
+  //****************************//
+  // CMS Data Set
+  //****************************//
+  // retrieve the data tree;
+  // no common preselection cut applied yet; 
 
   TString infile = inDir + "dijetHH_data_miniTree.root"; 
   if (filePOSTfix.find("subtr") != string::npos) 
@@ -216,7 +225,7 @@ void AddBkgData(RooWorkspace* w, std::vector<string> cat_names) {
     cout << "Sum Entries data = " << dataToFit[c]->sumEntries() << " isWeighted ? = " << dataToFit[c]->isWeighted() << endl;
   }
 
-// Create full data set without categorization
+  // Create full data set without categorization
   RooDataSet* data    = (RooDataSet*) Data.reduce(*w->var("mgg"),mainCut);
   w->import(*data, Rename("Data"));
   data->Print("v");
@@ -225,15 +234,15 @@ void AddBkgData(RooWorkspace* w, std::vector<string> cat_names) {
 
 
 
-void SigModelFit(RooWorkspace* w, Float_t mass, TString signalname, std::vector<string> cat_names) {
+void SigModelFit(RooWorkspace* w, Float_t mass, TString signalname) {
 
   Int_t ncat = NCAT;
   Float_t MASS = mass - 50.;
 
-//******************************************//
-// Fit signal with model pdfs
-//******************************************//
-// retrieve pdfs and datasets from workspace to fit with pdf models
+  //******************************************//
+  // Fit signal with model pdfs
+  //******************************************//
+  // retrieve pdfs and datasets from workspace to fit with pdf models
 
   cout << "Fit signal" << endl;
 
@@ -243,13 +252,13 @@ void SigModelFit(RooWorkspace* w, Float_t mass, TString signalname, std::vector<
   Float_t minMassFit(MMIN),maxMassFit(MMAX); 
 
 
-// Fit Signal 
+  // Fit Signal 
 
 
   for (int c = 0; c < ncat; ++c) {
     cout << "---------- category = " << c << endl;
     if (inTheList)
-	sigToFit[c]   = (RooDataSet*) w->data(TString::Format("Sig_%s",cat_names.at(c).c_str()));
+      sigToFit[c]   = (RooDataSet*) w->data(TString::Format("Sig_%s",cat_names.at(c).c_str()));
     
     jjSig[c]     = (RooAbsPdf*)  w->pdf(TString::Format("%s_sig_%s",signalname.Data(), cat_names.at(c).c_str()));
 
@@ -272,7 +281,7 @@ void SigModelFit(RooWorkspace* w, Float_t mass, TString signalname, std::vector<
 
     cout << " fitted " << endl;
 
-// IMPORTANT: fix all pdf parameters to constant
+    // IMPORTANT: fix all pdf parameters to constant
     w->defineSet(TString::Format("SigPdfParam_%s",cat_names.at(c).c_str()), 
 		 RooArgSet(*w->var(TString::Format("%s_sig_m0_%s",signalname.Data(), cat_names.at(c).c_str())),
 			   *w->var(TString::Format("%s_sig_sigma_%s",signalname.Data(), cat_names.at(c).c_str())),
@@ -290,28 +299,28 @@ void SigModelFit(RooWorkspace* w, Float_t mass, TString signalname, std::vector<
 
 
 
-void BkgModelFit(RooWorkspace* w, Bool_t dobands, std::vector<string> cat_names, RooFitResult** fitresult, TString signalname, double mass) {
+void BkgModelFit(RooWorkspace* w, Bool_t dobands, RooFitResult** fitresult, TString signalname, double mass) {
 
   Int_t ncat = NCAT;
 
-//******************************************//
-// Fit background with model pdfs
-//******************************************//
+  //******************************************//
+  // Fit background with model pdfs
+  //******************************************//
 
-// retrieve pdfs and datasets from workspace to fit with pdf models
+  // retrieve pdfs and datasets from workspace to fit with pdf models
 
   cout << "Start background model fit" << endl;
   RooDataSet* data[NCAT];
   RooPlot* plotbkg_fit[NCAT];
 
-// dobands and dosignal
+  // dobands and dosignal
   RooDataSet* signal[NCAT];
   RooAbsPdf*  jjSig[NCAT];
 
 
   Float_t minMassFit(MMIN),maxMassFit(MMAX); 
 
-// Fit data with background pdf for data limit
+  // Fit data with background pdf for data limit
 
   RooRealVar* mgg     = w->var("mgg");  
   mgg->setUnit("GeV");
@@ -359,11 +368,11 @@ void BkgModelFit(RooWorkspace* w, Bool_t dobands, std::vector<string> cat_names,
     w->import(*bkg_fitTmp2);
 
 
-//************************************************//
-// Plot jj background fit results per categories 
-//************************************************//
-// Plot Background Categories 
-//****************************//
+    //************************************************//
+    // Plot jj background fit results per categories 
+    //************************************************//
+    // Plot Background Categories 
+    //****************************//
 
     TCanvas* ctmp = new TCanvas("ctmp","jj Background Categories",0,0,800,600);
     Int_t nBinsMass(33);
@@ -408,7 +417,7 @@ void BkgModelFit(RooWorkspace* w, Bool_t dobands, std::vector<string> cat_names,
     } else {
       double val_eff;
       getEfficiency(mass, c, val_eff);
-       signalNorm = val_eff*20;
+      signalNorm = val_eff*20;
     }
 
 
@@ -426,16 +435,16 @@ void BkgModelFit(RooWorkspace* w, Bool_t dobands, std::vector<string> cat_names,
 
     RooArgSet* set = new RooArgSet(*mgg);
     /*
-    cout << " ================================ PRINTING ===================================" << endl;
+      cout << " ================================ PRINTING ===================================" << endl;
 
   
 
       // ================================================================== data_obs_CMS
       //        cat_names.push_back("CMS_jj_4btag_cat0");
 
-    data[c]->plotOn(plotbkg_fit[c],LineColor(kWhite),MarkerColor(kWhite));    
+      data[c]->plotOn(plotbkg_fit[c],LineColor(kWhite),MarkerColor(kWhite));    
 
-    bkg_fitTmp_2par->plotOn(plotbkg_fit[c],LineColor(kBlue),Range("fitrange"),NormRange("fitrange"),RooFit::PrintEvalErrors(-1)); 
+      bkg_fitTmp_2par->plotOn(plotbkg_fit[c],LineColor(kBlue),Range("fitrange"),NormRange("fitrange"),RooFit::PrintEvalErrors(-1)); 
     */
 
     double normalisation =  data[c]->sumEntries();
@@ -501,7 +510,7 @@ void BkgModelFit(RooWorkspace* w, Bool_t dobands, std::vector<string> cat_names,
  
 
 
-//********************************************************************************//
+    //********************************************************************************//
 
     if (dobands) {
 
@@ -662,13 +671,13 @@ void BkgModelFit(RooWorkspace* w, Bool_t dobands, std::vector<string> cat_names,
 }
 
 
-void MakePlots(RooWorkspace* w, Float_t mass, RooFitResult** fitresults, TString signalname, std::vector<string> cat_names) {
+void MakePlots(RooWorkspace* w, Float_t mass, RooFitResult** fitresults, TString signalname) {
 
   cout << "Start plotting" << endl; 
 
   Int_t ncat = NCAT;
 
-// retrieve data sets from the workspace
+  // retrieve data sets from the workspace
 
   RooDataSet* data[9];  
   RooDataSet* signal[9];
@@ -679,19 +688,19 @@ void MakePlots(RooWorkspace* w, Float_t mass, RooFitResult** fitresults, TString
     jjSig[c]       = (RooAbsPdf*)  w->pdf(signalname+TString::Format("_sig_%s",cat_names.at(c).c_str()));
   }
 
-// retrieve mass observable from the workspace
+  // retrieve mass observable from the workspace
   RooRealVar* mgg     = w->var("mgg");  
   mgg->setUnit("GeV");
 
-// retrieve pdfs after the fits
-// Signal Model
+  // retrieve pdfs after the fits
+  // Signal Model
 
   RooAbsPdf* jjSigAll       = w->pdf(signalname);
 
  
-//****************************//
-// Plot jj Fit results
-//****************************//
+  //****************************//
+  // Plot jj Fit results
+  //****************************//
 
 
   Float_t minMassFit(MMIN),maxMassFit(MMAX); 
@@ -703,11 +712,11 @@ void MakePlots(RooWorkspace* w, Float_t mass, RooFitResult** fitresults, TString
 
   cout << "Progress plotting 2" << endl;
 
-//********************************************//
-// Plot jj signal fit results per categories 
-//********************************************//
-// Plot Signal Categories 
-//****************************//
+  //********************************************//
+  // Plot jj signal fit results per categories 
+  //********************************************//
+  // Plot Signal Categories 
+  //****************************//
 
   TLatex *text = new TLatex();
   text->SetNDC();
@@ -768,19 +777,19 @@ void MakePlots(RooWorkspace* w, Float_t mass, RooFitResult** fitresults, TString
 }
 
 
-void MakeSigWS(RooWorkspace* w, const char* fileBaseName, TString signalname, std::vector<string> cat_names) {
+void MakeSigWS(RooWorkspace* w, const char* fileBaseName, TString signalname) {
 
   TString wsDir   = "workspaces/"+filePOSTfix;
   Int_t ncat = NCAT;
 
 
-//********************************//
-// Retrieve P.D.F.s
-//********************************//
+  //********************************//
+  // Retrieve P.D.F.s
+  //********************************//
 
   RooAbsPdf* jjSigPdf[6];
 
-// (1) import signal P.D.F.s
+  // (1) import signal P.D.F.s
 
   RooWorkspace *wAll = new RooWorkspace("w_all","w_all");
 
@@ -790,31 +799,31 @@ void MakeSigWS(RooWorkspace* w, const char* fileBaseName, TString signalname, st
     wAll->import(*jjSigPdf[c]);
   }
 
-// (2) Systematics on energy scale and resolution
+  // (2) Systematics on energy scale and resolution
 
   wAll->factory("CMS_sig_p1_jes_13TeV[0.0,-5.0,5.0]");
   wAll->factory("CMS_jj_sig_p1_jes_13TeV[0.012,0.012,0.012]");
   wAll->factory("sum::CMS_sig_p1_jes_sum(1.0,prod::CMS_sig_p1_jes_prod(CMS_sig_p1_jes_13TeV, CMS_jj_sig_p1_jes_13TeV))");
-    for (int c = 0; c < ncat; ++c) {
-      wAll->factory("prod::CMS_"+signalname+"_sig_m0_"+TString::Format("%s",cat_names.at(c).c_str())+"("+signalname+"_sig_m0_"+TString::Format("%s",cat_names.at(c).c_str())+", CMS_sig_p1_jes_sum)");
-    }
+  for (int c = 0; c < ncat; ++c) {
+    wAll->factory("prod::CMS_"+signalname+"_sig_m0_"+TString::Format("%s",cat_names.at(c).c_str())+"("+signalname+"_sig_m0_"+TString::Format("%s",cat_names.at(c).c_str())+", CMS_sig_p1_jes_sum)");
+  }
 
-// (3) Systematics on resolution: create new sigmas
+  // (3) Systematics on resolution: create new sigmas
 
-    // apply JER resolution smearing from 
-    // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
-    // Assume ~7% smearing +- 3% for each jet. Divide by sqrt(2) for both
+  // apply JER resolution smearing from 
+  // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
+  // Assume ~7% smearing +- 3% for each jet. Divide by sqrt(2) for both
 
   wAll->factory("CMS_sig_p2_jer_13TeV[0.0,-5.0,5.0]");
   wAll->factory("CMS_jj_sig_p2_jer_13TeV[0.02,0.02,0.02]");
   wAll->factory("sum::CMS_sig_p2_jer_sum(1.00,prod::CMS_sig_p2_jer_prod(CMS_sig_p2_jer_13TeV, CMS_jj_sig_p2_jer_13TeV))");
 
-    for (int c = 0; c < ncat; ++c) {
-      wAll->factory("prod::CMS_"+signalname+"_sig_sigma_"+TString::Format("%s",cat_names.at(c).c_str())+"(jj_"+signalname+"_sig_sigma_"+TString::Format("%s",cat_names.at(c).c_str())+", CMS_sig_p2_jer_sum)");
-    }
+  for (int c = 0; c < ncat; ++c) {
+    wAll->factory("prod::CMS_"+signalname+"_sig_sigma_"+TString::Format("%s",cat_names.at(c).c_str())+"(jj_"+signalname+"_sig_sigma_"+TString::Format("%s",cat_names.at(c).c_str())+", CMS_sig_p2_jer_sum)");
+  }
 
 
-// (4) do reparametrization of signal
+  // (4) do reparametrization of signal
   for (int c = 0; c < ncat; ++c) {
     wAll->factory(
 		  TString::Format("EDIT::%s_sig_%s",signalname.Data(),cat_names.at(c).c_str()) +
@@ -831,20 +840,20 @@ void MakeSigWS(RooWorkspace* w, const char* fileBaseName, TString signalname, st
 }
 
 
-void MakeBkgWS(RooWorkspace* w, const char* fileBaseName, std::vector<string> cat_names) {
+void MakeBkgWS(RooWorkspace* w, const char* fileBaseName) {
 
   TString wsDir   = "workspaces/"+filePOSTfix;
   Int_t ncat = NCAT;  
 
 
-//********************************//
-// Retrieve the datasets and PDFs
-//********************************//
+  //********************************//
+  // Retrieve the datasets and PDFs
+  //********************************//
 
   RooDataSet* data[NCAT];
   RooExtendPdf* bkg_fitPdf[NCAT];
 
-// (1) import everything
+  // (1) import everything
 
   cout << "Start importing everything" << endl;
 
@@ -879,7 +888,7 @@ void MakeBkgWS(RooWorkspace* w, const char* fileBaseName, std::vector<string> ca
 
     (wAll->var(TString::Format("bkg_fit_slope1_%s",cat_names.at(c).c_str())))->setConstant(true);
 
-    wAll->factory(TString::Format("CMS_bkg_fit_slope1_eps_%s[0.0,-5.0,5.0]", cat_names.at(c).c_str()));
+    wAll->factory(TString::Format("CMS_bkg_fit_slope1_eps_%s[0.0,-20.0,20.0]", cat_names.at(c).c_str()));
     wAll->factory(TString::Format("CMS_bkg_fit_slope1_err_%s[%g, %g, %g]",  cat_names.at(c).c_str(), errMean, errMean, errMean));
     wAll->factory(TString::Format("sum::CMS_bkg_fit_slope1_sum_%s(1.0,prod::CMS_sig_slope1_jes_prod_%s(CMS_bkg_fit_slope1_eps_%s, CMS_bkg_fit_slope1_err_%s))", cat_names.at(c).c_str(), cat_names.at(c).c_str(), cat_names.at(c).c_str(), cat_names.at(c).c_str()));
 
@@ -887,25 +896,25 @@ void MakeBkgWS(RooWorkspace* w, const char* fileBaseName, std::vector<string> ca
     wAll->factory(TString::Format("prod::CMS_bkg_fit_slope1_%s(bkg_fit_slope1_%s,CMS_bkg_fit_slope1_sum_%s)", cat_names.at(c).c_str(), cat_names.at(c).c_str(), cat_names.at(c).c_str()));
 
 
-   if (c > 0){
-     mean = (wAll->var(TString::Format("bkg_fit_slope2_%s",cat_names.at(c).c_str())))->getVal();
-     min = (wAll->var(TString::Format("bkg_fit_slope2_%s",cat_names.at(c).c_str())))->getMin();
-     max = (wAll->var(TString::Format("bkg_fit_slope2_%s",cat_names.at(c).c_str())))->getMax();
-     errMean = (wAll->var(TString::Format("bkg_fit_slope2_%s",cat_names.at(c).c_str())))->getError();
+    if (c > 0){
+      mean = (wAll->var(TString::Format("bkg_fit_slope2_%s",cat_names.at(c).c_str())))->getVal();
+      min = (wAll->var(TString::Format("bkg_fit_slope2_%s",cat_names.at(c).c_str())))->getMin();
+      max = (wAll->var(TString::Format("bkg_fit_slope2_%s",cat_names.at(c).c_str())))->getMax();
+      errMean = (wAll->var(TString::Format("bkg_fit_slope2_%s",cat_names.at(c).c_str())))->getError();
 
-     cout << " ============================ cat " << c << " slope 2 = " << mean << " err2 = " << errMean << endl;
+      cout << " ============================ cat " << c << " slope 2 = " << mean << " err2 = " << errMean << endl;
 
-     (wAll->var(TString::Format("bkg_fit_slope2_%s",cat_names.at(c).c_str())))->setConstant(true);
+      (wAll->var(TString::Format("bkg_fit_slope2_%s",cat_names.at(c).c_str())))->setConstant(true);
 
-     wAll->factory(TString::Format("CMS_bkg_fit_slope2_eps_%s[0.0,-5.0,5.0]", cat_names.at(c).c_str()));
-     wAll->factory(TString::Format("CMS_bkg_fit_slope2_err_%s[%g, %g, %g]",  cat_names.at(c).c_str(), errMean, errMean, errMean));
-     wAll->factory(TString::Format("sum::CMS_bkg_fit_slope2_sum_%s(1.0,prod::CMS_sig_slope2_jes_prod_%s(CMS_bkg_fit_slope2_eps_%s, CMS_bkg_fit_slope2_err_%s))", 
-				 cat_names.at(c).c_str(), cat_names.at(c).c_str(), cat_names.at(c).c_str(), cat_names.at(c).c_str()));
+      wAll->factory(TString::Format("CMS_bkg_fit_slope2_eps_%s[0.0,-100.0,100.0]", cat_names.at(c).c_str()));
+      wAll->factory(TString::Format("CMS_bkg_fit_slope2_err_%s[%g, %g, %g]",  cat_names.at(c).c_str(), errMean, errMean, errMean));
+      wAll->factory(TString::Format("sum::CMS_bkg_fit_slope2_sum_%s(1.0,prod::CMS_sig_slope2_jes_prod_%s(CMS_bkg_fit_slope2_eps_%s, CMS_bkg_fit_slope2_err_%s))", 
+				    cat_names.at(c).c_str(), cat_names.at(c).c_str(), cat_names.at(c).c_str(), cat_names.at(c).c_str()));
 
 
-     wAll->factory(TString::Format("prod::CMS_bkg_fit_slope2_%s(bkg_fit_slope2_%s,CMS_bkg_fit_slope2_sum_%s)", cat_names.at(c).c_str(), cat_names.at(c).c_str(), cat_names.at(c).c_str()));
+      wAll->factory(TString::Format("prod::CMS_bkg_fit_slope2_%s(bkg_fit_slope2_%s,CMS_bkg_fit_slope2_sum_%s)", cat_names.at(c).c_str(), cat_names.at(c).c_str(), cat_names.at(c).c_str()));
 
-   }
+    }
 
     cout << "Done For category " << c << endl;    
   }
@@ -913,7 +922,7 @@ void MakeBkgWS(RooWorkspace* w, const char* fileBaseName, std::vector<string> ca
   
   cout << "Imported" << endl;
 
-// (2) do reparametrization of background
+  // (2) do reparametrization of background
 
   for (int c = 0; c < ncat; ++c) {
 
@@ -950,12 +959,12 @@ void MakeBkgWS(RooWorkspace* w, const char* fileBaseName, std::vector<string> ca
   std::cout << std::endl;
 
   /*   
-  for (int c = 0; c < ncat; ++c) {
-    printf("CMS_bkg_fit_slope1_%s  param  %.4f  %.3f   # Mean and absolute uncertainty on background slope\n",
-	   cat_names.at(c).c_str(), (wAll->var(TString::Format("CMS_bkg_fit_slope1_%s",cat_names.at(c).c_str())))->getVal(), 10.);
-    if (c > 0) printf("CMS_bkg_fit_slope2_%s  param  %.4f  %.3f   # Mean and absolute uncertainty on background slope\n",
-	   cat_names.at(c).c_str(), (wAll->var(TString::Format("CMS_bkg_fit_slope2_%s",cat_names.at(c).c_str())))->getVal(), 10.);
-  }
+       for (int c = 0; c < ncat; ++c) {
+       printf("CMS_bkg_fit_slope1_%s  param  %.4f  %.3f   # Mean and absolute uncertainty on background slope\n",
+       cat_names.at(c).c_str(), (wAll->var(TString::Format("CMS_bkg_fit_slope1_%s",cat_names.at(c).c_str())))->getVal(), 10.);
+       if (c > 0) printf("CMS_bkg_fit_slope2_%s  param  %.4f  %.3f   # Mean and absolute uncertainty on background slope\n",
+       cat_names.at(c).c_str(), (wAll->var(TString::Format("CMS_bkg_fit_slope2_%s",cat_names.at(c).c_str())))->getVal(), 10.);
+       }
   */
   cout << "BKG WS DONE" << endl;
 
@@ -976,14 +985,14 @@ void MakeBkgWS(RooWorkspace* w, const char* fileBaseName, std::vector<string> ca
 
 
 
-void MakeDataCard_1Channel(RooWorkspace* w, const char* fileBaseName, const char* fileBkgName, int iChan, TString signalname, int signalsample, std::vector<string> cat_names, double mass) {
+void MakeDataCard_1Channel(RooWorkspace* w, const char* fileBaseName, const char* fileBkgName, int iChan, TString signalname, int signalsample, double mass) {
 
   TString cardDir = "datacards/"+filePOSTfix;
   Int_t ncat = NCAT;
   TString wsDir   = "../workspaces/"+filePOSTfix;
-//**********************//
-// Retrieve the datasets
-//**********************//
+  //**********************//
+  // Retrieve the datasets
+  //**********************//
 
   cout << "Start retrieving dataset" << endl;
 
@@ -994,9 +1003,9 @@ void MakeDataCard_1Channel(RooWorkspace* w, const char* fileBaseName, const char
     if (inTheList) signal[c] = (RooDataSet*) w->data(TString::Format("Sig_%s",cat_names.at(c).c_str()));
   }
 
-//*****************************//
-// Print Expected event yields
-//*****************************//
+  //*****************************//
+  // Print Expected event yields
+  //*****************************//
 
   cout << "======== Expected Events Number =====================" << endl;  
   cout << "#Events data:        " <<  w->data("Data")->sumEntries()  << endl;
@@ -1016,77 +1025,93 @@ void MakeDataCard_1Channel(RooWorkspace* w, const char* fileBaseName, const char
   }
   cout << "====================================================" << endl;  
 
-//*************************//
-// Print Data Crd int file
-//*************************//
+  //*************************//
+  // Print Data Crd int file
+  //*************************//
 
 
-  TString filename(cardDir+TString(fileBaseName)+Form("_%s.txt",cat_names[iChan].c_str()));
-  ofstream outFile(filename);
+  for (int imethod == 0; imethod < 3; imethod++){
 
-  cout << "================================================================ signalScaler = " << signalScaler << endl;
+    TString filename(cardDir+TString(fileBaseName)+Form("_%s",cat_names[iChan].c_str())+Form("_%s.txt",method_names[imethod].c_str()));
+    ofstream outFile(filename);
+
+    cout << "================================================================ signalScaler = " << signalScaler << endl;
 
 
-  outFile << "# Fully Hadronic HH analysis" << endl;
-  outFile << "imax 1" << endl;
-  outFile << "kmax *" << endl;
-  outFile << "---------------" << endl;
+    outFile << "# Fully Hadronic HH analysis" << endl;
+    outFile << "imax 1" << endl;
+    outFile << "kmax *" << endl;
+    outFile << "---------------" << endl;
 
-  outFile << Form("shapes data_obs bin_%s ", cat_names[iChan].c_str()) << wsDir+TString(fileBkgName)+".root" << Form(" w_all:data_obs_%s", cat_names[iChan].c_str()) << endl;
-  outFile << Form("shapes bkg_fit bin_%s ", cat_names[iChan].c_str()) <<  wsDir+TString(fileBkgName)+".root" << Form(" w_all:CMS_bkg_fit_%s", cat_names[2].c_str()) << endl;
-  outFile << Form("shapes HH bin_%s ", cat_names[iChan].c_str()) << wsDir+TString::Format("HH_%.0f_13TeV.root", mass) << Form(" w_all:HH_sig_%s", cat_names[iChan].c_str()) << endl;
-  outFile << "---------------" << endl;
-  outFile << Form("bin          bin_%s", cat_names[iChan].c_str()) << endl;
-  outFile <<  "observation   "  <<  Form("%.10lg",data[iChan]->sumEntries()) << endl;
-  outFile << "------------------------------" << endl;
+    outFile << Form("shapes data_obs bin_%s ", cat_names[iChan].c_str()) << wsDir+TString(fileBkgName)+".root" << Form(" w_all:data_obs_%s", cat_names[iChan].c_str()) << endl;
 
-  outFile << "bin                      "<< Form("bin_%s       bin_%s      ", cat_names[iChan].c_str(), cat_names[iChan].c_str()) << endl;
-  outFile << "process                 HH     bkg_fit      " << endl;
-  outFile << "process                 0        1          " << endl;
-  if(signalname=="HH"){
-    if (inTheList) outFile <<  "rate                      " 
-			   << " " << signal[iChan]->sumEntries()*signalScaler << " " << 1 << endl;
-    else {
-      double val_eff;
-      getEfficiency(mass, iChan, val_eff)
-      outFile <<  "rate                      " 
-			   << " " << val_eff*signalScaler << " " << 1 << endl;
-    }
-  }
-
-  outFile << "--------------------------------" << endl;
-  outFile << "# signal scaled by " << signalScaler << " to a cross section of 1 fb and also scale factor of " << 1 << " are applied." << endl;
+    if (imethod == 0) outFile << Form("shapes bkg_fit bin_%s ", cat_names[iChan].c_str()) <<  wsDir+TString(fileBkgName)+".root" << Form(" w_all:CMS_bkg_fit_%s", cat_names[iChan].c_str()) << endl;
+    else outFile << Form("shapes bkg_fit bin_%s ", cat_names[iChan].c_str()) <<  wsDir+TString(fileBkgName)+".root" << Form(" w_all:CMS_bkg_fit_%s", cat_names[2].c_str()) << endl;
   
-  outFile << "lumi_13TeV       lnN  1.027      - " << endl;
-  outFile << "CMS_pu_13TeV              lnN  1.020      - # pileup impact of W mass tag" << endl;
-  outFile << "CMS_mass_res_j_13TeV    lnN  1.02       - # JEs and JER uncertainty on H mass tag" << endl;
-  outFile << "CMS_jet_mass_13TeV     lnN  1.10       - # differenec between H tag and W tag efficiencies" << endl;
-  outFile << "CMS_PDF_Scales      lnN  1.02       - # selection efficiency" << endl;
-  if(iChan==0)
-    outFile << "CMS_htag_13TeV    lnN  1.17       - # btag efficiency" << endl;
-  else if (iChan == 1 || iChan == 2)
-    outFile << "CMS_htag_13TeV    lnN  0.95       - # btag efficiency" << endl;
+
+    outFile << Form("shapes HH bin_%s ", cat_names[iChan].c_str()) << wsDir+TString::Format("HH_%.0f_13TeV.root", mass) << Form(" w_all:HH_sig_%s", cat_names[iChan].c_str()) << endl;
+    outFile << "---------------" << endl;
+    outFile << Form("bin          bin_%s", cat_names[iChan].c_str()) << endl;
+    outFile <<  "observation   "  <<  Form("%.10lg",data[iChan]->sumEntries()) << endl;
+    outFile << "------------------------------" << endl;
+
+    outFile << "bin                      "<< Form("bin_%s       bin_%s      ", cat_names[iChan].c_str(), cat_names[iChan].c_str()) << endl;
+    outFile << "process                 HH     bkg_fit      " << endl;
+    outFile << "process                 0        1          " << endl;
+    if(signalname=="HH"){
+      if (inTheList) outFile <<  "rate                      " 
+			     << " " << signal[iChan]->sumEntries()*signalScaler << " " << 1 << endl;
+      else {
+	double val_eff;
+	getEfficiency(mass, iChan, val_eff);
+	  outFile <<  "rate                      " 
+		  << " " << val_eff*signalScaler << " " << 1 << endl;
+      }
+    }
+
+    outFile << "--------------------------------" << endl;
+    outFile << "# signal scaled by " << signalScaler << " to a cross section of 1 fb and also scale factor of " << 1 << " are applied." << endl;
+  
+    outFile << "lumi_13TeV       lnN  1.027      - " << endl;
+    outFile << "CMS_pu_13TeV              lnN  1.020      - # pileup impact of W mass tag" << endl;
+    outFile << "CMS_mass_res_j_13TeV    lnN  1.02       - # JEs and JER uncertainty on H mass tag" << endl;
+    outFile << "CMS_jet_mass_13TeV     lnN  1.10       - # differenec between H tag and W tag efficiencies" << endl;
+    outFile << "CMS_PDF_Scales      lnN  1.02       - # selection efficiency" << endl;
+    if(iChan==0)
+      outFile << "CMS_htag_13TeV    lnN  1.17       - # btag efficiency" << endl;
+    else if (iChan == 1 || iChan == 2)
+      outFile << "CMS_htag_13TeV    lnN  0.95       - # btag efficiency" << endl;
     
   
-  outFile << "CMS_eff_htag_tau21_sf_13TeV     lnN  1.056/0.946       - # tau21 efficiency" << endl;
+    outFile << "CMS_eff_htag_tau21_sf_13TeV     lnN  1.056/0.946       - # tau21 efficiency" << endl;
 
 
-  outFile << "# Parametric shape uncertainties, entered by hand." << endl;
-  outFile << Form("CMS_sig_p1_jes_13TeV    param   0.0   1.0   # dijet mass shift due to JES uncertainty") << endl;
-  outFile << Form("CMS_sig_p2_jer_13TeV     param   0.0   1.0   # dijet mass resolution shift due to JER uncertainty") << endl;
+    outFile << "# Parametric shape uncertainties, entered by hand." << endl;
+    outFile << Form("CMS_sig_p1_jes_13TeV    param   0.0   1.0   # dijet mass shift due to JES uncertainty") << endl;
+    outFile << Form("CMS_sig_p2_jer_13TeV     param   0.0   1.0   # dijet mass resolution shift due to JER uncertainty") << endl;
  
-  outFile << Form("CMS_bkg_fit_%s_norm           flatParam  # Normalization uncertainty on background slope",cat_names[2].c_str()) << endl;
 
-  //  outFile << Form("CMS_bkg_fit_slope1_%s         flatParam  # Mean and absolute uncertainty on background slope",cat_names[iChan].c_str()) << endl;
-  //   wAll->factory(TString::Format("CMS_bkg_fit_slope1_eps_%s[0.0,-5.0,5.0]", cat_names.at(c).c_str()));
-  outFile << Form("CMS_bkg_fit_slope1_eps_%s     param  0.0  1.0  # Mean and absolute uncertainty on background slope",cat_names[2].c_str()) << endl;
-  outFile << Form("CMS_bkg_fit_slope2_eps_%s     param  0.0  1.0  # Mean and absolute uncertainty on background slope",cat_names[2].c_str()) << endl;
 
-    //outFile << Form("CMS_bkg_fit_slope2_%s         flatParam  # Mean and absolute uncertainty on background levelled parameter",cat_names[iChan].c_str()) << endl;
+    if (imethod == 0){
+      outFile << Form("CMS_bkg_fit_%s_norm           flatParam  # Normalization uncertainty on background slope",cat_names[iChan].c_str()) << endl;
+      outFile << Form("CMS_bkg_fit_slope1_eps_%s     flatParam  # Mean and absolute uncertainty on background slope",cat_names[iChan].c_str()) << endl;
+      if (iChan > 0) outFile << Form("CMS_bkg_fit_slope2_eps_%s     flatParam  # Mean and absolute uncertainty on background slope",cat_names[iChan].c_str()) << endl;
+    } else if (imethod == 1){
+      outFile << Form("CMS_bkg_fit_%s_norm           flatParam  # Normalization uncertainty on background slope",cat_names[2].c_str()) << endl;
+      outFile << Form("CMS_bkg_fit_slope1_eps_%s     param  0.0  1.0  # Mean and absolute uncertainty on background slope",cat_names[2].c_str()) << endl;
+      outFile << Form("CMS_bkg_fit_slope2_eps_%s     param  0.0  1.0  # Mean and absolute uncertainty on background slope",cat_names[2].c_str()) << endl;
+    } else if (imethod == 2){
+      outFile << Form("CMS_bkg_fit_%s_norm           flatParam  # Normalization uncertainty on background slope",cat_names[iChan].c_str()) << endl;
+      outFile << Form("CMS_bkg_fit_slope1_eps_%s     flatParam  # Mean and absolute uncertainty on background slope",cat_names[2].c_str()) << endl;
+      outFile << Form("CMS_bkg_fit_slope2_eps_%s     flatParam  # Mean and absolute uncertainty on background slope",cat_names[2].c_str()) << endl;
+    }
 
-  outFile.close();
 
-  cout << "Write data card in: " << filename << " file" << endl;
+    outFile.close();
+
+    cout << "Write data card in: " << filename << " file" << endl;
+
+  }
 
   return;
 }

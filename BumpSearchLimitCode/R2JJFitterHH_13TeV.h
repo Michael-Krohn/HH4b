@@ -20,11 +20,10 @@
 #include "TTree.h"
 #include "TIterator.h"
 
-
 #include "TLatex.h"
 #include "TString.h"
 #include "TLegend.h"
-
+#include "TGraphAsymmErrors.h"
 
 // RooFit headers
 #include "RooAbsPdf.h"
@@ -56,21 +55,18 @@
 #include "RooCmdArg.h"
 #include "RooConstVar.h"
 #include "RooRealVar.h"
-
+*/
 //#include "HiggsCSandWidth.h"
 //#include "HiggsCSandWidth.cc"
 //#include "RooPower.h"
 
 //#include "extrap.cc"
-*/
-using namespace RooFit;
-using namespace RooStats;
 
 #include <string>
 #include <map>
-#include "TGraph.h"
-#include "TString.h"
 
+using namespace RooFit;
+using namespace RooStats ;
 
 
 static const Int_t NCAT = 3;
@@ -83,10 +79,20 @@ int iGraviton = 0;
 
 bool inTheList = false;
 
+double signalScaler=0;//analysisLumi/nEventsInSignalMC; // assume signal cross section on 1/fb
+int iGraviton = 0;
+
+bool inTheList = false;
+
 const int np(6);
 double masses[np] = { 1200.0,1400.0,1600.0,1800.0,2000.0,2500.0 } ;
 
 double signalScaler=0;//analysisLumi/nEventsInSignalMC; // assume signal cross section on 1/fb
+double scaleFactorHP=1;// already done on 1 GeV Histo level
+double scaleFactorLP=1;// already done on 1 GeV Histo level
+
+std::vector<string> cat_names;
+std::vector<string> method_names;
 
 TString mainCut("1");
 
@@ -209,7 +215,7 @@ void getVal(double mjj, int ichannel, double& alpha, double& n, double& sigma, d
 
 void getEfficiency(double mjj, int ichannel, double& eff) {
 
-  std::map<string, TGraph*> gr;
+  std::map<std::string, TGraph*> gr;
 
   if (!iGraviton) {
     if (ichannel == 0){
