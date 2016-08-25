@@ -35,19 +35,20 @@ for mass in masses:
         outputfile.write("root -b -q 'R2JJFitterHH_13TeV.cc("+str(mass)+', "' + signal + '",0,50000.)'+"'\n")
         outputfile.write("root -b -q 'R2JJDatacardsMakerHH_13TeV.C("+str(mass)+', "' + signal + '",0,50000.)'+"'\n")
     
-      outputfile.write("combineCards.py datacards/" + signal +  "HH_"+str(mass)+"_13TeV_3btag_cat1.txt datacards/" + signal +  "HH_"+str(mass)+"_13TeV_4btag_cat0.txt &>datacards/" + signal +  "HH_"+str(mass)+"_13TeV_2cat.txt\n")
+      outputfile.write("combineCards.py datacards/" + signal +  "HH_"+str(mass)+"_13TeV_3btag_cat1_bumphunt.txt datacards/" + signal +  "HH_"+str(mass)+"_13TeV_4btag_cat0_bumphunt.txt &>datacards/" + signal +  "HH_"+str(mass)+"_13TeV_2cat_bumphunt.txt\n")
 #      outputfile.write("combine datacards/" + signal +  "CMS_jj_HH_"+str(mass)+"_13TeV_CMS_jj_2cat.txt -M Asymptotic --noFitAsimov -n " + signal +  " -m "+str(mass)+"\n")
-      outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_2cat.txt -M Asymptotic --rMin=0.1 -n " + signal +  " -m "+str(mass)+"\n")
+      outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_2cat_bumphunt.txt -M Asymptotic --rMin=0.1 -n " + signal +  "_bumphunt -m "+str(mass)+"\n")
     #  outputfile.write("combine datacards/" + signal +  "CMS_jj_HH_"+str(mass)+"_13TeV_CMS_jj_3btag_HPLP_cat2.txt -M Asymptotic -n " + signal +  "_3btag_HPLP_cat2 -m "+str(mass)+"\n")
-      outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_3btag_cat1.txt -M Asymptotic --rMin=0.1  -n " + signal +  "_3btag_cat1  -m "+str(mass)+"\n")
-      outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_4btag_cat0.txt -M Asymptotic --rMin=0.1 -n " + signal +  "_4btag_cat0 -m "+str(mass)+"\n")
-      
+      outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_3btag_cat1_bumphunt.txt -M Asymptotic --rMin=0.1  -n " + signal + "_3btag_cat1_bumphunt  -m "+str(mass)+"\n")
+      outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_4btag_cat0_bumphunt.txt -M Asymptotic --rMin=0.1 -n " + signal +  "_4btag_cat0_bumphunt -m "+str(mass)+"\n")
+        
+
 #--noFitAsimov
 
-      outputfile.write("mv higgsCombine" + signal +  ".Asymptotic.mH"+str(mass)+".root LimitOutput\n")
+      outputfile.write("mv higgsCombine" + signal +  "_bumphunt.Asymptotic.mH"+str(mass)+".root LimitOutput\n")
     #  outputfile.write("mv higgsCombine" + signal +  "_3btag_HPLP_cat2.Asymptotic.mH"+str(mass)+".root LimitOutput\n") 
-      outputfile.write("mv higgsCombine" + signal +  "_3btag_cat1.Asymptotic.mH"+str(mass)+".root LimitOutput\n") 
-      outputfile.write("mv higgsCombine" + signal +  "_4btag_cat0.Asymptotic.mH"+str(mass)+".root LimitOutput\n")
+      outputfile.write("mv higgsCombine" + signal +  "_3btag_cat1_bumphunt.Asymptotic.mH"+str(mass)+".root LimitOutput\n") 
+      outputfile.write("mv higgsCombine" + signal +  "_4btag_cat0_bumphunt.Asymptotic.mH"+str(mass)+".root LimitOutput\n")
       
     # ============================ Make post nuisance plots ===================
       

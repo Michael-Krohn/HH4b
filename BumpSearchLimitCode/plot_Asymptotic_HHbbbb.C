@@ -146,7 +146,7 @@ void plot_Asymptotic_HHbbbb(string outputdir, int sigHyp, int subtr)
     char limitfilename[100];
 
     string sDatacard("higgsCombine");
-    sDatacard = sDatacard + "" + sCat + Form(".Asymptotic.mH%d.root",Xmass[n]);
+    sDatacard = sDatacard + "" + sCat + Form("_bumphunt.Asymptotic.mH%d.root",Xmass[n]);
 
     TString limitfile = outputdir+"/"+sDatacard.c_str();
     cout<<" Read limit file: "<<limitfile << " and Xmass = " << Xmass[n]<<endl;

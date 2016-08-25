@@ -42,6 +42,7 @@ void R2JJFitterHH_13TeV(double mass, std::string postfix="", bool dobands=false,
 
     runfits(mass, 0, dobands);
 
+
 }
 
 
@@ -72,6 +73,13 @@ void runfits(const Float_t mass=1600, int signalsample = 0, Bool_t dobands = fal
   cat_names.push_back("3btag_cat1");
   cat_names.push_back("2btag_cat2");
 
+// classical bump hunt
+  method_names.push_back("bumphunt");
+  // fit 2btag cateogry and use in 3,4 btag
+  method_names.push_back("seqfrank");
+  // fit at the same time 2 btag and 3 or 4 btag
+  method_names.push_back("simfrank");
+
 
   TString fileBkgName("bkg_HH_13TeV");
   TString card_name("Xvv_reduced_models_Bkg_HH_13TeV.rs");
@@ -85,22 +93,24 @@ void runfits(const Float_t mass=1600, int signalsample = 0, Bool_t dobands = fal
 
   cout << "CREATE SIGNAL" << endl;
 
-  if (inTheList) AddSigData(w, mass, signalsample,cat_names);
+  if (inTheList) AddSigData(w, mass, signalsample);
 
-  SigModelFit(w, mass, signalname, cat_names);
-  MakeSigWS(w, fileBaseName, signalname,cat_names);
+  SigModelFit(w, mass, signalname);
+  MakeSigWS(w, fileBaseName, signalname);
 
   // ===============================
 
-  AddBkgData(w,cat_names);
-  BkgModelFit(w, dobands,cat_names, signalname, mass);
-  MakeBkgWS(w, fileBkgName,cat_names);
+  AddBkgData(w);
+  BkgModelFit(w, dobands, signalname, mass);
+  MakeBkgWS(w, fileBkgName);
 
 
   // =======================
   TFile* tf1=new TFile(Form("makeDatacards/%s_%s.root",filePOSTfix.data(),fileBaseName.Data()),"recreate");
   w->Write();
   tf1->Close();
+
+
 
 
 
@@ -112,7 +122,7 @@ void runfits(const Float_t mass=1600, int signalsample = 0, Bool_t dobands = fal
 
 
 
-void AddSigData(RooWorkspace* w, Float_t mass, int signalsample, std::vector<string> cat_names) {
+void AddSigData(RooWorkspace* w, Float_t mass, int signalsample) {
 
   Int_t ncat = NCAT;
   TString inDir   = "./MiniTrees/Signal_HH_13TeV/";
@@ -168,7 +178,7 @@ void AddSigData(RooWorkspace* w, Float_t mass, int signalsample, std::vector<str
 }
 
 
-void AddBkgData(RooWorkspace* w, std::vector<string> cat_names) {
+void AddBkgData(RooWorkspace* w) {
 
   Int_t ncat = NCAT;
   TString inDir   = "./MiniTrees/Background_HH_13TeV/";
@@ -218,7 +228,7 @@ void AddBkgData(RooWorkspace* w, std::vector<string> cat_names) {
 
 
 
-void SigModelFit(RooWorkspace* w, Float_t mass, TString signalname, std::vector<string> cat_names) {
+void SigModelFit(RooWorkspace* w, Float_t mass, TString signalname) {
 
   Int_t ncat = NCAT;
   Float_t MASS = mass - 50.;
@@ -283,7 +293,7 @@ void SigModelFit(RooWorkspace* w, Float_t mass, TString signalname, std::vector<
 
 
 
-void BkgModelFit(RooWorkspace* w, Bool_t dobands, std::vector<string> cat_names, TString signalname, double mass) {
+void BkgModelFit(RooWorkspace* w, Bool_t dobands, TString signalname, double mass) {
 
   Int_t ncat = NCAT;
 
@@ -354,6 +364,7 @@ void BkgModelFit(RooWorkspace* w, Bool_t dobands, std::vector<string> cat_names,
   }
 
 
+
 }
 
 
@@ -362,7 +373,23 @@ void BkgModelFit(RooWorkspace* w, Bool_t dobands, std::vector<string> cat_names,
 
 
 
-void MakeSigWS(RooWorkspace* w, const char* fileBaseName, TString signalname, std::vector<string> cat_names) {
+
+
+
+
+
+
+
+
+
+void MakeSigWS(RooWorkspace* w, const char* fileBaseName, TString signalname) {
+
+
+
+
+
+
+
 
   TString wsDir   = "workspaces/"+filePOSTfix;
   Int_t ncat = NCAT;
@@ -382,7 +409,6 @@ void MakeSigWS(RooWorkspace* w, const char* fileBaseName, TString signalname, st
   for (int c = 0; c < ncat; ++c) {
     jjSigPdf[c] = (RooAbsPdf*)  w->pdf(signalname+TString::Format("_sig_%s",cat_names.at(c).c_str()));
     wAll->import(*jjSigPdf[c]);
-	cout<<c<<endl;
   }
 
 // (2) Systematics on energy scale and resolution
@@ -426,7 +452,7 @@ void MakeSigWS(RooWorkspace* w, const char* fileBaseName, TString signalname, st
 }
 
 
-void MakeBkgWS(RooWorkspace* w, const char* fileBaseName, std::vector<string> cat_names) {
+void MakeBkgWS(RooWorkspace* w, const char* fileBaseName) {
 
   TString wsDir   = "workspaces/"+filePOSTfix;
   Int_t ncat = NCAT;  
@@ -474,7 +500,7 @@ void MakeBkgWS(RooWorkspace* w, const char* fileBaseName, std::vector<string> ca
 
     (wAll->var(TString::Format("bkg_fit_slope1_%s",cat_names.at(c).c_str())))->setConstant(true);
 
-    wAll->factory(TString::Format("CMS_bkg_fit_slope1_eps_%s[0.0,-5.0,5.0]", cat_names.at(c).c_str()));
+    wAll->factory(TString::Format("CMS_bkg_fit_slope1_eps_%s[0.0,-20.0,20.0]", cat_names.at(c).c_str()));
     wAll->factory(TString::Format("CMS_bkg_fit_slope1_err_%s[%g, %g, %g]",  cat_names.at(c).c_str(), errMean, errMean, errMean));
     wAll->factory(TString::Format("sum::CMS_bkg_fit_slope1_sum_%s(1.0,prod::CMS_sig_slope1_jes_prod_%s(CMS_bkg_fit_slope1_eps_%s, CMS_bkg_fit_slope1_err_%s))", cat_names.at(c).c_str(), cat_names.at(c).c_str(), cat_names.at(c).c_str(), cat_names.at(c).c_str()));
 

@@ -20,11 +20,10 @@
 #include "TTree.h"
 #include "TIterator.h"
 
-
 #include "TLatex.h"
 #include "TString.h"
 #include "TLegend.h"
-
+#include "TGraphAsymmErrors.h"
 
 // RooFit headers
 #include "RooAbsPdf.h"
@@ -56,20 +55,17 @@
 #include "RooCmdArg.h"
 #include "RooConstVar.h"
 #include "RooRealVar.h"
-
+*/
 //#include "HiggsCSandWidth.h"
 //#include "HiggsCSandWidth.cc"
 //#include "RooPower.h"
 
 //#include "extrap.cc"
-*/
-using namespace RooFit;
-using namespace RooStats;
 
 #include <string>
 #include <map>
-#include "TGraph.h"
-#include "TString.h"
+using namespace RooFit;
+using namespace RooStats;
 
 
 
@@ -83,6 +79,8 @@ int iGraviton = 0;
 
 bool inTheList = false;
 
+std::vector<string> cat_names;
+std::vector<string> method_names;
 const int np(6);
 double masses[np] = { 1200.0,1400.0,1600.0,1800.0,2000.0,2500.0 } ;
 
@@ -90,7 +88,7 @@ double signalScaler=0;//analysisLumi/nEventsInSignalMC; // assume signal cross s
 
 TString mainCut("1");
 
-
+/*
 void AddSigData(RooWorkspace*, Float_t, int, std::vector<string>);
 void AddBkgData(RooWorkspace*, std::vector<string>);
 void SigModelFit(RooWorkspace*, Float_t, TString signalname, std::vector<string>);
@@ -99,6 +97,7 @@ void MakePlots(RooWorkspace*, Float_t, RooFitResult** , TString signalname, std:
 void MakeSigWS(RooWorkspace* w, const char* filename, TString signalname, std::vector<string>);
 void MakeBkgWS(RooWorkspace* w, const char* filename, std::vector<string>);
 void MakeDataCard_1Channel(RooWorkspace* w, const char* fileBaseName, const char* fileBkgName, int iChan, TString signalname, int signalsample, std::vector<string> cat_names, double mass);
+*/
 
 
 RooArgSet* defineVariables()
@@ -209,7 +208,7 @@ void getVal(double mjj, int ichannel, double& alpha, double& n, double& sigma, d
 
 void getEfficiency(double mjj, int ichannel, double& eff) {
 
-  std::map<string, TGraph*> gr;
+  std::map<std::string, TGraph*> gr;
 
   if (!iGraviton) {
     if (ichannel == 0){
