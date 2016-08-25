@@ -96,17 +96,6 @@ std::vector<string> method_names;
 
 TString mainCut("1");
 
-
-void AddSigData(RooWorkspace*, Float_t, int, std::vector<string>);
-void AddBkgData(RooWorkspace*, std::vector<string>);
-void SigModelFit(RooWorkspace*, Float_t, TString signalname, std::vector<string>);
-void BkgModelFit(RooWorkspace*, Bool_t, std::vector<string>, RooFitResult** fitresults);
-void MakePlots(RooWorkspace*, Float_t, RooFitResult** , TString signalname, std::vector<string>);
-void MakeSigWS(RooWorkspace* w, const char* filename, TString signalname, std::vector<string>);
-void MakeBkgWS(RooWorkspace* w, const char* filename, std::vector<string>);
-void MakeDataCard_1Channel(RooWorkspace* w, const char* fileBaseName, const char* fileBkgName, int iChan, TString signalname, int signalsample, std::vector<string> cat_names, double mass);
-
-
 RooArgSet* defineVariables()
 {
   // define variables of the input ntuple
