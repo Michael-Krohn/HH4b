@@ -323,7 +323,8 @@ void plot_Asymptotic_HHbbbb(string outputdir, int sigHyp, int subtr)
   grthSM10->SetName("SMXSection_2nd");
 
   // double fr_left = 590.0, fr_down = 1E-5, fr_right = 2000.0, fr_up = 0.5; 
-   double fr_left = 1190.0, fr_down = 5E-5, fr_right = 2500.0, fr_up = 5;
+  // double fr_left = 1190.0, fr_down = 5E-5, fr_right = 2500.0, fr_up = 5;
+  double fr_left = 1190.0, fr_down = 5E-3, fr_right = 2500.0, fr_up = 1E4;
 
   TCanvas *cMCMC = new TCanvas("c_lim_Asymptotic", "canvas with limits for Asymptotic CLs", 630, 600);
   cMCMC->cd();
@@ -336,8 +337,8 @@ void plot_Asymptotic_HHbbbb(string outputdir, int sigHyp, int subtr)
   
   hr->SetXTitle(xTitle.c_str());
   hr->SetYTitle("95% CLs on #sigma(X#rightarrowHH)#timesBR(HH#rightarrowb#bar{b}b#bar{b})[fb]"); // #rightarrow 2l2q
-  hr->SetMinimum(0.6);
-  hr->SetMaximum(10000);
+  hr->SetMinimum(0.06);
+  hr->SetMaximum(1000);
 
   gr95_cls->SetFillColor(kYellow);
   gr95_cls->SetFillStyle(1001);//solid
@@ -347,7 +348,7 @@ void plot_Asymptotic_HHbbbb(string outputdir, int sigHyp, int subtr)
   gr95_cls->GetYaxis()->SetTitle("95% CLs on #sigma(Z`#rightarrow#chi#bar{@chi}H)#timesBR(H#rightarrowb#bar{b})[fb] "); // #rightarrow 2l2q
   //gr95_cls->GetYaxis()->SetTitle("95% CLs on #sigma(Z`#rightarrow#chi#bar{#chi}H)[pb] "); // #rightarrow 2l2q
   gr95_cls->GetXaxis()->SetRangeUser(fr_left, fr_right);
-
+  //gr95_cls->GetYaxis()->SetRangeUser(1E-2, 1E4);
   gr95_cls->Draw("3");
   //  gr95_cls->SetMinimum(0.00001);
   //gr95_cls->SetMaximum(1000.0);
