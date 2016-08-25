@@ -6,11 +6,11 @@ ROOT.gROOT.SetBatch(True)
 #masses = []
 #signals = ["Graviton"]
 #subtrs = ["_subtr"]
-masses =[1200,1400,1600,1800,2000,2500]
-#masses =[1800]
+#masses =[1200,1400,1600,1800,2000,2500]
+masses =[1200]
 #masses =[1300,1500,1700,1900,2100,2200,2300,2400]
-signals = ["Radion", "Graviton"]
-#signals = ["Graviton"]
+#signals = ["Radion", "Graviton"]
+signals = ["Graviton"]
 #subtrs = ["", "_subtr"]
 subtrs = ["_subtr"]
 
@@ -31,19 +31,19 @@ for mass in masses:
       else: 
         outputfile.write("root -b -q 'R2JJFitterHH_13TeV.cc("+str(mass)+', "' + signal + '",0,50000.)'+"'\n")
 
-      outputfile.write("combineCards.py datacards/" + signal +  "HH_"+str(mass)+"_13TeV_3btag_cat1.txt datacards/" + signal +  "HH_"+str(mass)+"_13TeV_4btag_cat0.txt &>datacards/" + signal +  "HH_"+str(mass)+"_13TeV_2cat.txt\n")
+      outputfile.write("combineCards.py datacards/" + signal +  "HH_"+str(mass)+"_13TeV_3btag_cat1_bumphunt.txt datacards/" + signal +  "HH_"+str(mass)+"_13TeV_4btag_cat0_bumphunt.txt &>datacards/" + signal +  "HH_"+str(mass)+"_13TeV_2cat_bumphunt.txt\n")
 #      outputfile.write("combine datacards/" + signal +  "CMS_jj_HH_"+str(mass)+"_13TeV_CMS_jj_2cat.txt -M Asymptotic --noFitAsimov -n " + signal +  " -m "+str(mass)+"\n")
-      outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_2cat.txt -M Asymptotic --rMin=0.1 -n " + signal +  " -m "+str(mass)+"\n")
+      outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_2cat_bumphunt.txt -M Asymptotic --rMin=0.1 -n " + signal +  "_bumphunt -m "+str(mass)+"\n")
     #  outputfile.write("combine datacards/" + signal +  "CMS_jj_HH_"+str(mass)+"_13TeV_CMS_jj_3btag_HPLP_cat2.txt -M Asymptotic -n " + signal +  "_3btag_HPLP_cat2 -m "+str(mass)+"\n")
-      outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_3btag_cat1.txt -M Asymptotic --rMin=0.1  -n " + signal +  "_3btag_cat1  -m "+str(mass)+"\n")
-      outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_4btag_cat0.txt -M Asymptotic --rMin=0.1 -n " + signal +  "_4btag_cat0 -m "+str(mass)+"\n")
+      outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_3btag_cat1_bumphunt.txt -M Asymptotic --rMin=0.1  -n " + signal + "_3btag_cat1_bumphunt  -m "+str(mass)+"\n")
+      outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_4btag_cat0_bumphunt.txt -M Asymptotic --rMin=0.1 -n " + signal +  "_4btag_cat0_bumphunt -m "+str(mass)+"\n")
       
 #--noFitAsimov
 
-      outputfile.write("mv higgsCombine" + signal +  ".Asymptotic.mH"+str(mass)+".root LimitOutput\n")
+#      outputfile.write("mv higgsCombine" + signal +  ".Asymptotic.mH"+str(mass)+".root LimitOutput\n")
     #  outputfile.write("mv higgsCombine" + signal +  "_3btag_HPLP_cat2.Asymptotic.mH"+str(mass)+".root LimitOutput\n") 
-      outputfile.write("mv higgsCombine" + signal +  "_3btag_cat1.Asymptotic.mH"+str(mass)+".root LimitOutput\n") 
-      outputfile.write("mv higgsCombine" + signal +  "_4btag_cat0.Asymptotic.mH"+str(mass)+".root LimitOutput\n")
+#      outputfile.write("mv higgsCombine" + signal +  "_3btag_HPHP_cat1.Asymptotic.mH"+str(mass)+".root LimitOutput\n") 
+#      outputfile.write("mv higgsCombine" + signal +  "_4btag_cat0.Asymptotic.mH"+str(mass)+".root LimitOutput\n")
       
     # ============================ Make post nuisance plots ===================
       
@@ -77,17 +77,17 @@ for mass in masses:
      # nuisancs.SaveAs("nuisances/nuisances_" + signal + "_mjj_"+str(mass)+".png")
      # fileIN.Close()
 
-outputname = "make_brazilian_flag.src"
-logname = "make_brazilian_flag.log"
-outputfile = open(outputname,'w')
-outputfile.write('#!/bin/bash\n')
+#outputname = "make_brazilian_flag.src"
+#logname = "make_brazilian_flag.log"
+#outputfile = open(outputname,'w')
+#outputfile.write('#!/bin/bash\n')
 #outputfile.write("source RunLimit.sh LimitOutput 0 0\n")
-outputfile.write("source RunLimit.sh LimitOutput 0 1\n")
-outputfile.close()
+#outputfile.write("source RunLimit.sh LimitOutput 0 1\n")
+#outputfile.close()
 
-command="rm "+logname
-print command
-os.system(command)
-command="chmod 755 ./"+outputname+";./"+outputname
-print command
-os.system(command)
+#command="rm "+logname
+#print command
+#os.system(command)
+#command="chmod 755 ./"+outputname+";./"+outputname
+#print command
+#os.system(command)
