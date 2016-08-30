@@ -22,7 +22,7 @@
 
     TFile* file0 = new TFile(inFile.c_str(), "read");
  
-    for (int sighyp = 1; sighyp <2; sighyp++){
+    for (int sighyp = 0; sighyp <2; sighyp++){
    
       cout << "bla 1" << endl;
 
