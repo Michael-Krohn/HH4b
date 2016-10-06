@@ -14,7 +14,7 @@
 
     bSubstr = itech;
 
-    cout << "bla 0" << endl;
+    //cout << "bla 0" << endl;
 
     string inFile("input/MassPlotFineBins_Moriond_Silver.root");
     if (bSubtr) inFile = string("input/MassPlotFineBins_subtr_Moriond_Silver.root");
@@ -68,7 +68,7 @@
 	  for (int i = 1 ; i < hMass->GetNbinsX()+1; i++){
 	    int N = hMass->GetBinContent(i);
 	   
-	    if (i%10 == 0) cout << "i = " << i << "N = " << N << " binCenter = " << hMass->GetBinCenter(i) << endl;
+	    //	    if (i%10 == 0) cout << "i = " << i << "N = " << N << " binCenter = " << hMass->GetBinCenter(i) << endl;
 	   
 	    mgg = Axis->GetBinCenter(i);
 	   
@@ -81,7 +81,7 @@
 	TCVARS->Write();
 	f1->Close();
 
-	cout << "bla 2" << endl;
+	//cout << "bla 2" << endl;
    
      
       }
