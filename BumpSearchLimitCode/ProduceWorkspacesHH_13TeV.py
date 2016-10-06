@@ -6,13 +6,14 @@ ROOT.gROOT.SetBatch(True)
 #masses = []
 #signals = ["Graviton"]
 #subtrs = ["_subtr"]
-masses =[1200,1400,1600,1800,2000,2500]
+#masses =[1200,1400,1600,1800,2000,2500]
+#masses =[1200,1600,1800,2000,2500]
 #masses =[1200,1400,1600,1800,2500]
-#masses =[1200]
+masses =[1600]
 #masses =[1300,1500,1700,1900,2100,2200,2300,2400]
 #signals = ["Radion", "Graviton"]
-#signals = ["Graviton"]
-signals = ["Radion"]                                                                                                                
+signals = ["Graviton"]
+#signals = ["Radion"]                                                                                                                
 #subtrs = ["", "_subtr"]
 subtrs = ["_subtr"]
 
@@ -28,10 +29,10 @@ for mass in masses:
       outputfile.write('#!/bin/bash\n')
       outputfile.write("eval `scramv1 run -sh`\n")
 
-      if (mass == 1600 and signalin == "Radion") or (mass == 2000 and signalin == "Radion") or (mass == 2500 and signalin == "Radion"):
+      if (mass == 1600 and signalin == "Graviton") or (mass == 2000 and signalin == "Radion") or (mass == 2500 and signalin == "Radion"):
         outputfile.write("root -b -q 'R2JJFitterHH_13TeV.cc("+str(mass)+', "' + signal + '",0,49200.)'+"'\n")
         outputfile.write("root -b -q 'R2JJDatacardsMakerHH_13TeV.C("+str(mass)+', "' + signal + '",0,49200.)'+"'\n")
-        #outputfile.write("root -b -q 'R2JJPlotsMakerHH_13TeV.C("+str(mass)+', "' + signal + '",0,49200.)'+"'\n")
+        outputfile.write("root -b -q 'R2JJPlotsMakerHH_13TeV.C("+str(mass)+', "' + signal + '",1,49200.)'+"'\n")
       else: 
         outputfile.write("root -b -q 'R2JJFitterHH_13TeV.cc("+str(mass)+', "' + signal + '",0,50000.)'+"'\n")
         outputfile.write("root -b -q 'R2JJDatacardsMakerHH_13TeV.C("+str(mass)+', "' + signal + '",0,50000.)'+"'\n")
@@ -40,8 +41,8 @@ for mass in masses:
 #      outputfile.write("combine datacards/" + signal +  "CMS_jj_HH_"+str(mass)+"_13TeV_CMS_jj_2cat.txt -M Asymptotic --noFitAsimov -n " + signal +  " -m "+str(mass)+"\n")
       outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_2cat_bumphunt.txt -M Asymptotic --rMin=0.1 -n " + signal +  "_bumphunt -m "+str(mass)+"\n")
     #  outputfile.write("combine datacards/" + signal +  "CMS_jj_HH_"+str(mass)+"_13TeV_CMS_jj_3btag_HPLP_cat2.txt -M Asymptotic -n " + signal +  "_3btag_HPLP_cat2 -m "+str(mass)+"\n")
-      outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_3btag_cat1_bumphunt.txt -M Asymptotic --rMin=0.1  -n " + signal + "_3btag_cat1_bumphunt  -m "+str(mass)+"\n")
-      outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_4btag_cat0_bumphunt.txt -M Asymptotic --rMin=0.1 -n " + signal +  "_4btag_cat0_bumphunt -m "+str(mass)+"\n")
+#      outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_3btag_cat1_bumphunt.txt -M Asymptotic --rMin=0.1  -n " + signal + "_3btag_cat1_bumphunt  -m "+str(mass)+"\n")
+#      outputfile.write("combine datacards/" + signal +  "HH_"+str(mass)+"_13TeV_4btag_cat0_bumphunt.txt -M Asymptotic --rMin=0.1 -n " + signal +  "_4btag_cat0_bumphunt -m "+str(mass)+"\n")
         
 
 #--noFitAsimov
@@ -88,7 +89,7 @@ logname = "make_brazilian_flag.log"
 outputfile = open(outputname,'w')
 outputfile.write('#!/bin/bash\n')
 #outputfile.write("source RunLimit.sh LimitOutput 0 0\n")
-outputfile.write("source RunLimit.sh LimitOutput 0 1\n")
+outputfile.write("source RunLimit.sh LimitOutput 20 1\n")
 outputfile.close()
 
 command="rm "+logname
