@@ -738,79 +738,99 @@ void Background(int rebin_factor=rebin,int model_number = 0,int imass=750, bool 
     FILE *passtxt;
     if(LLregion){
 	passtxt=fopen("outputs/datacards/HH_mX_1200_HH_LL_QCD_13TeV.txt", "a");
+        fprintf(passtxt,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
+        fprintf(passtxt,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
+        fprintf(passtxt,("mjjlin_LL_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
     }
     else{
         passtxt=fopen("outputs/datacards/HH_mX_1200_HH_TT_QCD_13TeV.txt", "a");
+        fprintf(passtxt,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
+        fprintf(passtxt,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
+        fprintf(passtxt,("mjjlin_TT_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
     }
-    fprintf(passtxt,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
-    fprintf(passtxt,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
-    fprintf(passtxt,("mjjlin_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
 
     FILE *passtxt2;
     if(LLregion){
         passtxt2=fopen("outputs/datacards/HH_mX_1400_HH_LL_QCD_13TeV.txt", "a");
+        fprintf(passtxt2,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
+        fprintf(passtxt2,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
+        fprintf(passtxt2,("mjjlin_LL_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
     }
     else{
-        passtxt2=fopen("outputs/datacards/HH_mX_1400_HH_TT_QCD_13TeV.txt", "a");
+        passtxt2=fopen("outputs/datacards/HH_mX_1400_HH_TT_QCD_13TeV.txt", "a");        fprintf(passtxt2,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
+        fprintf(passtxt2,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
+        fprintf(passtxt2,("mjjlin_TT_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
     }
-    fprintf(passtxt2,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
-    fprintf(passtxt2,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
-    fprintf(passtxt2,("mjjlin_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
 
     FILE *passtxt3;
     if(LLregion){
         passtxt3=fopen("outputs/datacards/HH_mX_1600_HH_LL_QCD_13TeV.txt", "a");
+        fprintf(passtxt3,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
+        fprintf(passtxt3,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
+        fprintf(passtxt3,("mjjlin_LL_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
     }
     else{
         passtxt3=fopen("outputs/datacards/HH_mX_1600_HH_TT_QCD_13TeV.txt", "a");
+        fprintf(passtxt3,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
+        fprintf(passtxt3,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
+        fprintf(passtxt3,("mjjlin_TT_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
     }
-    fprintf(passtxt3,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
-    fprintf(passtxt3,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
-    fprintf(passtxt3,("mjjlin_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
 
     FILE *passtxt4;
     if(LLregion){
         passtxt4=fopen("outputs/datacards/HH_mX_1800_HH_LL_QCD_13TeV.txt", "a");
+        fprintf(passtxt4,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
+        fprintf(passtxt4,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
+        fprintf(passtxt4,("mjjlin_LL_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
     }
     else{
         passtxt4=fopen("outputs/datacards/HH_mX_1800_HH_TT_QCD_13TeV.txt", "a");
+        fprintf(passtxt4,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
+        fprintf(passtxt4,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
+        fprintf(passtxt4,("mjjlin_TT_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
     }
-    fprintf(passtxt4,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
-    fprintf(passtxt4,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
-    fprintf(passtxt4,("mjjlin_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
 
     FILE *passtxt5;
     if(LLregion){
         passtxt5=fopen("outputs/datacards/HH_mX_2000_HH_LL_QCD_13TeV.txt", "a");
+        fprintf(passtxt5,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
+        fprintf(passtxt5,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
+        fprintf(passtxt5,("mjjlin_LL_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
     }
     else{
         passtxt5=fopen("outputs/datacards/HH_mX_2000_HH_TT_QCD_13TeV.txt", "a");
+        fprintf(passtxt5,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
+        fprintf(passtxt5,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
+        fprintf(passtxt5,("mjjlin_TT_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
     }
-    fprintf(passtxt5,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
-    fprintf(passtxt5,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
-    fprintf(passtxt5,("mjjlin_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
 
     FILE *passtxt6;
     if(LLregion){
         passtxt6=fopen("outputs/datacards/HH_mX_2500_HH_LL_QCD_13TeV.txt", "a");
+        fprintf(passtxt6,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
+        fprintf(passtxt6,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
+        fprintf(passtxt6,("mjjlin_LL_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
     }
     else{
-        passtxt6=fopen("outputs/datacards/HH_mX_2500_HH_TT_QCD_13TeV.txt", "a");
+        passtxt6=fopen("outputs/datacards/HH_mX_2500_HH_TT_QCD_13TeV.txt", "a");        fprintf(passtxt6,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
+        fprintf(passtxt6,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
+        fprintf(passtxt6,("mjjlin_TT_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
+
     }
-    fprintf(passtxt6,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
-    fprintf(passtxt6,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
-    fprintf(passtxt6,("mjjlin_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
 
     FILE *passtxt7;
     if(LLregion){
         passtxt7=fopen("outputs/datacards/HH_mX_3000_HH_LL_QCD_13TeV.txt", "a");
+        fprintf(passtxt7,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
+        fprintf(passtxt7,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
+        fprintf(passtxt7,("mjjlin_LL_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
     }
     else{
         passtxt7=fopen("outputs/datacards/HH_mX_3000_HH_TT_QCD_13TeV.txt", "a");
+        fprintf(passtxt7,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
+        fprintf(passtxt7,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
+        fprintf(passtxt7,("mjjlin_TT_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
     }
-    fprintf(passtxt7,("#bg_p1_ param " + tostr(bg_p1.getVal(),4) + " " + tostr(bg_p1.getError(),4) +"\n").c_str());
-    fprintf(passtxt7,("#bg_p2_ param " + tostr(bg_p2.getVal(),4) + " " + tostr(bg_p2.getError(),4) +"\n").c_str());
-    fprintf(passtxt7,("mjjlin_ param " + tostr(mjjlin.getVal(),4) + " " + tostr(mjjlin.getError(),4) +"\n").c_str());
 
     TCanvas *c_rooFit2=new TCanvas("c_rooFit2", "c_rooFit2", 900, 600);
     c_rooFit2->Divide(2,1);
