@@ -32,12 +32,12 @@ CMS_massJEC             lnN         1.02                              -         
 lumi_13TeV              lnN         1.062                             -                                 1.062                             -                                 1.062                             -                                 1.062                             -                               
 CMS_eff_trig            lnN         1.01                              -                                 1.01                              -                                 1.01                              -                                 1.01                              -
 mjjlin_LL_    param  3.535e-05 3.215e-05
-bg_p1_LL_     param  -0.0001032 0.007057
-bg_p1_TT_     param  0.03008 0.0007839
+#bg_p1_LL_     param  -0.0001032 0.007057
+#bg_p1_TT_     param  0.03008 0.0007839
 R_LL          param  0.0948598659505 0.00552721982733
-bg_p2_TT_     param  0.017 0.0001227
+#bg_p2_TT_     param  0.017 0.0001227
 mjjlin_TT_    param  -3.404e-05 0.4821
-bg_p2_LL_     param  0.005851 0.0006998
+#bg_p2_LL_     param  0.005851 0.0006998
 R_TT          param  0.0280475887955 0.00463476186229
 bgSB_norm_TT  rateParam AT2 HH_TT_QCDEST_antitag 1657.92368506  
 bgSB_norm_LL  rateParam AT1 HH_LL_QCDEST_antitag 5656.89523638  
