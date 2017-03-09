@@ -78,7 +78,7 @@ if Options.isData:
   TightAT                 =       TightPre + "&jet1_puppi_msoftdrop_TheaCorr>105&jet1_puppi_msoftdrop_TheaCorr<135&(jet1bbtag<"+str(Options.tightcut)+")"
   TightT          =       TightPre + "&jet1_puppi_msoftdrop_TheaCorr>105&jet1_puppi_msoftdrop_TheaCorr<135&(jet1bbtag>"+str(Options.tightcut)+")"
 else:
-  TightAT                 =       TightPre + "&jet1_puppi_msoftdrop_TheaCorr>105&jet1_puppi_msoftdrop_TheaCorr<135&(jet1bbtag<"+str(Options.tightcut)+")"
+  TightAT                 =       TightPre + "&jet1_puppi_msoftdrop_TheaCorr>105&jet1_puppi_msoftdrop_TheaCorr<135&(jet1bbtag<0.3)"
   TightT          =       TightPre + "&jet1_puppi_msoftdrop_TheaCorr>105&jet1_puppi_msoftdrop_TheaCorr<135&(jet1bbtag>"+str(Options.tightcut)+")"
 
 if Options.LL_DoubleB_Region:
