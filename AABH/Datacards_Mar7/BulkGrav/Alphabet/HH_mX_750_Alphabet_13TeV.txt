@@ -1,0 +1,112 @@
+Combination of SR1=outputs/datacards/HH_mX_750_HH_LL_QCD_Alpha_13TeV.txt  SR2=outputs/datacards/HH_mX_750_HH_TT_QCD_Alpha_13TeV.txt
+imax 2 number of bins
+jmax 3 number of processes minus 1
+kmax 96 number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+shapes *    SR1  outputs/datacards/HH_mX_750_HH_LL_QCD_Alpha_13TeV.root vh/$PROCESS vh/$PROCESS_$SYSTEMATIC
+shapes *    SR2  outputs/datacards/HH_mX_750_HH_TT_QCD_Alpha_13TeV.root vh/$PROCESS vh/$PROCESS_$SYSTEMATIC
+----------------------------------------------------------------------------------------------------------------------------------
+bin          SR1          SR2        
+observation  2729.817392  221.360064 
+----------------------------------------------------------------------------------------------------------------------------------
+bin                                                        SR1                            SR1                            SR2                            SR2                          
+process                                                    Signal_mX_750_HH_LL_QCD_Alpha  HH_LL_QCD_AlphaEST             Signal_mX_750_HH_TT_QCD_Alpha  HH_TT_QCD_AlphaEST           
+process                                                    -1                             1                              0                              2                            
+rate                                                       8.9704                         2844.1690                      10.2918                        232.9222                     
+----------------------------------------------------------------------------------------------------------------------------------
+CMS_JEC                 lnN                                1.010924                       -                              1.010719                       -                            
+CMS_JER                 lnN                                1.000903                       -                              1.00058                        -                            
+CMS_PDF_Scales          lnN                                1.02                           -                              1.02                           -                            
+CMS_PU                  lnN                                1.010104                       -                              1.003049                       -                            
+CMS_eff_Htag            lnN                                1.037644                       -                              1.037644                       -                            
+CMS_eff_bbtag_sf        lnN                                1.052546                       -                              1.064105                       -                            
+CMS_eff_tau21_sf        lnN                                1.20195                        -                              1.20195                        -                            
+CMS_eff_trig            lnN                                1.035187                       -                              1.03718                        -                            
+CMS_massJEC             lnN                                1.02                           -                              1.02                           -                            
+CMS_scaleHH_LL_QCD_Alpha_13TeV   shapeN2                   -                              1.0                            -                              -                            
+CMS_scaleHH_TT_QCD_Alpha_13TeV   shapeN2                   -                              -                              -                              1.0                          
+CMS_statHH_LL_QCD_Alpha_13TeV_bin0   shapeN2               -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin1   shapeN2               -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin10   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin11   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin12   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin13   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin14   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin15   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin16   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin17   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin18   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin19   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin2   shapeN2               -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin20   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin21   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin22   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin23   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin24   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin25   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin26   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin27   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin28   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin29   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin3   shapeN2               -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin30   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin31   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin32   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin33   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin34   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin35   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin36   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin37   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin38   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin39   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin4   shapeN2               -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin40   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin41   shapeN2              -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin5   shapeN2               -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin6   shapeN2               -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin7   shapeN2               -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin8   shapeN2               -                              1.0                            -                              -                            
+CMS_statHH_LL_QCD_Alpha_13TeV_bin9   shapeN2               -                              1.0                            -                              -                            
+CMS_statHH_TT_QCD_Alpha_13TeV_bin0   shapeN2               -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin1   shapeN2               -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin10   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin11   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin12   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin13   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin14   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin15   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin16   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin17   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin18   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin19   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin2   shapeN2               -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin20   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin21   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin22   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin23   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin24   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin25   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin26   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin27   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin28   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin29   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin3   shapeN2               -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin30   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin31   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin32   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin33   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin34   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin35   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin36   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin37   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin38   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin39   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin4   shapeN2               -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin40   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin41   shapeN2              -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin5   shapeN2               -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin6   shapeN2               -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin7   shapeN2               -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin8   shapeN2               -                              -                              -                              1.0                          
+CMS_statHH_TT_QCD_Alpha_13TeV_bin9   shapeN2               -                              -                              -                              1.0                          
+lumi_13TeV              lnN                                1.026                          -                              1.026                          -                            
