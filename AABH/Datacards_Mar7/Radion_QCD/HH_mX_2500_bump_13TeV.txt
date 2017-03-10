@@ -1,7 +1,7 @@
 Combination of SR1=outputs/datacards/HH_mX_2500_HH_LL_QCD_RadionRadion_13TeV.txt  SR2=outputs/datacards/HH_mX_2500_HH_TT_QCD_RadionRadion_13TeV.txt  AT1=outputs/datacards/HH_mX_2500_HH_LL_QCD_RadionRadion_13TeV_fail.txt  AT2=outputs/datacards/HH_mX_2500_HH_TT_QCD_RadionRadion_13TeV_fail.txt
 imax 4 number of bins
 jmax 7 number of processes minus 1
-kmax 12 number of nuisance parameters
+kmax 13 number of nuisance parameters
 ----------------------------------------------------------------------------------------------------------------------------------
 shapes HH_LL_QCD_RadionEST_antitag              AT1                                      outputs/datacards/w_background_LL_Radion.root HH4b:bgSB_
 shapes Signal_mX_antitag_2500_HH_LL_QCD_Radion  AT1                                      outputs/datacards/w_signal_antitag_LL_2500.root HH4b:signal_fixed_antitag_
@@ -33,6 +33,7 @@ CMS_eff_bbtag_sf        lnN         1.088198                                 -  
 CMS_eff_tau21_sf        lnN         1.20195                                  -                                        1.20195                                  -                                        1.20195                                  -                                        1.20195                                  -                                      
 CMS_massJEC             lnN         1.02                                     -                                        1.02                                     -                                        1.02                                     -                                        1.02                                     -                                      
 lumi_13TeV              lnN         1.026                                    -                                        1.026                                    -                                        1.026                                    -                                        1.026                                    -                                      
+mjjlin_TT_    param  0.0005066 8.688
 mjjlin_LL_    param  8.421e-05 0.08908
 R_LL          param  0.100949110935 0.00605834775531
 R_TT          param  0.0271100949334 0.00526128956367
