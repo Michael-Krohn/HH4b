@@ -12,7 +12,7 @@ observation  2729.817392  221.360064
 bin                                                               SR1                                   SR1                                   SR2                                   SR2                                 
 process                                                           Signal_mX_800_HH_LL_QCD_Alpha_Radion  HH_LL_QCD_Alpha_RadionEST             Signal_mX_800_HH_TT_QCD_Alpha_Radion  HH_TT_QCD_Alpha_RadionEST           
 process                                                           -1                                    1                                     0                                     2                                   
-rate                                                              19.7793                               2844.1690                             23.1402                               232.9222                            
+rate                                                              9.8896                                2844.1690                             11.5701                               232.9222                            
 ----------------------------------------------------------------------------------------------------------------------------------
 CMS_JEC                 lnN                                       1.010726                              -                                     1.010576                              -                                   
 CMS_JER                 lnN                                       1.000201                              -                                     1.000013                              -                                   
