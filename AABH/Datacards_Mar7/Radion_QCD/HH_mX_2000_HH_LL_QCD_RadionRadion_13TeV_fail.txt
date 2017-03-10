@@ -1,0 +1,26 @@
+imax    1     number of categories
+jmax    1     number of samples minus one
+kmax    *     number of nuisance parameters
+-------------------------------------------------------------------------------
+shapes Signal_mX_antitag_2000_HH_LL_QCD_Radion      HH4b w_signal_antitag_LL_2000.root      HH4b:signal_fixed_antitag_ 
+shapes HH_LL_QCD_RadionEST_antitag HH4b w_background_LL_Radion.root HH4b:bgSB_
+shapes data_obs   HH4b w_data_LL_Radion.root                HH4b:data_obs_sb
+-------------------------------------------------------------------------------
+bin                                            HH4b                   
+observation                                    -1.0                           
+-------------------------------------------------------------------------------
+bin                                             HH4b            HH4b  
+process                                         Signal_mX_antitag_2000_HH_LL_QCD_Radion  HH_LL_QCD_RadionEST_antitag
+process                                          0      1     
+rate                                            11.417166    1.0000  
+-------------------------------------------------------------------------------
+lumi_13TeV lnN                          1.026       -
+CMS_eff_tau21_sf lnN                    1.20195        -
+CMS_eff_Htag lnN                    1.088393       -
+CMS_JEC lnN                 1.012991        -
+CMS_massJEC lnN                 1.020000        -
+CMS_eff_bbtag_sf lnN                    1.077333       -
+CMS_JER lnN                    1.000745        -
+CMS_PU lnN                    1.001146        -
+CMS_eff_trig lnN           1.000000   -
+bgSB_norm_LL rateParam HH4b HH_LL_QCD_RadionEST_antitag 4411.25123867
