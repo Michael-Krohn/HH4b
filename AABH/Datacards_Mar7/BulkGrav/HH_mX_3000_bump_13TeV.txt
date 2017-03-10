@@ -33,7 +33,7 @@ CMS_eff_bbtag_sf        lnN         1.0911                            -         
 CMS_eff_tau21_sf        lnN         1.0577                            -                                 1.0577                            -                                 1.0577                            -                                 1.0577                            -                               
 CMS_eff_trig            lnN         1.01                              -                                 1.01                              -                                 1.01                              -                                 1.01                              -                               
 CMS_massJEC             lnN         1.02                              -                                 1.02                              -                                 1.02                              -                                 1.02                              -                               
-lumi_13TeV              lnN         1.062                             -                                 1.062                             -                                 1.062                             -                                 1.062                             -                               
+lumi_13TeV              lnN         1.026                             -                                 1.026                             -                                 1.026                             -                                 1.026                             -                               
 mjjlin_TT_    param  0.0005066 8.688
 mjjlin_LL_    param  8.421e-05 0.08908
 R_LL          param  0.100949110935 0.00605834775531
