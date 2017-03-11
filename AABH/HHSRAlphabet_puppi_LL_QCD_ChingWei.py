@@ -18,9 +18,7 @@ import Distribution_Header
 from Distribution_Header import *
 import Alphabet
 from Alphabet import *
-
-lowBin=1100
-highBin=3300
+from scipy.stats import chisquare
 
 def GetNom(file_string):
 	tempFile = TFile(file_string)
@@ -28,6 +26,19 @@ def GetNom(file_string):
 	norm = tempHist.GetBinContent(1)
 	tempFile.Close()
 	return norm
+
+def ComputeChi2(points, fit):
+       n = points.GetN()
+       x = [ROOT.Double(0)]*n
+       y = [ROOT.Double(0)]*n
+       y2 = [0]*n
+       for i in range(0,n):
+               points.GetPoint(i, x[i], y[i])
+               y2[i] = fit.Eval(y[i])
+       x = scipy.array(x)
+       y= scipy.array(y)
+       y2 = scipy.array(y2)
+       return chisquare(y,y2)[0]
 
 from optparse import OptionParser
 parser = OptionParser()
@@ -60,42 +71,26 @@ parser.add_option("--nosig", action="store_false", dest="Sig")
 
 parser.add_option('-I', '--inject', metavar='Inj', type='string', dest='inject', default="none")
 
-parser.add_option('--LL', action="store_true", dest='LL_DoubleB_Region', default=True)
-parser.add_option('--TT', action="store_false", dest='LL_DoubleB_Region')
-
-
 parser.add_option('--workspace', metavar='WSPC', type='string', dest='workspace', default="alphabet")
 (Options, args) = parser.parse_args()
 
-preselection    =       "&jet2pt>300&jet1pt>300&abs(jet1eta-jet2eta)<1.3 & dijetmass_softdrop_corr>750&abs(jet1eta)<2.4&abs(jet2eta)<2.4 " 
-tauselection = "&jet1_puppi_tau21<0.55&jet2_puppi_tau21<0.55" 
-#triggerselection = "&(HLT_PFHT900_v==1||HLT_PFHT800_v==1||HLT_AK8PFHT650_TrimR0p1PT0p03Mass50_v==1||HLT_AK8PFHT700_TrimR0p1PT0p03Mass50_v==1||HLT_AK8PFJet360_V==1||HLT_PFHT650_WideJetMJJ900DEtaJJ1p5_v==1||HLT_AK8DiPFJet280_200_TrimMass30_BTagCSV_p20_v==1)"
-triggerselection = "&1"
-#triggerselection = "&(HLT_PFHT800_v==1||HLT_AK8DiPFJet280_200_TrimMass30_BTagCSV_p20_v==1||HLT_PFHT650_WideJetMJJ900DEtaJJ1p5_v==1||HLT_AK8PFJet360_V==1||HLT_AK8PFHT650_TrimR0p1PT0p03Mass50_v==1)"
-
-TightPre 		=	Options.tightpre + preselection + tauselection 
-if Options.isData : TightPre = TightPre+triggerselection
-if Options.LL_DoubleB_Region:
-  TightAT                 =       TightPre + "&jet1_puppi_msoftdrop_TheaCorr>105&jet1_puppi_msoftdrop_TheaCorr<135&(jet1bbtag<0.3)&jet2bbtag<0.8"
-#  TightAT                 =       TightPre + "&jet1_puppi_msoftdrop_TheaCorr>105&jet1_puppi_msoftdrop_TheaCorr<135&(jet1bbtag<0.3)&jet2bbtag<0.8"
-  TightT          =       TightPre + "&jet1_puppi_msoftdrop_TheaCorr>105&jet1_puppi_msoftdrop_TheaCorr<135&(jet1bbtag>"+str(Options.tightcut)+")"
-else:
-  TightAT                 =       TightPre + "&jet1_puppi_msoftdrop_TheaCorr>105&jet1_puppi_msoftdrop_TheaCorr<135&(jet1bbtag<0.3)"
-  TightT          =       TightPre + "&jet1_puppi_msoftdrop_TheaCorr>105&jet1_puppi_msoftdrop_TheaCorr<135&(jet1bbtag>"+str(Options.tightcut)+")"
-
-if Options.LL_DoubleB_Region:
-  TightT2         = "1"+preselection + tauselection +triggerselection +" & jet2_puppi_msoftdrop_TheaCorr > 105 & jet2_puppi_msoftdrop_TheaCorr < 135  & (!( jet1bbtag > 0.8 & jet2bbtag > 0.8))& jet2bbtag > 0.3 & jet1_puppi_msoftdrop_TheaCorr>105&jet1_puppi_msoftdrop_TheaCorr<135 & jet1bbtag > 0.3&(HLT_PFHT900_v==1||HLT_PFHT800_v==1||HLT_AK8PFHT650_TrimR0p1PT0p03Mass50_v==1||HLT_AK8PFHT700_TrimR0p1PT0p03Mass50_v==1||HLT_AK8PFJet360_V==1||HLT_PFHT650_WideJetMJJ900DEtaJJ1p5_v==1||HLT_AK8DiPFJet280_200_TrimMass30_BTagCSV_p20_v==1)"  #orthogonality with TT
-else:
-  TightT2         = "1"+preselection + tauselection +triggerselection +" & jet2_puppi_msoftdrop_TheaCorr > 105 & jet2_puppi_msoftdrop_TheaCorr < 135  & jet2bbtag > 0.8 & jet1_puppi_msoftdrop_TheaCorr>105&jet1_puppi_msoftdrop_TheaCorr<135 & jet1bbtag > 0.8&(HLT_PFHT900_v==1||HLT_PFHT800_v==1||HLT_AK8PFHT650_TrimR0p1PT0p03Mass50_v==1||HLT_AK8PFHT700_TrimR0p1PT0p03Mass50_v==1||HLT_AK8PFJet360_V==1||HLT_PFHT650_WideJetMJJ900DEtaJJ1p5_v==1||HLT_AK8DiPFJet280_200_TrimMass30_BTagCSV_p20_v==1)"
-
-Options.finebins = True
+#trigselection = "&(HLT_PFHT900_v==1||HLT_PFHT800_v==1||HLT_AK8PFHT650_TrimR0p1PT0p03Mass50_v==1||HLT_AK8PFHT700_TrimR0p1PT0p03Mass50_v==1||HLT_AK8PFJet360_V==1||HLT_PFHT650_WideJetMJJ900DEtaJJ1p5_v==1||HLT_AK8DiPFJet280_200_TrimMass30_BTagCSV_p20_v==1)"
+preselection    =       "&jet1pt>300&abs(jet1eta-jet2eta)<1.3&jet1_puppi_tau21<0.55&jet2_puppi_tau21<0.55&dijetmass_softdrop_corr>750&abs(jet1eta)<2.4&abs(jet2eta)<2.4"
+#preselection	= 	"&vtype==-1&jet2pt>250&json==1&jet1pt>250&etadiff<1.3&jet1tau21<0.6&dijetmass_corr>800&jet2ID==1&jet1ID==1&abs(jet1eta)<2.4&abs(jet2eta)<2.4&HLT_PFHT800_v==1"
+TightPre 		=	Options.tightpre + preselection
+TightAT                 =       TightPre + "&jet1_puppi_msoftdrop_TheaCorr>105&jet1_puppi_msoftdrop_TheaCorr<135&(jet1bbtag<0.3)&jet2bbtag<0.8"
+#TightAT                 =       TightPre + "&jet1_puppi_msoftdrop_TheaCorr>105&jet1_puppi_msoftdrop_TheaCorr<135&(jet1bbtag<0.3)&jet2bbtag<0.8"
+TightT          =       TightPre + "&jet1_puppi_msoftdrop_TheaCorr>105&jet1_puppi_msoftdrop_TheaCorr<135&(jet1bbtag>"+str(Options.tightcut)+")"
+#TightT 		=	TightPre + "&jet1pmass>105&jet1pmass<135&(jet1bbtag>"+str(Options.tightcut)+")"
+#TightT2         = "jet2bbtag > 0.8 & jet2_puppi_msoftdrop_raw*jet2_puppi_TheaCorr > 110 & jet2_puppi_msoftdrop_raw*jet2_puppi_TheaCorr < 140  &vtype==-1&jet2_puppi_pt>200&json==1&jet1_puppi_pt>200&abs(jet1_puppi_eta-jet2_puppi_eta)<1.3&jet1_puppi_tau21<0.6&dijetmass_TLpuppi_SubsoftdropTheaCorr>800&jet2ID==1&jet1ID==1&abs(jet1_puppi_eta)<2.4&abs(jet2_puppi_eta)<2.4&jet1_puppi_msoftdrop_raw*jet1_puppi_TheaCorr>110&jet1_puppi_msoftdrop_raw*jet1_puppi_TheaCorr<140&(jet1bbtag>0.8)"
+TightT2         = "jet2bbtag > 0.3 & jet2_puppi_msoftdrop_TheaCorr > 105 & jet2_puppi_msoftdrop_TheaCorr < 135  & (!( jet1bbtag > 0.8 & jet2bbtag > 0.8))&jet2pt>300&jet1pt>300&abs(jet1eta-jet2eta)<1.3&jet1_puppi_tau21<0.55&jet2_puppi_tau21<0.55&dijetmass_softdrop_corr>750&abs(jet1eta)<2.4&abs(jet2eta)<2.4&jet1_puppi_msoftdrop_TheaCorr>105&jet1_puppi_msoftdrop_TheaCorr<135&(jet1bbtag>0.3)&(HLT_PFHT900_v==1||HLT_PFHT800_v==1||HLT_AK8PFHT650_TrimR0p1PT0p03Mass50_v==1||HLT_AK8PFHT700_TrimR0p1PT0p03Mass50_v==1||HLT_AK8PFJet360_V==1||HLT_PFHT650_WideJetMJJ900DEtaJJ1p5_v==1||HLT_AK8DiPFJet280_200_TrimMass30_BTagCSV_p20_v==1)"
 
 if Options.finebins:
 	binBoundaries=[]
-	for i in range(0,highBin-lowBin):	
-		binBoundaries.append(lowBin+i*1)
+	for i in range(0,1300):	
+		binBoundaries.append(1200+i*1)
 else:
-	binBoundaries =[750, 775, 800, 838, 890, 944, 1000, 1058, 1118, 1181, 1246, 1313, 1383, 1455, 1530, 1607, 1687, 1770, 1856, 1945, 2037, 2132, 2231, 2332, 2438, 2546, 2659, 2775, 2895, 3019, 3147, 3279, 3416, 3558, 3704, 3854, 4010, 4171, 4337, 4509, 4681, 4853, 5025]
+	binBoundaries =[750,775, 800, 838, 890, 944, 1000, 1058, 1118, 1181, 1246, 1313, 1383, 1455, 1530, 1607, 1687, 1770, 1856, 1945, 2037, 2132, 2231, 2332, 2438, 2546, 2659, 2775, 2895, 3019, 3147, 3279, 3416, 3558, 3704, 3854, 4010, 4171, 4337, 4509, 4681, 4853, 5025]
 
 variable = "dijetmass_softdrop_corr"
 variable2 = "dijetmass_softdrop_corr"
@@ -121,10 +116,7 @@ sigpath = "/eos/uscms/store/user/mkrohn/ChingWei_MiniTrees/Slim/"
 #sigpath = "/eos/uscms/store/user/mkrohn/HHHHTo4b/V24/BulkGrav_Correct/Alphabet/"
 if Options.inject != "none":
 	normI = GetNom(sigpath+"BulkGrav_M-"+Options.inject+"_0.root")
-	if Options.LL_DoubleB_Region:
-	  INJ = DIST("INJ", sigpath+"BulkGrav_M-"+Options.inject+"_0.root","mynewTree",str(Options.lumi)+"*0.01*puWeights*dbtSF/"+str(normI))
-	else:
-	  INJ = DIST("INJ", sigpath+"BulkGrav_M-"+Options.inject+"_0.root","mynewTree",str(Options.lumi)+"*0.01*puWeights*SFTight/"+str(normI))
+	INJ = DIST("INJ", sigpath+"BulkGrav_M-"+Options.inject+"_0.root","mynewTree",str(Options.lumi)+"*0.01*puWeights*dbtSF/"+str(normI))
 	whichdataorQCD = "QCD w/ Injected Signal"
 	DistsWeWantToEstimate.append(INJ)
 #### SOME SIGNALS WE'LL USE:
@@ -140,7 +132,6 @@ quickplot(sigpath+"BulkGrav_M-1200_0.root", "mynewTree", SIG0, variable2, TightT
 quickplot(sigpath+"BulkGrav_M-1800_0.root", "mynewTree", SIG1, variable2, TightT2, "puWeights*dbtSF/1.")
 quickplot(sigpath+"BulkGrav_M-2500_0.root", "mynewTree", SIG2, variable2, TightT2, "puWeights*dbtSF/1.")
 
-
 SIG0.Scale(Options.lumi*0.01/norm0)
 SIG1.Scale(Options.lumi*0.01/norm1)
 SIG2.Scale(Options.lumi*0.01/norm2)
@@ -149,10 +140,8 @@ SIG0.SetLineColor(kRed-3)
 SIG1.SetLineColor(kRed)
 SIG2.SetLineColor(kRed+3)
 
-if Options.isData:
-  var_array = ["jet1_puppi_msoftdrop_TheaCorr", "jet1bbtag", 60,50,200, 100, -1., 1.]
-else:
-  var_array = ["jet1_puppi_msoftdrop_TheaCorr", "jet1bbtag", 60,50,200, 100, -1., 1.]
+var_array = ["jet1_puppi_msoftdrop_TheaCorr", "jet1bbtag", 60,50,200, 100, -1., 1.]
+#var_array = ["jet1pmass", "jet1bbtag", 60,50,200, 100, -1., 1.]
 
 Hbb = Alphabetizer(Options.name, DistsWeWantToEstimate, [])
 Hbb.SetRegions(var_array, TightPre)
@@ -161,10 +150,10 @@ bins = binCalc(50,200,105,135,Options.bin)
 if Options.Linear:
 	F = LinearFit([0.0,0.0], -75, 85, "linfit", "EMRNSQ")
 else:
-	if Options.isData:
-          F = QuadraticFit([0.1,0.1,0.1], -75, 85, "quadfit", "EMRFNEX0")
-	else:
-          F = QuadraticFit([0.1,0.1,0.1], -75, 85, "quadfit", "W")
+  if(Options.isData):
+        F = QuadraticFit([0.1,0.1,0.1], -75, 85, "quadfit", "EMRFNEX0")
+  else:
+	F = QuadraticFit([0.1,0.1,0.1], -75, 85, "quadfit", "W")
 Hbb.GetRates([Options.tightcut, ">"], bins[0], bins[1], 120., F)
 
 
@@ -187,7 +176,7 @@ leg.AddEntry(Hbb.Fit.fit, "fit", "L")
 leg.AddEntry(Hbb.Fit.ErrUp, "fit errors", "L")
 plotforplotting = TH1F("empty_"+Options.name, "", 24, -75, 80)
 plotforplotting.SetStats(0)
-plotforplotting.GetYaxis().SetRangeUser(0.,0.25)
+plotforplotting.GetYaxis().SetRangeUser(0.11,0.23)
 plotforplotting.GetXaxis().SetTitle("m_{J} - m_{H} (GeV)")
 plotforplotting.GetYaxis().SetTitle("R_{p/f}")
 plotforplotting.GetYaxis().SetTitleOffset(1.5)
@@ -205,10 +194,33 @@ Hbb.Fit.fit.Draw("same")
 
 FunctionChiSquared = Hbb.Fit.fit.GetChisquare()
 
+ComputedChiSquared2 = ComputeChi2(Hbb.G,Hbb.Fit.fit)
+
 THILABL = TLatex()
 THILABL.SetNDC()
 THILABL.SetTextSize(0.04)
-THILABL.DrawLatex(0.651,0.91,"#chi^{2} = %s"%(FunctionChiSquared))
+THILABL.DrawLatex(0.61,0.54,"#chi^{2}/n = %.3f"%(ComputedChiSquared2))
+
+cmsTextFont   = 61
+cmsTextSize      = 0.04
+
+extraTextFont   = 52
+extraTextSize = 0.025
+
+CMSLABL = TLatex()
+CMSLABL.SetNDC()
+CMSLABL.SetTextFont(cmsTextFont)
+CMSLABL.SetTextSize(cmsTextSize)
+CMSLABL.DrawLatex(0.1,0.91,"CMS")
+
+CMSLABL.SetTextFont(extraTextFont)
+CMSLABL.SetTextSize(extraTextSize)
+CMSLABL.DrawLatex(0.16,0.91,"Preliminary")
+
+LUMILABL = TLatex()
+LUMILABL.SetNDC()
+LUMILABL.SetTextSize(0.04)
+LUMILABL.DrawLatex(0.66,0.91,"36.8 fb^{-1} (13TeV)")
 
 Hbb.Fit.ErrUp.SetLineStyle(2)
 Hbb.Fit.ErrUp.Draw("same")
@@ -217,18 +229,6 @@ Hbb.Fit.ErrDn.Draw("same")
 leg.Draw()
 C2.SaveAs("outputs/HHSR_Fit_"+Options.name+".pdf")
 
-if Options.LL_DoubleB_Region:
-  if Options.isData:
-    FILE = TFile("outputs/HHSR_LL_Data.root", "RECREATE")
-  else:
-    FILE = TFile("outputs/HHSR_LL.root", "RECREATE")
-else:
-  if Options.isData:
-    FILE = TFile("outputs/HHSR_TT_Data.root", "RECREATE")
-  else:
-    FILE = TFile("outputs/HHSR_TT.root", "RECREATE")
-FILE.cd()
-
 
 D = TH1F("data", "", len(binBoundaries)-1, array('d',binBoundaries))
 N = TH1F("est", "", len(binBoundaries)-1, array('d',binBoundaries))
@@ -236,34 +236,13 @@ NU = TH1F("est_up", "", len(binBoundaries)-1, array('d',binBoundaries))
 ND = TH1F("est_down", "", len(binBoundaries)-1, array('d',binBoundaries))
 A =  TH1F("antitag", "", len(binBoundaries)-1, array('d',binBoundaries)) 
 
-AverageRate = Hbb.Fit.fit.Integral(-15,15)
-AverageRate = AverageRate/30
-print "Average Rate = " + str(AverageRate)
-
-AverageError = Hbb.Fit.ErrUp.Integral(-15,15)
-AverageError = AverageError/30 - AverageRate
-print "Average Error = " + str(AverageError )
-
-
-
-
 PULL = FillPlots(Hbb, D, N, NU, ND, A, variable, binBoundaries, TightAT, TightT)
-
-b1 = N.FindBin(lowBin)
-b2 = N.FindBin(highBin)
-AntitagIntegral = A.Integral(b1,b2)
-
-
-FILE.Write()
-FILE.Save()
-
 
 Pull = PULL[0]
 maxy = PULL[1]
 Boxes = PULL[2]
 sBoxes = PULL[3]
 pBoxes = PULL[4]
-#fBoxes = PULL[5]
 
 vartitle = "m_{X} (GeV)"
 
@@ -275,18 +254,12 @@ D.SetMarkerColor(1)
 D.SetMarkerStyle(20)
 N.GetYaxis().SetTitle("events")
 N.GetXaxis().SetTitle(vartitle)
-A.GetYaxis().SetTitle("events")
-A.GetXaxis().SetTitle(vartitle)
-print "Integrals:"
-print A.Integral()
-print N.Integral()
 if Options.log:
 #        N.GetYaxis().SetRangeUser(0.05,maxy*1.5)
-	A.GetYaxis().SetRangeUser(0.000005,maxy*10)
+	N.GetYaxis().SetRangeUser(0.01,maxy*1.5)
 else:
 	N.GetYaxis().SetRangeUser(0.,maxy*1.2)
 N.SetLineColor(kBlue)
-A.SetLineColor(kGreen + 2)
 
 Pull.GetXaxis().SetTitle("")
 Pull.SetStats(0)
@@ -321,19 +294,14 @@ for i in pBoxes:
 for i in sBoxes:
 	i.SetFillColor(41)
 	i.SetFillStyle(3344)
-#for i in fBoxes:
-#        i.SetFillColor(46)
-#        i.SetFillStyle(3444)
 
 leg2 = TLegend(0.6,0.6,0.89,0.89)
 leg2.SetLineColor(0)
 leg2.SetFillColor(0)
 leg2.AddEntry(D, whichdataorQCD, "PL")
 leg2.AddEntry(N, "background prediction", "LF")
-#leg2.AddEntry(Boxes[0], "total uncertainty", "F")
+leg2.AddEntry(Boxes[0], "total uncertainty", "F")
 leg2.AddEntry(sBoxes[0], "background statistical component", "F")
-#leg2.AddEntry(fBoxes[0], "alphabet fit component", "F")
-leg2.AddEntry(A, "anti-tag", "LF")
 #if Options.Sig:
 #	leg2.AddEntry(SIG0, "Bulk Graviton (1200 GeV, 27 fb)", "F")
 #	leg2.AddEntry(SIG1, "Bulk Graviton (1800 GeV, 27 fb)", "F")
@@ -355,7 +323,6 @@ Tm1.SetLineColor(kBlue)
 Tm1.SetLineStyle(3)
 
 N.SetStats(0)
-A.SetStats(0)
 
 C4 = TCanvas("C4", "", 800, 600)
 plot = TPad("pad1", "The pad 80% of the height",0,0.15,1,1)
@@ -363,17 +330,13 @@ pull = TPad("pad2", "The pad 20% of the height",0,0,1.0,0.15)
 plot.Draw()
 pull.Draw()
 plot.cd()
-A.Draw("Hist")
-N.Draw("Hist SAME")
-#A.Draw("Hist SAME")
+N.Draw("Hist")
 if Options.Truth:
 	D.Draw("same E0")
-#for i in Boxes:
-#	i.Draw("same")
+for i in Boxes:
+	i.Draw("same")
 for i in sBoxes:
 	i.Draw("same")
-#for i in fBoxes:
-#        i.Draw("same")
 #if Options.Sig:
 #	SIG0.Draw("same hist")
 #	SIG1.Draw("same hist")
@@ -397,18 +360,17 @@ C4.SaveAs("outputs/HHSR_Plot_"+Options.name+".pdf")
 if Options.workspace == "alphabet":
 	print "creating workspace and datacard: ALPHABET"
 
-	mass=[1200,1400,1600,1800,2000,2500, 3000]
+	mass=[750,800,900,1000]
 	for m in mass:
 		print str(m)
 		SF_tau21 = 1.03*1.03
 		UD = ['Up','Down']
 
-		output_file = TFile("outputs/datacards/HH_mX_"+Options.name+"_%s"%(m)+"_13TeV.root", "RECREATE")
+		output_file = TFile("outputs/datacards/HH_mX_%s_"%(m)+Options.name+"_13TeV.root", "RECREATE")
 		vh=output_file.mkdir("vh")
 		vh.cd()
 
 		Signal_mX = TH1F("Signal_mX_%s_"%(m)+Options.name, "", len(binBoundaries)-1, array('d',binBoundaries))
-		Signal_mX_antitag = TH1F("Signal_mX_antitag_%s"%(m)+Options.name, "", len(binBoundaries)-1, array('d',binBoundaries))
 		Signal_mX_trig_up = TH1F("Signal_mX_%s_"%(m)+Options.name+"_CMS_eff_trigUp", "", len(binBoundaries)-1, array('d',binBoundaries))
 		Signal_mX_trig_down = TH1F("Signal_mX_%s_"%(m)+Options.name+"_CMS_eff_trigDown", "", len(binBoundaries)-1, array('d',binBoundaries))
 		Signal_mX_btag_up = TH1F("Signal_mX_%s_"%(m)+Options.name+"_CMS_eff_btagUp", "", len(binBoundaries)-1, array('d',binBoundaries))
@@ -422,9 +384,7 @@ if Options.workspace == "alphabet":
 		Signal_mX_MJEC_Up = TH1F("Signal_mX_%s_"%(m)+Options.name+"_CMS_eff_massJECUp", "", len(binBoundaries)-1, array('d',binBoundaries))
 		Signal_mX_MJEC_Down = TH1F("Signal_mX_%s_"%(m)+Options.name+"_CMS_eff_massJECDown", "", len(binBoundaries)-1, array('d',binBoundaries))
 
-
                 quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX, variable2, TightT2, "puWeights*dbtSF/1.")
-                quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_antitag, variable2, TightAT, "puWeights*dbtSF/1.")
                 quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_btag_up, variable2, TightT2, "puWeights*dbtSFup/1.")
                 quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_btag_down, variable2, TightT2, "puWeights*dbtSFdown/1.")
                 quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_trig_up, variable2, TightT2, "trigWeightUp*puWeights*dbtSF/1.")
@@ -436,35 +396,14 @@ if Options.workspace == "alphabet":
                 quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_FJER_Up, variable2, TightT2, "puWeights*dbtSF*jet1JERup*jet2JERup/(1.*jet1JERcentral*jet2JERcentral)")
                 quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_FJER_Down, variable2, TightT2, "puWeights*dbtSF*jet1JERdown*jet2JERdown/(1.*jet1JERcentral*jet2JERcentral)")
 
-			
-	
-
-#		if Options.LL_DoubleB_Region:
-#		  quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX, variable2, TightT2, "puWeights*SFLoose/1.")
-#		  quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_antitag, variable2, TightAT, "puWeights/1.")
-#		  quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_btag_up, variable2, TightT2, "puWeights*SFLooseup/1.")
-#		  quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_btag_down, variable2, TightT2, "puWeights*SFLoosedown/1.")
-#		  quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_trig_up, variable2, TightT2, "trigWeightUp*puWeights*SFLoose/1.")
-#		  quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_trig_down, variable2, TightT2, "trigWeightDown*puWeights*SFLoose/1.")
-#		  quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_pu_up, variable2, TightT2, "puWeightsUp*SFLoose/1.")
-#		  quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_pu_down, variable2, TightT2, "puWeightsDown*SFLoose/1.")
-#		else:
-#                  quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX, variable2, TightT2, "puWeights*SFTight/1.")
-#                  quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_antitag, variable2, TightAT, "puWeights/1.")
-#                  quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_btag_up, variable2, TightT2, "puWeights*SFTightup/1.")
-#                  quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_btag_down, variable2, TightT2, "puWeights*SFTightdown/1.")
-#                  quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_trig_up, variable2, TightT2, "trigWeightUp*puWeights*SFTight/1.")
-#                  quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_trig_down, variable2, TightT2, "trigWeightDown*puWeights*SFTight/1.")
-#                  quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_pu_up, variable2, TightT2, "puWeightsUp*SFTight/1.")
-#                  quickplot(sigpath+"BulkGrav_M-%s_0.root"%(m), "mynewTree", Signal_mX_pu_down, variable2, TightT2, "puWeightsDown*SFTight/1.")
 
 		norm = GetNom(sigpath+"BulkGrav_M-%s_0.root"%(m))
 
-		btaglnN= 1. + abs(Signal_mX_btag_up.GetSumOfWeights()-Signal_mX_btag_down.GetSumOfWeights())/(2.*Signal_mX_btag_up.GetSumOfWeights())
-		PUlnN= 1. + abs(Signal_mX_pu_up.GetSumOfWeights()-Signal_mX_pu_down.GetSumOfWeights())/(2.*Signal_mX.GetSumOfWeights())
+		btaglnN= 1.+ abs(Signal_mX_btag_up.GetSumOfWeights()-Signal_mX_btag_down.GetSumOfWeights())/(2.*Signal_mX_btag_up.GetSumOfWeights())
+		PUlnN= 1.+ abs(Signal_mX_pu_up.GetSumOfWeights()-Signal_mX_pu_down.GetSumOfWeights())/(2.*Signal_mX.GetSumOfWeights())
 
+		
 		Signal_mX.Scale(SF_tau21*Options.lumi*0.01/norm)
-		Signal_mX_antitag.Scale(SF_tau21*Options.lumi*0.01/norm)
 		Signal_mX_btag_up.Scale(SF_tau21*Options.lumi*0.01/norm)
 		Signal_mX_btag_down.Scale(SF_tau21*Options.lumi*0.01/norm)
 		Signal_mX_trig_up.Scale(SF_tau21*0.01*Options.lumi/norm)
@@ -472,25 +411,13 @@ if Options.workspace == "alphabet":
 		Signal_mX_pu_up.Scale(Options.lumi*SF_tau21*0.01/norm)
 		Signal_mX_pu_down.Scale(Options.lumi*SF_tau21*0.01/norm)
 
-
-		HTaggingUnc = 2 - math.exp(-0.125052 + 32.5054/(float(m)/2))
+                HTaggingUnc = 2 - math.exp(-0.125052 + 32.5054/(float(m)/2))
 		MJEClnN= 1.02 ## add variation from ntuples
-		print "Signal_mX_FJER_Up.GetSumOfWeights()"
-		print Signal_mX_FJER_Up.GetSumOfWeights()
-		print "Signal_mX_FJER_Down.GetSumOfWeights()"
-		print Signal_mX_FJER_Down.GetSumOfWeights()
+                FJEClnN= 1. + abs(Signal_mX_FJEC_Up.GetSumOfWeights()-Signal_mX_FJEC_Down.GetSumOfWeights())/(2.*Signal_mX_FJEC_Up.GetSumOfWeights())
+                FJERlnN= 1. + abs(Signal_mX_FJER_Up.GetSumOfWeights()-Signal_mX_FJER_Down.GetSumOfWeights())/(2.*Signal_mX_FJER_Up.GetSumOfWeights())
+                TRIGlnN= 1. +abs(Signal_mX_trig_up.GetSumOfWeights()-Signal_mX_trig_down.GetSumOfWeights())/(2.*Signal_mX_trig_up.GetSumOfWeights())
 
-		FJEClnN= 1. + abs(Signal_mX_FJEC_Up.GetSumOfWeights()-Signal_mX_FJEC_Down.GetSumOfWeights())/(2.*Signal_mX_FJEC_Up.GetSumOfWeights())
-		FJERlnN= 1. + abs(Signal_mX_FJER_Up.GetSumOfWeights()-Signal_mX_FJER_Down.GetSumOfWeights())/(2.*Signal_mX_FJER_Up.GetSumOfWeights())
-		TRIGlnN= 1. +abs(Signal_mX_trig_up.GetSumOfWeights()-Signal_mX_trig_down.GetSumOfWeights())/(2.*Signal_mX_trig_up.GetSumOfWeights())
-                print"FJEClnN"
-                print FJEClnN
-		print"FJERlnN"
-		print FJERlnN
-
-		#signal_integral = Signal_mX.Integral()
-		signal_integral = Signal_mX.Integral(Signal_mX.FindBin(lowBin),Signal_mX.FindBin(highBin))
-		signal_integral_anti = Signal_mX_antitag.Integral(Signal_mX_antitag.FindBin(lowBin),Signal_mX_antitag.FindBin(highBin))
+		signal_integral = Signal_mX.Integral()
 
 		qcd_integral = N.Integral()
 		qcd = N.Clone(Options.name+"EST")
@@ -529,10 +456,7 @@ if Options.workspace == "alphabet":
 			output_file.cd()
 			vh.cd()
 			qcd_syst.Write()
-
-		#H Tagging Uncertainty:
-		#HTaggingUnc = 2 - exp(-0.125052 + 32.5054/float(m))
-				
+		
 
 		#qcd_trigger_up.Write()
 		#qcd_trigger_low.Write()
@@ -553,100 +477,40 @@ if Options.workspace == "alphabet":
 
 		text_file = open("outputs/datacards/HH_mX_%s_"%(m)+Options.name+"_13TeV.txt", "w")
 
-		data_integral = -1
+
 		text_file.write("max    1     number of categories\n")
 		text_file.write("jmax   1     number of samples minus one\n")
 		text_file.write("kmax    *     number of nuisance parameters\n")
 		text_file.write("-------------------------------------------------------------------------------\n")
-		#text_file.write("shapes * * HH_mX_%s_"%(m)+Options.name+"_13TeV.root vh/$PROCESS vh/$PROCESS_$SYSTEMATIC\n")
-		if Options.LL_DoubleB_Region:
-		  text_file.write("shapes Signal_mX_%s_"%(m)+Options.name+"      HH4b w_signal_LL_%s.root      HH4b:signal_fixed_ \n"%(m))
-                  text_file.write("shapes "+Options.name+"EST HH4b w_background_LL.root HH4b:bg_\n")
-                  text_file.write("shapes data_obs   HH4b w_data_LL.root                HH4b:data_obs\n")
-		else:
-                  text_file.write("shapes Signal_mX_%s_"%(m)+Options.name+"      HH4b w_signal_TT_%s.root      HH4b:signal_fixed_ \n"%(m))
-                  text_file.write("shapes "+Options.name+"EST HH4b w_background_TT.root HH4b:bg_\n")
-                  text_file.write("shapes data_obs   HH4b w_data_TT.root                HH4b:data_obs\n")
-
+		text_file.write("shapes * * HH_mX_%s_"%(m)+Options.name+"_13TeV.root vh/$PROCESS vh/$PROCESS_$SYSTEMATIC\n")
 		text_file.write("-------------------------------------------------------------------------------\n")
-		text_file.write("bin                                            HH4b\n")
+		text_file.write("bin                                            vh4b\n")
 		text_file.write("observation                                    %f\n"%(data_integral))
 		text_file.write("-------------------------------------------------------------------------------\n")
-		text_file.write("bin                                             HH4b            HH4b\n")
+		text_file.write("bin                                             vh4b            vh4b\n")
 		text_file.write("process                                          0      1\n")
 		text_file.write("process                                         Signal_mX_%s_"%(m)+Options.name+"  "+Options.name+"EST\n")
-		text_file.write("rate                                            %f  1.00\n"%(signal_integral))
+		text_file.write("rate                                            %f  %f\n"%(signal_integral,qcd_integral))
 		text_file.write("-------------------------------------------------------------------------------\n")
 		text_file.write("lumi_13TeV lnN                          1.026       -\n")	
 	
-		text_file.write("CMS_eff_tau21_sf lnN                    1.20195        -\n") #(0.028/0.979)
-		text_file.write("CMS_eff_Htag lnN                    %f       -\n"%(HTaggingUnc))
+		text_file.write("CMS_eff_tau21_sf lnN                    1.20195          -\n") #(0.028/0.979)
+		text_file.write("CMS_eff_Htag lnN                    %f       -\n"%(HTaggingUnc))   
 		text_file.write("CMS_JEC lnN 		     %f        -\n"%(FJEClnN)) 	
 		text_file.write("CMS_massJEC lnN                 %f        -\n"%(MJEClnN))
 		text_file.write("CMS_eff_bbtag_sf lnN                    %f       -\n"%(btaglnN))
 		text_file.write("CMS_JER lnN                    %f        -\n"%(FJERlnN))
 		text_file.write("CMS_PU lnN                    %f        -\n"%(PUlnN))
-                text_file.write("CMS_eff_trig lnN           %f   -\n"%(TRIGlnN))
+		text_file.write("CMS_eff_trig lnN           %f   -\n"%(TRIGlnN))
 	 	
-		#text_file.write("CMS_scale"+Options.name+"_13TeV shapeN2                           -       1.000\n")
+		text_file.write("CMS_scale"+Options.name+"_13TeV shapeN2                           -       1.000\n")
 		text_file.write("CMS_PDF_Scales lnN   1.02 -       \n")
 
-#		for bin in range(0,len(binBoundaries)-1):
-#			text_file.write("CMS_stat"+Options.name+"_13TeV_bin%s shapeN2                           -       1.000\n"%(bin))
-
-                if Options.LL_DoubleB_Region:
-                  text_file.write("R_LL param "+str(AverageRate)+" "+str(AverageError)+"\n")
-                  text_file.write("n_exp_binHH4b_proc_EST_LL_  rateParam HH4b "+Options.name+"EST @0*@1 bgSB_norm_LL,R_LL\n")
-		else:
-                  text_file.write("R_TT param "+str(AverageRate)+" "+str(AverageError)+"\n")
-                  text_file.write("n_exp_binHH4b_proc_EST_TT_  rateParam HH4b "+Options.name+"EST @0*@1 bgSB_norm_TT,R_TT\n")
-
-                text_file.close()
+		for bin in range(0,len(binBoundaries)-1):
+			text_file.write("CMS_stat"+Options.name+"_13TeV_bin%s shapeN2                           -       1.000\n"%(bin))
 
 
-                text_filea = open("outputs/datacards/HH_mX_%s_"%(m)+Options.name+"_13TeV_fail.txt", "w")
-                text_filea.write("imax    1     number of categories\n")
-                text_filea.write("jmax    1     number of samples minus one\n")
-                text_filea.write("kmax    *     number of nuisance parameters\n")
-                text_filea.write("-------------------------------------------------------------------------------\n")
-                if Options.LL_DoubleB_Region:
-                  text_filea.write("shapes Signal_mX_antitag_%s_"%(m)+Options.name+"      HH4b w_signal_antitag_LL_%s.root      HH4b:signal_fixed_antitag_ \n"%(m))
-                  text_filea.write("shapes "+Options.name+"EST_antitag HH4b w_background_LL.root HH4b:bgSB_\n")
-                  text_filea.write("shapes data_obs   HH4b w_data_LL.root                HH4b:data_obs_sb\n")
-		else:
-                  text_filea.write("shapes Signal_mX_antitag_%s_"%(m)+Options.name+"      HH4b w_signal_antitag_TT_%s.root      HH4b:signal_fixed_antitag_ \n"%(m))
-                  text_filea.write("shapes "+Options.name+"EST_antitag HH4b w_background_TT.root HH4b:bgSB_\n")
-                  text_filea.write("shapes data_obs   HH4b w_data_TT.root                HH4b:data_obs_sb\n")
-
-                text_filea.write("-------------------------------------------------------------------------------\n")
-                text_filea.write("bin                                            HH4b                   \n")
-                text_filea.write("observation                                    -1.0                           \n")
-                text_filea.write("-------------------------------------------------------------------------------\n")
-                text_filea.write("bin                                             HH4b            HH4b  \n")
-                text_filea.write("process                                         Signal_mX_antitag_%s_"%(m)+Options.name+"  "+Options.name+"EST_antitag\n")
-                text_filea.write("process                                          0      1     \n")
-                text_filea.write("rate                                            %f    1.0000  \n"%(signal_integral_anti))
-                text_filea.write("-------------------------------------------------------------------------------\n")
-
-	        text_filea.write("lumi_13TeV lnN                          1.026       -\n")
-
-                text_filea.write("CMS_eff_tau21_sf lnN                    1.20195       -\n") #(0.028/0.979)
-                text_filea.write("CMS_eff_Htag lnN                    %f       -\n"%(HTaggingUnc))
-                text_filea.write("CMS_JEC lnN                 %f        -\n"%(FJEClnN))
-                text_filea.write("CMS_massJEC lnN                 %f        -\n"%(MJEClnN))
-                text_filea.write("CMS_eff_bbtag_sf lnN                    %f       -\n"%(btaglnN))
-                text_filea.write("CMS_JER lnN                    %f        -\n"%(FJERlnN))
-                text_filea.write("CMS_PU lnN                    %f        -\n"%(PUlnN))
-                text_filea.write("CMS_eff_trig lnN           %f   -\n"%(TRIGlnN))
-
-                if Options.LL_DoubleB_Region:	
-		  text_filea.write("bgSB_norm_LL rateParam HH4b "+Options.name+"EST_antitag "+str(AntitagIntegral)+"\n")
-		else:
-		  text_filea.write("bgSB_norm_TT rateParam HH4b "+Options.name+"EST_antitag "+str(AntitagIntegral)+"\n")
-	
-		
-
-                text_filea.close()
+		text_file.close()
 
 if Options.workspace == "fit":
 	print "creating workspace and datacard: ALPHABET ASSISTED FIT"
