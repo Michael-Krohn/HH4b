@@ -22,7 +22,7 @@ observation  -1.0      -1.0      -1.0      -1.0
 bin                                 SR1                                      SR1                                      SR2                                      SR2                                      AT1                                      AT1                                      AT2                                      AT2                                    
 process                             Signal_mX_3000_HH_LL_QCD_Radion          HH_LL_QCD_RadionEST                      Signal_mX_3000_HH_TT_QCD_Radion          HH_TT_QCD_RadionEST                      Signal_mX_antitag_3000_HH_LL_QCD_Radion  HH_LL_QCD_RadionEST_antitag              Signal_mX_antitag_3000_HH_TT_QCD_Radion  HH_TT_QCD_RadionEST_antitag            
 process                             -3                                       1                                        -2                                       2                                        -1                                       3                                        0                                        4                                      
-rate                                29.1245                                  1.0000                                   11.2569                                  1.0000                                   14.2165                                  1.0000                                   7.6126                                   1.0000                                 
+rate                                29.1245                                  1.0000                                   11.2569                                  1.0000                                   6.6039                                   1.0000                                   7.6126                                   1.0000                                 
 ----------------------------------------------------------------------------------------------------------------------------------
 CMS_JEC                 lnN         1.016461                                 -                                        1.016442                                 -                                        1.016461                                 -                                        1.016442                                 -                                      
 CMS_JER                 lnN         1.000732                                 -                                        1.000814                                 -                                        1.000732                                 -                                        1.000814                                 -                                      
@@ -38,6 +38,6 @@ mjjlin_LL_    param  8.421e-05 0.08908
 R_LL          param  0.100949110935 0.00605834775531
 R_TT          param  0.0271100949334 0.00526128956367
 n_exp_binHH4b_proc_EST_LL_  rateParam SR1 HH_LL_QCD_RadionEST @0*@1 bgSB_norm_LL,R_LL  
-bgSB_norm_LL  rateParam AT1 HH_LL_QCD_RadionEST_antitag 4411.25123867  
+bgSB_norm_LL  rateParam AT1 HH_LL_QCD_RadionEST_antitag 3188.40380708  
 bgSB_norm_TT  rateParam AT2 HH_TT_QCD_RadionEST_antitag 1224.64547244  
 n_exp_binHH4b_proc_EST_TT_  rateParam SR2 HH_TT_QCD_RadionEST @0*@1 bgSB_norm_TT,R_TT  

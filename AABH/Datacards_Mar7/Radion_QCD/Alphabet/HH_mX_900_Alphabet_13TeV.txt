@@ -1,27 +1,27 @@
-Combination of SR1=outputs/datacards/HH_mX_800_HH_LL_QCD_Alpha_Radion_13TeV.txt  SR2=outputs/datacards/HH_mX_800_HH_TT_QCD_Alpha_Radion_13TeV.txt
+Combination of SR1=outputs/datacards/HH_mX_900_HH_LL_QCD_Alpha_Radion_13TeV.txt  SR2=outputs/datacards/HH_mX_900_HH_TT_QCD_Alpha_Radion_13TeV.txt
 imax 2 number of bins
 jmax 3 number of processes minus 1
 kmax 96 number of nuisance parameters
 ----------------------------------------------------------------------------------------------------------------------------------
-shapes *    SR1  outputs/datacards/HH_mX_800_HH_LL_QCD_Alpha_Radion_13TeV.root vh/$PROCESS vh/$PROCESS_$SYSTEMATIC
-shapes *    SR2  outputs/datacards/HH_mX_800_HH_TT_QCD_Alpha_Radion_13TeV.root vh/$PROCESS vh/$PROCESS_$SYSTEMATIC
+shapes *    SR1  outputs/datacards/HH_mX_900_HH_LL_QCD_Alpha_Radion_13TeV.root vh/$PROCESS vh/$PROCESS_$SYSTEMATIC
+shapes *    SR2  outputs/datacards/HH_mX_900_HH_TT_QCD_Alpha_Radion_13TeV.root vh/$PROCESS vh/$PROCESS_$SYSTEMATIC
 ----------------------------------------------------------------------------------------------------------------------------------
 bin          SR1          SR2        
 observation  2729.817392  221.360064 
 ----------------------------------------------------------------------------------------------------------------------------------
 bin                                                               SR1                                   SR1                                   SR2                                   SR2                                 
-process                                                           Signal_mX_800_HH_LL_QCD_Alpha_Radion  HH_LL_QCD_Alpha_RadionEST             Signal_mX_800_HH_TT_QCD_Alpha_Radion  HH_TT_QCD_Alpha_RadionEST           
+process                                                           Signal_mX_900_HH_LL_QCD_Alpha_Radion  HH_LL_QCD_Alpha_RadionEST             Signal_mX_900_HH_TT_QCD_Alpha_Radion  HH_TT_QCD_Alpha_RadionEST           
 process                                                           -1                                    1                                     0                                     2                                   
-rate                                                              9.8896                                2844.1690                             11.5701                               232.9222                            
+rate                                                              16.8270                               1976.8431                             18.8926                               232.9222                            
 ----------------------------------------------------------------------------------------------------------------------------------
-CMS_JEC                 lnN                                       1.010726                              -                                     1.010576                              -                                   
-CMS_JER                 lnN                                       1.00018                               -                                     1.000024                              -                                   
+CMS_JEC                 lnN                                       1.010329                              -                                     1.010251                              -                                   
+CMS_JER                 lnN                                       1.000218                              -                                     1.000372                              -                                   
 CMS_PDF_Scales          lnN                                       1.02                                  -                                     1.02                                  -                                   
-CMS_PU                  lnN                                       1.001861                              -                                     1.007481                              -                                   
-CMS_eff_Htag            lnN                                       1.042844                              -                                     1.042844                              -                                   
-CMS_eff_bbtag_sf        lnN                                       1.055026                              -                                     1.065147                              -                                   
+CMS_PU                  lnN                                       1.006821                              -                                     1.003472                              -                                   
+CMS_eff_Htag            lnN                                       1.051447                              -                                     1.051447                              -                                   
+CMS_eff_bbtag_sf        lnN                                       1.052425                              -                                     1.070137                              -                                   
 CMS_eff_tau21_sf        lnN                                       1.20195                               -                                     1.20195                               -                                   
-CMS_eff_trig            lnN                                       1.027425                              -                                     1.029451                              -                                   
+CMS_eff_trig            lnN                                       1.01154                               -                                     1.012579                              -                                   
 CMS_massJEC             lnN                                       1.02                                  -                                     1.02                                  -                                   
 CMS_scaleHH_LL_QCD_Alpha_Radion_13TeV   shapeN2                   -                                     1.0                                   -                                     -                                   
 CMS_scaleHH_TT_QCD_Alpha_Radion_13TeV   shapeN2                   -                                     -                                     -                                     1.0                                 

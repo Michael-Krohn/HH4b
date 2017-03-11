@@ -10,7 +10,7 @@ observation                                    2729.817392
 bin                                             vh4b            vh4b
 process                                          0      1
 process                                         Signal_mX_750_HH_LL_QCD_Alpha_Radion  HH_LL_QCD_Alpha_RadionEST
-rate                                            4.494197  2844.168979
+rate                                            4.494197  1976.843083
 -------------------------------------------------------------------------------
 lumi_13TeV lnN                          1.026       -
 CMS_eff_tau21_sf lnN                    1.20195         -

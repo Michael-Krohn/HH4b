@@ -12,7 +12,7 @@ observation                                    -1.0
 bin                                             HH4b            HH4b  
 process                                         Signal_mX_antitag_2500_HH_LL_QCD  HH_LL_QCDEST_antitag
 process                                          0      1     
-rate                                            12.600330    1.0000  
+rate                                            5.478193    1.0000  
 -------------------------------------------------------------------------------
 lumi_13TeV lnN                          1.026       -
 CMS_eff_tau21_sf lnN                    1.20195       -
@@ -23,4 +23,4 @@ CMS_eff_bbtag_sf lnN                    1.088198       -
 CMS_JER lnN                    1.000736        -
 CMS_PU lnN                    1.003575        -
 CMS_eff_trig lnN           1.000000   -
-bgSB_norm_LL rateParam HH4b HH_LL_QCDEST_antitag 4411.25123867
+bgSB_norm_LL rateParam HH4b HH_LL_QCDEST_antitag 3188.40380708
