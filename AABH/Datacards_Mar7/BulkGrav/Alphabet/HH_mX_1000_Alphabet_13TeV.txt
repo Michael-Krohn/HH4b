@@ -12,7 +12,7 @@ observation  3160.0    389.0
 bin                                                         SR1                              SR1                              SR2                              SR2                            
 process                                                     Signal_mX_1000_HH_LL_Data_Alpha  HH_LL_Data_AlphaEST              Signal_mX_1000_HH_TT_Data_Alpha  HH_TT_Data_AlphaEST            
 process                                                     -1                               1                                0                                2                              
-rate                                                        21.7179                          3445.2436                        21.7144                          363.9738                       
+rate                                                        21.7179                          2303.5220                        21.7144                          322.3755                       
 ----------------------------------------------------------------------------------------------------------------------------------
 CMS_JEC                 lnN                                 1.010193                         -                                1.010061                         -                              
 CMS_JER                 lnN                                 1.000388                         -                                1.000511                         -                              
