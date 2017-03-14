@@ -12,16 +12,16 @@ observation  3160.0    389.0
 bin                                                          SR1                              SR1                              SR2                              SR2                            
 process                                                      Signal_mX_900_HH_LL_Data_Radion  HH_LL_Data_RadionEST             Signal_mX_900_HH_TT_Data_Radion  HH_TT_Data_RadionEST           
 process                                                      -1                               1                                0                                2                              
-rate                                                         16.6746                          2303.5220                        18.7068                          322.3755                       
+rate                                                         16.6893                          2303.5220                        18.7135                          322.3755                       
 ----------------------------------------------------------------------------------------------------------------------------------
 CMS_JEC                 lnN                                  1.010326                         -                                1.010247                         -                              
-CMS_JER                 lnN                                  1.000205                         -                                1.000359                         -                              
+CMS_JER                 lnN                                  1.000207                         -                                1.00036                          -                              
 CMS_PDF_Scales          lnN                                  1.02                             -                                1.02                             -                              
-CMS_PU                  lnN                                  1.006801                         -                                1.003455                         -                              
+CMS_PU                  lnN                                  1.006868                         -                                1.003468                         -                              
 CMS_eff_Htag            lnN                                  1.051447                         -                                1.051447                         -                              
-CMS_eff_bbtag_sf        lnN                                  1.052418                         -                                1.070183                         -                              
+CMS_eff_bbtag_sf        lnN                                  1.052408                         -                                1.070182                         -                              
 CMS_eff_tau21_sf        lnN                                  1.20195                          -                                1.20195                          -                              
-CMS_eff_trig            lnN                                  1.000173                         -                                1.000147                         -                              
+CMS_eff_trig            lnN                                  1.000174                         -                                1.000148                         -                              
 CMS_massJEC             lnN                                  1.02                             -                                1.02                             -                              
 CMS_scaleHH_LL_Data_Radion_13TeV   shapeN2                   -                                1.0                              -                                -                              
 CMS_scaleHH_TT_Data_Radion_13TeV   shapeN2                   -                                -                                -                                1.0                            
