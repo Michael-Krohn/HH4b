@@ -22,7 +22,7 @@ CMS_massJEC lnN                 1.020000        -
 CMS_eff_bbtag_sf lnN                    1.039509       -
 CMS_JER lnN                    1.000407        -
 CMS_PU lnN                    1.000661        -
-CMS_eff_trig lnN           1.000000   -
+CMS_eff_trig shapeN2           1.000   -
 CMS_PDF_Scales lnN   1.02 -       
 R_LL param 0.153294234635 0.00365675807464
 n_exp_binHH4b_proc_EST_LL_  rateParam HH4b HH_LL_Data_RadionEST @0*@1 bgSB_norm_LL,R_LL

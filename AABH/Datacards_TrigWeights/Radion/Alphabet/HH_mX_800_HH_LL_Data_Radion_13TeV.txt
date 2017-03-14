@@ -20,7 +20,7 @@ CMS_massJEC lnN                 1.020000        -
 CMS_eff_bbtag_sf lnN                    1.055214       -
 CMS_JER lnN                    1.000247        -
 CMS_PU lnN                    1.002049        -
-CMS_eff_trig lnN           1.007168   -
+CMS_eff_trig shapeN2           1.000   -
 CMS_scaleHH_LL_Data_Radion_13TeV shapeN2                           -       1.000
 CMS_PDF_Scales lnN   1.02 -       
 CMS_statHH_LL_Data_Radion_13TeV_bin0 shapeN2                           -       1.000
