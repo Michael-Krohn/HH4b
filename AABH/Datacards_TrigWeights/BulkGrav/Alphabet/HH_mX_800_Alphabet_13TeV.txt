@@ -1,0 +1,112 @@
+Combination of SR1=outputs/datacards/HH_mX_800_HH_LL_Data_13TeV.txt  SR2=outputs/datacards/HH_mX_800_HH_TT_Data_13TeV.txt
+imax 2 number of bins
+jmax 3 number of processes minus 1
+kmax 96 number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+shapes *    SR1  outputs/datacards/HH_mX_800_HH_LL_Data_13TeV.root vh/$PROCESS vh/$PROCESS_$SYSTEMATIC
+shapes *    SR2  outputs/datacards/HH_mX_800_HH_TT_Data_13TeV.root vh/$PROCESS vh/$PROCESS_$SYSTEMATIC
+----------------------------------------------------------------------------------------------------------------------------------
+bin          SR1       SR2     
+observation  3160.0    389.0   
+----------------------------------------------------------------------------------------------------------------------------------
+bin                                                   SR1                       SR1                       SR2                       SR2                     
+process                                               Signal_mX_800_HH_LL_Data  HH_LL_DataEST             Signal_mX_800_HH_TT_Data  HH_TT_DataEST           
+process                                               -1                        1                         0                         2                       
+rate                                                  9.1787                    2303.5220                 10.6924                   322.3755                
+----------------------------------------------------------------------------------------------------------------------------------
+CMS_JEC                 lnN                           1.010715                  -                         1.010571                  -                       
+CMS_JER                 lnN                           1.000247                  -                         1.000024                  -                       
+CMS_PDF_Scales          lnN                           1.02                      -                         1.02                      -                       
+CMS_PU                  lnN                           1.002049                  -                         1.007335                  -                       
+CMS_eff_Htag            lnN                           1.042844                  -                         1.042844                  -                       
+CMS_eff_bbtag_sf        lnN                           1.055214                  -                         1.065242                  -                       
+CMS_eff_tau21_sf        lnN                           1.20195                   -                         1.20195                   -                       
+CMS_eff_trig            shapeN2                       1.0                       -                         1.0                       -                       
+CMS_massJEC             lnN                           1.02                      -                         1.02                      -                       
+CMS_scaleHH_LL_Data_13TeV   shapeN2                   -                         1.0                       -                         -                       
+CMS_scaleHH_TT_Data_13TeV   shapeN2                   -                         -                         -                         1.0                     
+CMS_statHH_LL_Data_13TeV_bin0   shapeN2               -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin1   shapeN2               -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin10   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin11   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin12   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin13   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin14   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin15   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin16   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin17   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin18   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin19   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin2   shapeN2               -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin20   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin21   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin22   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin23   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin24   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin25   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin26   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin27   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin28   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin29   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin3   shapeN2               -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin30   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin31   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin32   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin33   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin34   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin35   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin36   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin37   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin38   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin39   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin4   shapeN2               -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin40   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin41   shapeN2              -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin5   shapeN2               -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin6   shapeN2               -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin7   shapeN2               -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin8   shapeN2               -                         1.0                       -                         -                       
+CMS_statHH_LL_Data_13TeV_bin9   shapeN2               -                         1.0                       -                         -                       
+CMS_statHH_TT_Data_13TeV_bin0   shapeN2               -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin1   shapeN2               -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin10   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin11   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin12   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin13   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin14   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin15   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin16   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin17   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin18   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin19   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin2   shapeN2               -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin20   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin21   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin22   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin23   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin24   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin25   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin26   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin27   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin28   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin29   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin3   shapeN2               -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin30   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin31   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin32   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin33   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin34   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin35   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin36   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin37   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin38   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin39   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin4   shapeN2               -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin40   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin41   shapeN2              -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin5   shapeN2               -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin6   shapeN2               -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin7   shapeN2               -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin8   shapeN2               -                         -                         -                         1.0                     
+CMS_statHH_TT_Data_13TeV_bin9   shapeN2               -                         -                         -                         1.0                     
+lumi_13TeV              lnN                           1.026                     -                         1.026                     -                       

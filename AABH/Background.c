@@ -32,7 +32,7 @@ int iPos =11;
 bool bias= false;
 bool blind = false;
 bool LLregion = false;
-bool isQCD = true;
+bool isQCD = false;
 
 double rebin = 1;
 
@@ -251,8 +251,13 @@ void Background(int rebin_factor=rebin,int model_number = 0,int imass=750, bool 
        int intPart = TMath::Nint(N);
        double resid = intPart - N;
        double rnd = R.Uniform(1.);
-       if (resid > 0) normWeight = rnd > resid ? intPart : intPart-1; 
-       else normWeight = rnd > fabs(resid) ?  intPart+0. : intPart+1.; 
+       if(isQCD){
+         if (resid > 0) normWeight = rnd > resid ? intPart : intPart-1;
+         else normWeight = rnd > fabs(resid) ?  intPart+0. : intPart+1.;
+       }else{
+         if (resid > 0) normWeight = rnd > resid ? intPart : intPart-1;
+         else normWeight = rnd > fabs(resid) ?  intPart+0. : intPart+0.;
+       }
        h_mX_EST_antitag->SetBinContent(i, normWeight);
      }
 
@@ -778,101 +783,213 @@ void Background(int rebin_factor=rebin,int model_number = 0,int imass=750, bool 
     }
 
     FILE *passtxt;
-    if(LLregion){
+    if(isQCD){
+      if(LLregion){
 	passtxt=fopen("outputs/datacards/HH_mX_1200_HH_LL_QCD_13TeV.txt", "a");
         fprintf(passtxt,("#bg_p1_LL_ param " + tostr(bg_p1_LL.getVal(),4) + " " + tostr(bg_p1_LL.getError(),4) +"\n").c_str());
         fprintf(passtxt,("#bg_p2_LL_ param " + tostr(bg_p2_LL.getVal(),4) + " " + tostr(bg_p2_LL.getError(),4) +"\n").c_str());
         fprintf(passtxt,("mjjlin_LL_ param " + tostr(mjjlin_LL.getVal(),4) + " " + tostr(mjjlin_LL.getError(),4) +"\n").c_str());
-    }
-    else{
+      }
+      else{
         passtxt=fopen("outputs/datacards/HH_mX_1200_HH_TT_QCD_13TeV.txt", "a");
         fprintf(passtxt,("#bg_p1_TT_ param " + tostr(bg_p1_TT.getVal(),4) + " " + tostr(bg_p1_TT.getError(),4) +"\n").c_str());
         fprintf(passtxt,("#bg_p2_TT_ param " + tostr(bg_p2_TT.getVal(),4) + " " + tostr(bg_p2_TT.getError(),4) +"\n").c_str());
         fprintf(passtxt,("mjjlin_TT_ param " + tostr(mjjlin_TT.getVal(),4) + " " + tostr(mjjlin_TT.getError(),4) +"\n").c_str());
+      }
+    }
+    else{
+      if(LLregion){
+        passtxt=fopen("outputs/datacards/HH_mX_1200_HH_LL_Data_13TeV.txt", "a");
+        fprintf(passtxt,("#bg_p1_LL_ param " + tostr(bg_p1_LL.getVal(),4) + " " + tostr(bg_p1_LL.getError(),4) +"\n").c_str());
+        fprintf(passtxt,("#bg_p2_LL_ param " + tostr(bg_p2_LL.getVal(),4) + " " + tostr(bg_p2_LL.getError(),4) +"\n").c_str());
+        fprintf(passtxt,("mjjlin_LL_ param " + tostr(mjjlin_LL.getVal(),4) + " " + tostr(mjjlin_LL.getError(),4) +"\n").c_str());
+      }
+      else{
+        passtxt=fopen("outputs/datacards/HH_mX_1200_HH_TT_Data_13TeV.txt", "a");
+        fprintf(passtxt,("#bg_p1_TT_ param " + tostr(bg_p1_TT.getVal(),4) + " " + tostr(bg_p1_TT.getError(),4) +"\n").c_str());
+        fprintf(passtxt,("#bg_p2_TT_ param " + tostr(bg_p2_TT.getVal(),4) + " " + tostr(bg_p2_TT.getError(),4) +"\n").c_str());
+        fprintf(passtxt,("mjjlin_TT_ param " + tostr(mjjlin_TT.getVal(),4) + " " + tostr(mjjlin_TT.getError(),4) +"\n").c_str());
+      }
     }
 
     FILE *passtxt2;
-    if(LLregion){
+    if(isQCD){
+      if(LLregion){
         passtxt2=fopen("outputs/datacards/HH_mX_1400_HH_LL_QCD_13TeV.txt", "a");
         fprintf(passtxt2,("#bg_p1_LL_ param " + tostr(bg_p1_LL.getVal(),4) + " " + tostr(bg_p1_LL.getError(),4) +"\n").c_str());
         fprintf(passtxt2,("#bg_p2_LL_ param " + tostr(bg_p2_LL.getVal(),4) + " " + tostr(bg_p2_LL.getError(),4) +"\n").c_str());
         fprintf(passtxt2,("mjjlin_LL_ param " + tostr(mjjlin_LL.getVal(),4) + " " + tostr(mjjlin_LL.getError(),4) +"\n").c_str());
-    }
-    else{
+      }
+      else{
         passtxt2=fopen("outputs/datacards/HH_mX_1400_HH_TT_QCD_13TeV.txt", "a");
         fprintf(passtxt2,("#bg_p1_TT_ param " + tostr(bg_p1_TT.getVal(),4) + " " + tostr(bg_p1_TT.getError(),4) +"\n").c_str());
         fprintf(passtxt2,("#bg_p2_TT_ param " + tostr(bg_p2_TT.getVal(),4) + " " + tostr(bg_p2_TT.getError(),4) +"\n").c_str());
         fprintf(passtxt2,("mjjlin_TT_ param " + tostr(mjjlin_TT.getVal(),4) + " " + tostr(mjjlin_TT.getError(),4) +"\n").c_str());
+      }
+    }
+    else{
+      if(LLregion){
+        passtxt2=fopen("outputs/datacards/HH_mX_1400_HH_LL_Data_13TeV.txt", "a");
+        fprintf(passtxt2,("#bg_p1_LL_ param " + tostr(bg_p1_LL.getVal(),4) + " " + tostr(bg_p1_LL.getError(),4) +"\n").c_str());
+        fprintf(passtxt2,("#bg_p2_LL_ param " + tostr(bg_p2_LL.getVal(),4) + " " + tostr(bg_p2_LL.getError(),4) +"\n").c_str());
+        fprintf(passtxt2,("mjjlin_LL_ param " + tostr(mjjlin_LL.getVal(),4) + " " + tostr(mjjlin_LL.getError(),4) +"\n").c_str());
+      }
+      else{
+        passtxt2=fopen("outputs/datacards/HH_mX_1400_HH_TT_Data_13TeV.txt", "a");
+        fprintf(passtxt2,("#bg_p1_TT_ param " + tostr(bg_p1_TT.getVal(),4) + " " + tostr(bg_p1_TT.getError(),4) +"\n").c_str());
+        fprintf(passtxt2,("#bg_p2_TT_ param " + tostr(bg_p2_TT.getVal(),4) + " " + tostr(bg_p2_TT.getError(),4) +"\n").c_str());
+        fprintf(passtxt2,("mjjlin_TT_ param " + tostr(mjjlin_TT.getVal(),4) + " " + tostr(mjjlin_TT.getError(),4) +"\n").c_str());
+      }
     }
 
     FILE *passtxt3;
-    if(LLregion){
+    if(isQCD){
+      if(LLregion){
         passtxt3=fopen("outputs/datacards/HH_mX_1600_HH_LL_QCD_13TeV.txt", "a");
         fprintf(passtxt3,("#bg_p1_LL_ param " + tostr(bg_p1_LL.getVal(),4) + " " + tostr(bg_p1_LL.getError(),4) +"\n").c_str());
         fprintf(passtxt3,("#bg_p2_LL_ param " + tostr(bg_p2_LL.getVal(),4) + " " + tostr(bg_p2_LL.getError(),4) +"\n").c_str());
         fprintf(passtxt3,("mjjlin_LL_ param " + tostr(mjjlin_LL.getVal(),4) + " " + tostr(mjjlin_LL.getError(),4) +"\n").c_str());
-    }
-    else{
+      }
+      else{
         passtxt3=fopen("outputs/datacards/HH_mX_1600_HH_TT_QCD_13TeV.txt", "a");
         fprintf(passtxt3,("#bg_p1_TT_ param " + tostr(bg_p1_TT.getVal(),4) + " " + tostr(bg_p1_TT.getError(),4) +"\n").c_str());
         fprintf(passtxt3,("#bg_p2_TT_ param " + tostr(bg_p2_TT.getVal(),4) + " " + tostr(bg_p2_TT.getError(),4) +"\n").c_str());
         fprintf(passtxt3,("mjjlin_TT_ param " + tostr(mjjlin_TT.getVal(),4) + " " + tostr(mjjlin_TT.getError(),4) +"\n").c_str());
+      }
+    }
+    else{
+      if(LLregion){
+        passtxt3=fopen("outputs/datacards/HH_mX_1600_HH_LL_Data_13TeV.txt", "a");
+        fprintf(passtxt3,("#bg_p1_LL_ param " + tostr(bg_p1_LL.getVal(),4) + " " + tostr(bg_p1_LL.getError(),4) +"\n").c_str());
+        fprintf(passtxt3,("#bg_p2_LL_ param " + tostr(bg_p2_LL.getVal(),4) + " " + tostr(bg_p2_LL.getError(),4) +"\n").c_str());
+        fprintf(passtxt3,("mjjlin_LL_ param " + tostr(mjjlin_LL.getVal(),4) + " " + tostr(mjjlin_LL.getError(),4) +"\n").c_str());
+      }
+      else{
+        passtxt3=fopen("outputs/datacards/HH_mX_1600_HH_TT_Data_13TeV.txt", "a");
+        fprintf(passtxt3,("#bg_p1_TT_ param " + tostr(bg_p1_TT.getVal(),4) + " " + tostr(bg_p1_TT.getError(),4) +"\n").c_str());
+        fprintf(passtxt3,("#bg_p2_TT_ param " + tostr(bg_p2_TT.getVal(),4) + " " + tostr(bg_p2_TT.getError(),4) +"\n").c_str());
+        fprintf(passtxt3,("mjjlin_TT_ param " + tostr(mjjlin_TT.getVal(),4) + " " + tostr(mjjlin_TT.getError(),4) +"\n").c_str());
+      }
     }
 
     FILE *passtxt4;
-    if(LLregion){
+    if(isQCD){
+      if(LLregion){
         passtxt4=fopen("outputs/datacards/HH_mX_1800_HH_LL_QCD_13TeV.txt", "a");
         fprintf(passtxt4,("#bg_p1_LL_ param " + tostr(bg_p1_LL.getVal(),4) + " " + tostr(bg_p1_LL.getError(),4) +"\n").c_str());
         fprintf(passtxt4,("#bg_p2_LL_ param " + tostr(bg_p2_LL.getVal(),4) + " " + tostr(bg_p2_LL.getError(),4) +"\n").c_str());
         fprintf(passtxt4,("mjjlin_LL_ param " + tostr(mjjlin_LL.getVal(),4) + " " + tostr(mjjlin_LL.getError(),4) +"\n").c_str());
-    }
-    else{
+      }
+      else{
         passtxt4=fopen("outputs/datacards/HH_mX_1800_HH_TT_QCD_13TeV.txt", "a");
         fprintf(passtxt4,("#bg_p1_TT_ param " + tostr(bg_p1_TT.getVal(),4) + " " + tostr(bg_p1_TT.getError(),4) +"\n").c_str());
         fprintf(passtxt4,("#bg_p2_TT_ param " + tostr(bg_p2_TT.getVal(),4) + " " + tostr(bg_p2_TT.getError(),4) +"\n").c_str());
         fprintf(passtxt4,("mjjlin_TT_ param " + tostr(mjjlin_TT.getVal(),4) + " " + tostr(mjjlin_TT.getError(),4) +"\n").c_str());
+      }
+    }
+    else{
+      if(LLregion){
+        passtxt4=fopen("outputs/datacards/HH_mX_1800_HH_LL_Data_13TeV.txt", "a");
+        fprintf(passtxt4,("#bg_p1_LL_ param " + tostr(bg_p1_LL.getVal(),4) + " " + tostr(bg_p1_LL.getError(),4) +"\n").c_str());
+        fprintf(passtxt4,("#bg_p2_LL_ param " + tostr(bg_p2_LL.getVal(),4) + " " + tostr(bg_p2_LL.getError(),4) +"\n").c_str());
+        fprintf(passtxt4,("mjjlin_LL_ param " + tostr(mjjlin_LL.getVal(),4) + " " + tostr(mjjlin_LL.getError(),4) +"\n").c_str());
+      }
+      else{
+        passtxt4=fopen("outputs/datacards/HH_mX_1800_HH_TT_Data_13TeV.txt", "a");
+        fprintf(passtxt4,("#bg_p1_TT_ param " + tostr(bg_p1_TT.getVal(),4) + " " + tostr(bg_p1_TT.getError(),4) +"\n").c_str());
+        fprintf(passtxt4,("#bg_p2_TT_ param " + tostr(bg_p2_TT.getVal(),4) + " " + tostr(bg_p2_TT.getError(),4) +"\n").c_str());
+        fprintf(passtxt4,("mjjlin_TT_ param " + tostr(mjjlin_TT.getVal(),4) + " " + tostr(mjjlin_TT.getError(),4) +"\n").c_str());
+      }
     }
 
     FILE *passtxt5;
-    if(LLregion){
+    if(isQCD){
+      if(LLregion){
         passtxt5=fopen("outputs/datacards/HH_mX_2000_HH_LL_QCD_13TeV.txt", "a");
         fprintf(passtxt5,("#bg_p1_LL_ param " + tostr(bg_p1_LL.getVal(),4) + " " + tostr(bg_p1_LL.getError(),4) +"\n").c_str());
         fprintf(passtxt5,("#bg_p2_LL_ param " + tostr(bg_p2_LL.getVal(),4) + " " + tostr(bg_p2_LL.getError(),4) +"\n").c_str());
         fprintf(passtxt5,("mjjlin_LL_ param " + tostr(mjjlin_LL.getVal(),4) + " " + tostr(mjjlin_LL.getError(),4) +"\n").c_str());
-    }
-    else{
+      }
+      else{
         passtxt5=fopen("outputs/datacards/HH_mX_2000_HH_TT_QCD_13TeV.txt", "a");
         fprintf(passtxt5,("#bg_p1_TT_ param " + tostr(bg_p1_TT.getVal(),4) + " " + tostr(bg_p1_TT.getError(),4) +"\n").c_str());
         fprintf(passtxt5,("#bg_p2_TT_ param " + tostr(bg_p2_TT.getVal(),4) + " " + tostr(bg_p2_TT.getError(),4) +"\n").c_str());
         fprintf(passtxt5,("mjjlin_TT_ param " + tostr(mjjlin_TT.getVal(),4) + " " + tostr(mjjlin_TT.getError(),4) +"\n").c_str());
+      }
+    }
+    else{
+      if(LLregion){
+        passtxt5=fopen("outputs/datacards/HH_mX_2000_HH_LL_Data_13TeV.txt", "a");
+        fprintf(passtxt5,("#bg_p1_LL_ param " + tostr(bg_p1_LL.getVal(),4) + " " + tostr(bg_p1_LL.getError(),4) +"\n").c_str());
+        fprintf(passtxt5,("#bg_p2_LL_ param " + tostr(bg_p2_LL.getVal(),4) + " " + tostr(bg_p2_LL.getError(),4) +"\n").c_str());
+        fprintf(passtxt5,("mjjlin_LL_ param " + tostr(mjjlin_LL.getVal(),4) + " " + tostr(mjjlin_LL.getError(),4) +"\n").c_str());
+      }
+      else{
+        passtxt5=fopen("outputs/datacards/HH_mX_2000_HH_TT_Data_13TeV.txt", "a");
+        fprintf(passtxt5,("#bg_p1_TT_ param " + tostr(bg_p1_TT.getVal(),4) + " " + tostr(bg_p1_TT.getError(),4) +"\n").c_str());
+        fprintf(passtxt5,("#bg_p2_TT_ param " + tostr(bg_p2_TT.getVal(),4) + " " + tostr(bg_p2_TT.getError(),4) +"\n").c_str());
+        fprintf(passtxt5,("mjjlin_TT_ param " + tostr(mjjlin_TT.getVal(),4) + " " + tostr(mjjlin_TT.getError(),4) +"\n").c_str());
+      }
     }
 
     FILE *passtxt6;
-    if(LLregion){
+    if(isQCD){
+      if(LLregion){
         passtxt6=fopen("outputs/datacards/HH_mX_2500_HH_LL_QCD_13TeV.txt", "a");
         fprintf(passtxt6,("#bg_p1_LL_ param " + tostr(bg_p1_LL.getVal(),4) + " " + tostr(bg_p1_LL.getError(),4) +"\n").c_str());
         fprintf(passtxt6,("#bg_p2_LL_ param " + tostr(bg_p2_LL.getVal(),4) + " " + tostr(bg_p2_LL.getError(),4) +"\n").c_str());
         fprintf(passtxt6,("mjjlin_LL_ param " + tostr(mjjlin_LL.getVal(),4) + " " + tostr(mjjlin_LL.getError(),4) +"\n").c_str());
-    }
-    else{
-        passtxt6=fopen("outputs/datacards/HH_mX_2500_HH_TT_QCD_13TeV.txt", "a");        fprintf(passtxt6,("#bg_p1_TT_ param " + tostr(bg_p1_TT.getVal(),4) + " " + tostr(bg_p1_TT.getError(),4) +"\n").c_str());
+      }
+      else{
+        passtxt6=fopen("outputs/datacards/HH_mX_2500_HH_TT_QCD_13TeV.txt", "a");
+        fprintf(passtxt6,("#bg_p1_TT_ param " + tostr(bg_p1_TT.getVal(),4) + " " + tostr(bg_p1_TT.getError(),4) +"\n").c_str());
         fprintf(passtxt6,("#bg_p2_TT_ param " + tostr(bg_p2_TT.getVal(),4) + " " + tostr(bg_p2_TT.getError(),4) +"\n").c_str());
         fprintf(passtxt6,("mjjlin_TT_ param " + tostr(mjjlin_TT.getVal(),4) + " " + tostr(mjjlin_TT.getError(),4) +"\n").c_str());
-
+      }
+    }
+    else{
+      if(LLregion){
+        passtxt6=fopen("outputs/datacards/HH_mX_2500_HH_LL_Data_13TeV.txt", "a");
+        fprintf(passtxt6,("#bg_p1_LL_ param " + tostr(bg_p1_LL.getVal(),4) + " " + tostr(bg_p1_LL.getError(),4) +"\n").c_str());
+        fprintf(passtxt6,("#bg_p2_LL_ param " + tostr(bg_p2_LL.getVal(),4) + " " + tostr(bg_p2_LL.getError(),4) +"\n").c_str());
+        fprintf(passtxt6,("mjjlin_LL_ param " + tostr(mjjlin_LL.getVal(),4) + " " + tostr(mjjlin_LL.getError(),4) +"\n").c_str());
+      }
+      else{
+        passtxt6=fopen("outputs/datacards/HH_mX_2500_HH_TT_Data_13TeV.txt", "a");
+        fprintf(passtxt6,("#bg_p1_TT_ param " + tostr(bg_p1_TT.getVal(),4) + " " + tostr(bg_p1_TT.getError(),4) +"\n").c_str());
+        fprintf(passtxt6,("#bg_p2_TT_ param " + tostr(bg_p2_TT.getVal(),4) + " " + tostr(bg_p2_TT.getError(),4) +"\n").c_str());
+        fprintf(passtxt6,("mjjlin_TT_ param " + tostr(mjjlin_TT.getVal(),4) + " " + tostr(mjjlin_TT.getError(),4) +"\n").c_str());
+      }
     }
 
     FILE *passtxt7;
-    if(LLregion){
+    if(isQCD){
+      if(LLregion){
         passtxt7=fopen("outputs/datacards/HH_mX_3000_HH_LL_QCD_13TeV.txt", "a");
         fprintf(passtxt7,("#bg_p1_LL_ param " + tostr(bg_p1_LL.getVal(),4) + " " + tostr(bg_p1_LL.getError(),4) +"\n").c_str());
         fprintf(passtxt7,("#bg_p2_LL_ param " + tostr(bg_p2_LL.getVal(),4) + " " + tostr(bg_p2_LL.getError(),4) +"\n").c_str());
         fprintf(passtxt7,("mjjlin_LL_ param " + tostr(mjjlin_LL.getVal(),4) + " " + tostr(mjjlin_LL.getError(),4) +"\n").c_str());
-    }
-    else{
+      }
+      else{
         passtxt7=fopen("outputs/datacards/HH_mX_3000_HH_TT_QCD_13TeV.txt", "a");
         fprintf(passtxt7,("#bg_p1_TT_ param " + tostr(bg_p1_TT.getVal(),4) + " " + tostr(bg_p1_TT.getError(),4) +"\n").c_str());
         fprintf(passtxt7,("#bg_p2_TT_ param " + tostr(bg_p2_TT.getVal(),4) + " " + tostr(bg_p2_TT.getError(),4) +"\n").c_str());
         fprintf(passtxt7,("mjjlin_TT_ param " + tostr(mjjlin_TT.getVal(),4) + " " + tostr(mjjlin_TT.getError(),4) +"\n").c_str());
+      }
+    }
+    else{
+      if(LLregion){
+        passtxt7=fopen("outputs/datacards/HH_mX_3000_HH_LL_Data_13TeV.txt", "a");
+        fprintf(passtxt7,("#bg_p1_LL_ param " + tostr(bg_p1_LL.getVal(),4) + " " + tostr(bg_p1_LL.getError(),4) +"\n").c_str());
+        fprintf(passtxt7,("#bg_p2_LL_ param " + tostr(bg_p2_LL.getVal(),4) + " " + tostr(bg_p2_LL.getError(),4) +"\n").c_str());
+        fprintf(passtxt7,("mjjlin_LL_ param " + tostr(mjjlin_LL.getVal(),4) + " " + tostr(mjjlin_LL.getError(),4) +"\n").c_str());
+      }
+      else{
+        passtxt7=fopen("outputs/datacards/HH_mX_3000_HH_TT_Data_13TeV.txt", "a");
+        fprintf(passtxt7,("#bg_p1_TT_ param " + tostr(bg_p1_TT.getVal(),4) + " " + tostr(bg_p1_TT.getError(),4) +"\n").c_str());
+        fprintf(passtxt7,("#bg_p2_TT_ param " + tostr(bg_p2_TT.getVal(),4) + " " + tostr(bg_p2_TT.getError(),4) +"\n").c_str());
+        fprintf(passtxt7,("mjjlin_TT_ param " + tostr(mjjlin_TT.getVal(),4) + " " + tostr(mjjlin_TT.getError(),4) +"\n").c_str());
+      }
     }
 
     TCanvas *c_rooFit2=new TCanvas("c_rooFit2", "c_rooFit2", 900, 600);
