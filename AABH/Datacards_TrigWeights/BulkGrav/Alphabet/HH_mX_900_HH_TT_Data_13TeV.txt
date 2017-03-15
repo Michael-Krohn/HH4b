@@ -13,7 +13,7 @@ process                                         Signal_mX_900_HH_TT_Data  HH_TT_
 rate                                            18.713545  322.375540
 -------------------------------------------------------------------------------
 lumi_13TeV lnN                          1.026       -
-CMS_eff_tau21_sf lnN                    1.20195         -
+CMS_eff_tau21_sf lnN                    1.30/0.74         -
 CMS_eff_Htag lnN                    1.051447       -
 CMS_JEC lnN 		     1.010247        -
 CMS_massJEC lnN                 1.020000        -

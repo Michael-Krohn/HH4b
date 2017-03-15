@@ -15,7 +15,7 @@ process                                         Signal_mX_1600_HH_TT_Data_Radion
 rate                                            13.658067  1.00
 -------------------------------------------------------------------------------
 lumi_13TeV lnN                          1.026       -
-CMS_eff_tau21_sf lnN                    1.20195       -
+CMS_eff_tau21_sf lnN                    1.30/0.74       -
 CMS_eff_Htag lnN                    1.080955       -
 CMS_JEC lnN 		     1.011340        -
 CMS_massJEC lnN                 1.020000        -

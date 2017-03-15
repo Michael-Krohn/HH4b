@@ -20,7 +20,7 @@ CMS_PDF_Scales          lnN                                  1.02               
 CMS_PU                  lnN                                  1.000105                          -                                 1.006753                          -                               
 CMS_eff_Htag            lnN                                  1.058274                          -                                 1.058274                          -                               
 CMS_eff_bbtag_sf        lnN                                  1.044487                          -                                 1.075775                          -                               
-CMS_eff_tau21_sf        lnN                                  1.20195                           -                                 1.20195                           -                               
+CMS_eff_tau21_sf        lnN                                  1.30/0.74                           -                                 1.30/0.74                           -                               
 CMS_eff_trig            shapeN2                              1.0                               -                                 1.0                               -                               
 CMS_massJEC             lnN                                  1.02                              -                                 1.02                              -                               
 CMS_scaleHH_LL_Data_Radion_13TeV   shapeN2                   -                                 1.0                               -                                 -                               

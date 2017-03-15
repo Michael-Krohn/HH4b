@@ -15,7 +15,7 @@ process                                         Signal_mX_1200_HH_LL_Data  HH_LL
 rate                                            26.261840  1.00
 -------------------------------------------------------------------------------
 lumi_13TeV lnN                          1.026       -
-CMS_eff_tau21_sf lnN                    1.20195        -
+CMS_eff_tau21_sf lnN                    1.30/0.74        -
 CMS_eff_Htag lnN                    1.068423       -
 CMS_JEC lnN 		     1.010212        -
 CMS_massJEC lnN                 1.020000        -
