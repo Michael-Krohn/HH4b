@@ -3,18 +3,18 @@ imax 4 number of bins
 jmax 7 number of processes minus 1
 kmax 14 number of nuisance parameters
 ----------------------------------------------------------------------------------------------------------------------------------
-shapes HH_LL_QCDEST_antitag              AT1                               outputs/datacards/w_background_LL.root HH4b:bgSB_
-shapes Signal_mX_antitag_2500_HH_LL_QCD  AT1                               outputs/datacards/w_signal_antitag_LL_2500.root HH4b:signal_fixed_antitag_
-shapes data_obs                          AT1                               outputs/datacards/w_data_LL.root HH4b:data_obs_sb
-shapes HH_TT_QCDEST_antitag              AT2                               outputs/datacards/w_background_TT.root HH4b:bgSB_
-shapes Signal_mX_antitag_2500_HH_TT_QCD  AT2                               outputs/datacards/w_signal_antitag_TT_2500.root HH4b:signal_fixed_antitag_
-shapes data_obs                          AT2                               outputs/datacards/w_data_TT.root HH4b:data_obs_sb
-shapes HH_LL_QCDEST                      SR1                               outputs/datacards/w_background_LL.root HH4b:bg_
-shapes Signal_mX_2500_HH_LL_QCD          SR1                               outputs/datacards/w_signal_LL_2500.root HH4b:signal_fixed_
-shapes data_obs                          SR1                               outputs/datacards/w_data_LL.root HH4b:data_obs
-shapes HH_TT_QCDEST                      SR2                               outputs/datacards/w_background_TT.root HH4b:bg_
-shapes Signal_mX_2500_HH_TT_QCD          SR2                               outputs/datacards/w_signal_TT_2500.root HH4b:signal_fixed_
-shapes data_obs                          SR2                               outputs/datacards/w_data_TT.root HH4b:data_obs
+shapes HH_LL_QCDEST_antitag              AT1                               w_background_LL.root HH4b:bgSB_
+shapes Signal_mX_antitag_2500_HH_LL_QCD  AT1                               w_signal_antitag_LL_2500.root HH4b:signal_fixed_antitag_
+shapes data_obs                          AT1                               w_data_LL.root HH4b:data_obs_sb
+shapes HH_TT_QCDEST_antitag              AT2                               w_background_TT.root HH4b:bgSB_
+shapes Signal_mX_antitag_2500_HH_TT_QCD  AT2                               w_signal_antitag_TT_2500.root HH4b:signal_fixed_antitag_
+shapes data_obs                          AT2                               w_data_TT.root HH4b:data_obs_sb
+shapes HH_LL_QCDEST                      SR1                               w_background_LL.root HH4b:bg_
+shapes Signal_mX_2500_HH_LL_QCD          SR1                               w_signal_LL_2500.root HH4b:signal_fixed_
+shapes data_obs                          SR1                               w_data_LL.root HH4b:data_obs
+shapes HH_TT_QCDEST                      SR2                               w_background_TT.root HH4b:bg_
+shapes Signal_mX_2500_HH_TT_QCD          SR2                               w_signal_TT_2500.root HH4b:signal_fixed_
+shapes data_obs                          SR2                               w_data_TT.root HH4b:data_obs
 ----------------------------------------------------------------------------------------------------------------------------------
 bin          SR1       SR2       AT1       AT2     
 observation  -1.0      -1.0      -1.0      -1.0    

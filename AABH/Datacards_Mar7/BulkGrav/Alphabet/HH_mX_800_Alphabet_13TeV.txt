@@ -3,8 +3,8 @@ imax 2 number of bins
 jmax 3 number of processes minus 1
 kmax 96 number of nuisance parameters
 ----------------------------------------------------------------------------------------------------------------------------------
-shapes *    SR1  outputs/datacards/HH_mX_800_HH_LL_QCD_Alpha_13TeV.root vh/$PROCESS vh/$PROCESS_$SYSTEMATIC
-shapes *    SR2  outputs/datacards/HH_mX_800_HH_TT_QCD_Alpha_13TeV.root vh/$PROCESS vh/$PROCESS_$SYSTEMATIC
+shapes *    SR1  HH_mX_800_HH_LL_QCD_Alpha_13TeV.root vh/$PROCESS vh/$PROCESS_$SYSTEMATIC
+shapes *    SR2  HH_mX_800_HH_TT_QCD_Alpha_13TeV.root vh/$PROCESS vh/$PROCESS_$SYSTEMATIC
 ----------------------------------------------------------------------------------------------------------------------------------
 bin          SR1          SR2        
 observation  2729.817392  221.360064 
