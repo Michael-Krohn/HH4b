@@ -6,13 +6,13 @@ kmax 96 number of nuisance parameters
 shapes *    SR1  outputs/datacards/HH_mX_1000_HH_LL_Data_Radion_13TeV.root vh/$PROCESS vh/$PROCESS_$SYSTEMATIC
 shapes *    SR2  outputs/datacards/HH_mX_1000_HH_TT_Data_Radion_13TeV.root vh/$PROCESS vh/$PROCESS_$SYSTEMATIC
 ----------------------------------------------------------------------------------------------------------------------------------
-bin          SR1       SR2     
-observation  3160.0    389.0   
+bin          SR1          SR2        
+observation  3160.0       389.0      
 ----------------------------------------------------------------------------------------------------------------------------------
 bin                                                          SR1                               SR1                               SR2                               SR2                             
 process                                                      Signal_mX_1000_HH_LL_Data_Radion  HH_LL_Data_RadionEST              Signal_mX_1000_HH_TT_Data_Radion  HH_TT_Data_RadionEST            
 process                                                      -1                                1                                 0                                 2                               
-rate                                                         21.3544                           2303.5220                         21.3494                           322.3755                        
+rate                                                         20.8321                           2303.5220                         20.8273                           322.3755                        
 ----------------------------------------------------------------------------------------------------------------------------------
 CMS_JEC                 lnN                                  1.010192                          -                                 1.010061                          -                               
 CMS_JER                 lnN                                  1.000386                          -                                 1.000509                          -                               
@@ -20,7 +20,11 @@ CMS_PDF_Scales          lnN                                  0.927915/1.102548  
 CMS_PU                  lnN                                  1.000105                          -                                 1.006753                          -                               
 CMS_eff_Htag            lnN                                  1.058274                          -                                 1.058274                          -                               
 CMS_eff_bbtag_sf        lnN                                  1.044487                          -                                 1.075775                          -                               
+<<<<<<< HEAD
 CMS_eff_tau21_sf        lnN                                  1.30/0.74                           -                                 1.30/0.74                           -                               
+=======
+CMS_eff_tau21_sf        lnN                                  1.300/0.740                       -                                 1.300/0.740                       -                               
+>>>>>>> mk-master
 CMS_eff_trig            shapeN2                              1.0                               -                                 1.0                               -                               
 CMS_massJEC             lnN                                  1.02                              -                                 1.02                              -                               
 CMS_scaleHH_LL_Data_Radion_13TeV   shapeN2                   -                                 1.0                               -                                 -                               
