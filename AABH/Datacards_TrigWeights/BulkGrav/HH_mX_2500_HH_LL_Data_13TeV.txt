@@ -12,18 +12,17 @@ observation                                    -1.000000
 bin                                             HH4b            HH4b
 process                                          0      1
 process                                         Signal_mX_2500_HH_LL_Data  HH_LL_DataEST
-rate                                            29.911487  1.00
+rate                                            29.179956  1.00
 -------------------------------------------------------------------------------
 lumi_13TeV lnN                          1.026       -
-CMS_eff_tau21_sf lnN                    1.20195        -
+CMS_eff_tau21_sf lnN                    1.30/0.74        -
 CMS_eff_Htag lnN                    1.094300       -
 CMS_JEC lnN 		     1.014871        -
 CMS_massJEC lnN                 1.020000        -
-CMS_eff_bbtag_sf lnN                    1.088198       -
+CMS_eff_bbtag_sf lnN                    1.088198/0.911802       -
 CMS_JER lnN                    1.000736        -
 CMS_PU lnN                    1.003575        -
-CMS_eff_trig shapeN2           1.000   -
-CMS_PDF_Scales lnN   1.02 -       
+CMS_PDF_Scales lnN   0.922403/1.676454        -
 R_LL param 0.153294234635 0.00365675807464
 n_exp_binHH4b_proc_EST_LL_  rateParam HH4b HH_LL_DataEST @0*@1 bgSB_norm_LL,R_LL
 #bg_p1_LL_ param 0.02904 3.156e-05

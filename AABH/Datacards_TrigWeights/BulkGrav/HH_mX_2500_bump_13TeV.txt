@@ -1,7 +1,7 @@
 Combination of SR1=outputs/datacards/HH_mX_2500_HH_LL_Data_13TeV.txt  SR2=outputs/datacards/HH_mX_2500_HH_TT_Data_13TeV.txt  AT1=outputs/datacards/HH_mX_2500_HH_LL_Data_13TeV_fail.txt  AT2=outputs/datacards/HH_mX_2500_HH_TT_Data_13TeV_fail.txt
 imax 4 number of bins
 jmax 7 number of processes minus 1
-kmax 14 number of nuisance parameters
+kmax 13 number of nuisance parameters
 ----------------------------------------------------------------------------------------------------------------------------------
 shapes HH_LL_DataEST_antitag              AT1                                outputs/datacards/w_background_LL.root HH4b:bgSB_
 shapes Signal_mX_antitag_2500_HH_LL_Data  AT1                                outputs/datacards/w_signal_antitag_LL_2500.root HH4b:signal_fixed_antitag_
@@ -16,22 +16,21 @@ shapes HH_TT_DataEST                      SR2                                out
 shapes Signal_mX_2500_HH_TT_Data          SR2                                outputs/datacards/w_signal_TT_2500.root HH4b:signal_fixed_
 shapes data_obs                           SR2                                outputs/datacards/w_data_TT.root HH4b:data_obs
 ----------------------------------------------------------------------------------------------------------------------------------
-bin          SR1       SR2       AT1       AT2     
-observation  -1.0      -1.0      -1.0      -1.0    
+bin          SR1          SR2          AT1          AT2        
+observation  -1.0         -1.0         -1.0         -1.0       
 ----------------------------------------------------------------------------------------------------------------------------------
 bin                                 SR1                                SR1                                SR2                                SR2                                AT1                                AT1                                AT2                                AT2                              
 process                             Signal_mX_2500_HH_LL_Data          HH_LL_DataEST                      Signal_mX_2500_HH_TT_Data          HH_TT_DataEST                      Signal_mX_antitag_2500_HH_LL_Data  HH_LL_DataEST_antitag              Signal_mX_antitag_2500_HH_TT_Data  HH_TT_DataEST_antitag            
 process                             -3                                 1                                  -2                                 2                                  -1                                 3                                  0                                  4                                
-rate                                29.9115                            1.0000                             14.5025                            1.0000                             5.4782                             1.0000                             7.1221                             1.0000                           
+rate                                29.1800                            1.0000                             14.1478                            1.0000                             5.3442                             1.0000                             6.9480                             1.0000                           
 ----------------------------------------------------------------------------------------------------------------------------------
 CMS_JEC                 lnN         1.014871                           -                                  1.014921                           -                                  1.014871                           -                                  1.014921                           -                                
 CMS_JER                 lnN         1.000736                           -                                  1.000767                           -                                  1.000736                           -                                  1.000767                           -                                
-CMS_PDF_Scales          lnN         1.02                               -                                  1.02                               -                                  -                                  -                                  -                                  -                                
+CMS_PDF_Scales          lnN         0.922403/1.676454                  -                                  0.915891/1.734523                  -                                  -                                  -                                  -                                  -                                
 CMS_PU                  lnN         1.003575                           -                                  1.002688                           -                                  1.003575                           -                                  1.002688                           -                                
 CMS_eff_Htag            lnN         1.0943                             -                                  1.0943                             -                                  1.0943                             -                                  1.0943                             -                                
-CMS_eff_bbtag_sf        lnN         1.088198                           -                                  1.149212                           -                                  1.088198                           -                                  1.149212                           -                                
-CMS_eff_tau21_sf        lnN         1.20195                            -                                  1.20195                            -                                  1.20195                            -                                  1.20195                            -                                
-CMS_eff_trig            shapeN2     1.0                                -                                  1.0                                -                                  1.0                                -                                  1.0                                -                                
+CMS_eff_bbtag_sf        lnN         1.088/0.912                        -                                  1.149/0.851                        -                                  0.912/1.088                        -                                  0.851/1.149                        -                                
+CMS_eff_tau21_sf        lnN         1.300/0.740                        -                                  1.300/0.740                        -                                  1.300/0.740                        -                                  1.300/0.740                        -                                
 CMS_massJEC             lnN         1.02                               -                                  1.02                               -                                  1.02                               -                                  1.02                               -                                
 lumi_13TeV              lnN         1.026                              -                                  1.026                              -                                  1.026                              -                                  1.026                              -                                
 mjjlin_TT_    param  0.001465 0.01304

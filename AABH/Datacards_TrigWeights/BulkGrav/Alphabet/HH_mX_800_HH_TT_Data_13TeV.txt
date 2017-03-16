@@ -10,10 +10,10 @@ observation                                    389.000000
 bin                                             vh4b            vh4b
 process                                          0      1
 process                                         Signal_mX_800_HH_TT_Data  HH_TT_DataEST
-rate                                            10.692353  322.375540
+rate                                            10.430856  322.375540
 -------------------------------------------------------------------------------
 lumi_13TeV lnN                          1.026       -
-CMS_eff_tau21_sf lnN                    1.20195         -
+CMS_eff_tau21_sf lnN                    1.30/0.74         -
 CMS_eff_Htag lnN                    1.042844       -
 CMS_JEC lnN 		     1.010571        -
 CMS_massJEC lnN                 1.020000        -
@@ -22,7 +22,7 @@ CMS_JER lnN                    1.000024        -
 CMS_PU lnN                    1.007335        -
 CMS_eff_trig shapeN2           1.000   -
 CMS_scaleHH_TT_Data_13TeV shapeN2                           -       1.000
-CMS_PDF_Scales lnN   1.02 -       
+CMS_PDF_Scales lnN   0.979632/1.024064         -
 CMS_statHH_TT_Data_13TeV_bin0 shapeN2                           -       1.000
 CMS_statHH_TT_Data_13TeV_bin1 shapeN2                           -       1.000
 CMS_statHH_TT_Data_13TeV_bin2 shapeN2                           -       1.000
