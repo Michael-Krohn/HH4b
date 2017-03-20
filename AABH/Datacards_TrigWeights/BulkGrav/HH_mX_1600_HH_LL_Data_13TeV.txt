@@ -23,7 +23,7 @@ CMS_eff_bbtag_sf lnN                    1.047100/0.952900       -
 CMS_JER lnN                    1.000700        -
 CMS_PU lnN                    1.007709        -
 CMS_PDF_Scales lnN   1.049586/0.899403        -
-R_LL param 0.153294234635 0.00365675807464
+R_LL param 0.218466788413 0.00548111909329
 n_exp_binHH4b_proc_EST_LL_  rateParam HH4b HH_LL_DataEST @0*@1 bgSB_norm_LL,R_LL
 #bg_p1_LL_ param 0.02904 3.156e-05
 #bg_p2_LL_ param 0.01686 0.001561
