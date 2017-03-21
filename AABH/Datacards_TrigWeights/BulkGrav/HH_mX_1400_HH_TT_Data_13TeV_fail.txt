@@ -14,7 +14,7 @@ process                                         Signal_mX_antitag_1400_HH_TT_Dat
 process                                          0      1     
 rate                                            5.738895    1.0000  
 -------------------------------------------------------------------------------
-lumi_13TeV lnN                          1.026       -
+lumi_13TeV lnN                          1.025       -
 CMS_eff_tau21_sf lnN                    1.30/0.74       -
 CMS_eff_Htag lnN                    1.151210       -
 CMS_JEC lnN                 1.010614        -

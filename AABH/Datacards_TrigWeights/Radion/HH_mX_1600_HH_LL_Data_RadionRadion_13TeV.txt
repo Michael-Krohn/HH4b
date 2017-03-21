@@ -14,7 +14,7 @@ process                                          0      1
 process                                         Signal_mX_1600_HH_LL_Data_Radion  HH_LL_Data_RadionEST
 rate                                            19.892932  1.00
 -------------------------------------------------------------------------------
-lumi_13TeV lnN                          1.026       -
+lumi_13TeV lnN                          1.025       -
 CMS_eff_tau21_sf lnN                    1.30/0.74       -
 CMS_eff_Htag lnN                    1.161910       -
 CMS_JEC lnN 		     1.011319        -

@@ -109,4 +109,4 @@ CMS_statHH_TT_Data_Radion_13TeV_bin6   shapeN2               -                  
 CMS_statHH_TT_Data_Radion_13TeV_bin7   shapeN2               -                                -                                -                                1.0                            
 CMS_statHH_TT_Data_Radion_13TeV_bin8   shapeN2               -                                -                                -                                1.0                            
 CMS_statHH_TT_Data_Radion_13TeV_bin9   shapeN2               -                                -                                -                                1.0                            
-lumi_13TeV              lnN                                  1.026                            -                                1.026                            -                              
+lumi_13TeV              lnN                                  1.025                            -                                1.025                            -                              
