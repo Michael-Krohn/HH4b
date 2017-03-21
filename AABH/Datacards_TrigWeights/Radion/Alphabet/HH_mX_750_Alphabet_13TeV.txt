@@ -16,9 +16,9 @@ rate                                                         3.8102             
 ----------------------------------------------------------------------------------------------------------------------------------
 CMS_JEC                 lnN                                  1.010916                         -                                1.010721                         -                              
 CMS_JER                 lnN                                  1.00098                          -                                1.000635                         -                              
-CMS_PDF_Scales          lnN                                  0.997021/1.001596                -                                0.943862/1.070534                - 
+CMS_PDF_Scales          lnN                                  0.997/1.002                      -                                0.944/1.071                      -                              
 CMS_PU                  lnN                                  1.009608                         -                                1.002934                         -                              
-CMS_eff_Htag            lnN                                  1.037644                         -                                1.037644                         -                              
+CMS_eff_Htag            lnN                                  1.075288                         -                                1.075288                         -                              
 CMS_eff_bbtag_sf        lnN                                  1.052851                         -                                1.064214                         -                              
 CMS_eff_tau21_sf        lnN                                  1.300/0.740                      -                                1.300/0.740                      -                              
 CMS_eff_trig            shapeN2                              1.0                              -                                1.0                              -                              
@@ -109,4 +109,4 @@ CMS_statHH_TT_Data_Radion_13TeV_bin6   shapeN2               -                  
 CMS_statHH_TT_Data_Radion_13TeV_bin7   shapeN2               -                                -                                -                                1.0                            
 CMS_statHH_TT_Data_Radion_13TeV_bin8   shapeN2               -                                -                                -                                1.0                            
 CMS_statHH_TT_Data_Radion_13TeV_bin9   shapeN2               -                                -                                -                                1.0                            
-lumi_13TeV              lnN                                  1.026                            -                                1.026                            -                              
+lumi_13TeV              lnN                                  1.025                            -                                1.025                            -                              

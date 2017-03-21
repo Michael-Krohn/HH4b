@@ -14,9 +14,9 @@ process                                         Signal_mX_antitag_2000_HH_TT_Dat
 process                                          0      1     
 rate                                            6.682258    1.0000  
 -------------------------------------------------------------------------------
-lumi_13TeV lnN                          1.026       -
+lumi_13TeV lnN                          1.025       -
 CMS_eff_tau21_sf lnN                    1.30/0.74       -
-CMS_eff_Htag lnN                    1.088393       -
+CMS_eff_Htag lnN                    1.176787       -
 CMS_JEC lnN                 1.012959        -
 CMS_massJEC lnN                 1.020000        -
 CMS_eff_bbtag_sf lnN                    0.864750/1.135250       -

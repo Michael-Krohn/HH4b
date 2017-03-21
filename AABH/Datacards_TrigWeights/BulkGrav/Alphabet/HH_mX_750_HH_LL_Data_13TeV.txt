@@ -12,9 +12,9 @@ process                                          0      1
 process                                         Signal_mX_750_HH_LL_Data  HH_LL_DataEST
 rate                                            3.833238  3282.693261
 -------------------------------------------------------------------------------
-lumi_13TeV lnN                          1.026       -
+lumi_13TeV lnN                          1.025       -
 CMS_eff_tau21_sf lnN                    1.30/0.74          -
-CMS_eff_Htag lnN                    1.037644       -
+CMS_eff_Htag lnN                    1.075288       -
 CMS_JEC lnN 		     1.010916        -
 CMS_massJEC lnN                 1.020000        -
 CMS_eff_bbtag_sf lnN                    1.052851       -
