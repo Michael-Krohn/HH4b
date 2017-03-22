@@ -12,7 +12,7 @@ observation  3160.0       389.0
 bin                                                          SR1                              SR1                              SR2                              SR2                            
 process                                                      Signal_mX_750_HH_LL_Data_Radion  HH_LL_Data_RadionEST             Signal_mX_750_HH_TT_Data_Radion  HH_TT_Data_RadionEST           
 process                                                      -1                               1                                0                                2                              
-rate                                                         3.8102                           3282.6933                        4.3205                           362.9666                       
+rate                                                         3.8102                           3232.9610                        4.3205                           352.1859                       
 ----------------------------------------------------------------------------------------------------------------------------------
 CMS_JEC                 lnN                                  1.010916                         -                                1.010721                         -                              
 CMS_JER                 lnN                                  1.00098                          -                                1.000635                         -                              

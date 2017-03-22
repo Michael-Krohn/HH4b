@@ -12,11 +12,11 @@ observation  3160.0       389.0
 bin                                                   SR1                       SR1                       SR2                       SR2                     
 process                                               Signal_mX_750_HH_LL_Data  HH_LL_DataEST             Signal_mX_750_HH_TT_Data  HH_TT_DataEST           
 process                                               -1                        1                         0                         2                       
-rate                                                  3.8332                    3282.6933                 4.3467                    362.9666                
+rate                                                  3.8332                    3232.9597                 4.3467                    352.1846                
 ----------------------------------------------------------------------------------------------------------------------------------
 CMS_JEC                 lnN                           1.010916                  -                         1.010721                  -                       
 CMS_JER                 lnN                           1.00098                   -                         1.000635                  -                       
-CMS_PDF_Scales          lnN                           1.006/1.005               -                         0.996/0.997               -
+CMS_PDF_Scales          lnN                           1.006/1.005               -                         0.996/0.997               -                       
 CMS_PU                  lnN                           1.009608                  -                         1.002934                  -                       
 CMS_eff_Htag            lnN                           1.075288                  -                         1.075288                  -                       
 CMS_eff_bbtag_sf        lnN                           1.052851                  -                         1.064214                  -                       
