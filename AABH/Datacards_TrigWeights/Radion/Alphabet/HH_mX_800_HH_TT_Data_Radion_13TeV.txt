@@ -10,7 +10,7 @@ observation                                    389.000000
 bin                                             vh4b            vh4b
 process                                          0      1
 process                                         Signal_mX_800_HH_TT_Data_Radion  HH_TT_Data_RadionEST
-rate                                            10.408883  362.966590
+rate                                            10.408883  352.185887
 -------------------------------------------------------------------------------
 lumi_13TeV lnN                          1.025       -
 CMS_eff_tau21_sf lnN                    1.30/0.74         -
@@ -22,7 +22,7 @@ CMS_JER lnN                    1.000030        -
 CMS_PU lnN                    1.007423        -
 CMS_eff_trig shapeN2           1.000   -
 CMS_scaleHH_TT_Data_Radion_13TeV shapeN2                           -       1.000
-CMS_PDF_Scales lnN    1.019737/0.971229         -
+CMS_PDF_Scales lnN    1.010000/1.008000         -
 CMS_statHH_TT_Data_Radion_13TeV_bin0 shapeN2                           -       1.000
 CMS_statHH_TT_Data_Radion_13TeV_bin1 shapeN2                           -       1.000
 CMS_statHH_TT_Data_Radion_13TeV_bin2 shapeN2                           -       1.000
