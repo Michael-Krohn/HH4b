@@ -17,9 +17,9 @@ rate                                            4.679880    1.0000
 lumi_13TeV lnN                          1.025       -
 CMS_eff_tau21_sf lnN                    1.30/0.74        -
 CMS_eff_Htag lnN                    1.188601       -
-CMS_JEC lnN                 1.014730        -
+CMS_JEC lnN                 1.014741        -
 CMS_massJEC lnN                 1.020000        -
-CMS_eff_bbtag_sf lnN                    0.851313/1.148687       -
-CMS_JER lnN                    1.000798        -
-CMS_PU lnN                    1.004302        -
-bgSB_norm_TT rateParam HH4b HH_TT_Data_RadionEST_antitag 1026.15700005
+CMS_eff_bbtag_sf lnN                    0.851303/1.148697       -
+CMS_JER lnN                    1.000780        -
+CMS_PU lnN                    1.004414        -
+bgSB_norm_TT rateParam HH4b HH_TT_Data_RadionEST_antitag 1026.78500008

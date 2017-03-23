@@ -22,4 +22,4 @@ CMS_massJEC lnN                 1.020000        -
 CMS_eff_bbtag_sf lnN                    0.889671/1.110329       -
 CMS_JER lnN                    1.000818        -
 CMS_PU lnN                    1.002448        -
-bgSB_norm_TT rateParam HH4b HH_TT_Data_RadionEST_antitag 1026.15700005
+bgSB_norm_TT rateParam HH4b HH_TT_Data_RadionEST_antitag 1026.78500008
