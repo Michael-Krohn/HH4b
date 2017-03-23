@@ -1,0 +1,30 @@
+max    1     number of categories
+jmax   1     number of samples minus one
+kmax    *     number of nuisance parameters
+-------------------------------------------------------------------------------
+shapes Signal_mX_2000_HH_LL_Data_Radion      HH4b w_signal_LL_2000.root      HH4b:signal_fixed_ 
+shapes HH_LL_Data_RadionEST HH4b w_background_LL_Radion.root HH4b:bg_
+shapes data_obs   HH4b w_data_LL_Radion.root                HH4b:data_obs
+-------------------------------------------------------------------------------
+bin                                            HH4b
+observation                                    -1.000000
+-------------------------------------------------------------------------------
+bin                                             HH4b            HH4b
+process                                          0      1
+process                                         Signal_mX_2000_HH_LL_Data_Radion  HH_LL_Data_RadionEST
+rate                                            19.572213  1.00
+-------------------------------------------------------------------------------
+lumi_13TeV lnN                          1.025       -
+CMS_eff_tau21_sf lnN                    1.30/0.74       -
+CMS_eff_Htag lnN                    1.176787       -
+CMS_JEC lnN 		     1.012890        -
+CMS_massJEC lnN                 1.020000        -
+CMS_eff_bbtag_sf lnN                    1.074860/0.925140       -
+CMS_JER lnN                    1.000699        -
+CMS_PU lnN                    1.002097        -
+CMS_PDF_Scales lnN   0.998000/0.999000        -
+R_LL param 0.215190979616 0.00558696746213
+n_exp_binHH4b_proc_EST_LL_  rateParam HH4b HH_LL_Data_RadionEST @0*@1 bgSB_norm_LL,R_LL
+#bg_p1_ param 0.03001 0.0005852
+#bg_p2_ param 0.02184 0.005894
+mjjlin_LL_ param 0.00135 0.07313
