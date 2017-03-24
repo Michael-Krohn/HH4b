@@ -25,6 +25,6 @@ CMS_PU lnN                    1.000493        -
 CMS_PDF_Scales lnN   0.999000/0.999000        -
 R_LL param 0.215190979616 0.00558696746213
 n_exp_binHH4b_proc_EST_LL_  rateParam HH4b HH_LL_Data_RadionEST @0*@1 bgSB_norm_LL,R_LL
-#bg_p1_ param 0.03001 0.0005852
-#bg_p2_ param 0.02184 0.005894
+#bg_p1_LL_ param 0.03001 0.0005852
+#bg_p2_LL_ param 0.02184 0.005894
 mjjlin_LL_ param 0.00135 0.07313

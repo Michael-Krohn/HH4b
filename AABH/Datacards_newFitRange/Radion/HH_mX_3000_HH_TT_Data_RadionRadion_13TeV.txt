@@ -25,6 +25,6 @@ CMS_PU lnN                    1.010509        -
 CMS_PDF_Scales lnN   1.008000/1.007000        -
 R_TT param 0.0557846978752 0.0036742614304
 n_exp_binHH4b_proc_EST_TT_  rateParam HH4b HH_TT_Data_RadionEST @0*@1 bgSB_norm_TT,R_TT
-#bg_p1_ param 0.03077 0.001404
-#bg_p2_ param 0.01927 0.00804
-mjjlin_TT_ param 0.000931914 0.000752804
+#bg_p1_TT_ param 0.03077 0.001404
+#bg_p2_TT_ param 0.01927 0.00804
+mjjlin_TT_ param 0.000931914 0.001495
