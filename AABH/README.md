@@ -30,33 +30,33 @@ Then to combine the datacards:
 
 *AABH procedure* :
 
-  1) There is one script, HHSRAlphabet_fit_ReReco.py(HHSRAlphabet_fit_ReReco_Radion.py), 
-     to produce the datacards and Alphabet output. The command for the LL category is:
+1) There is one script, HHSRAlphabet_fit_ReReco.py(HHSRAlphabet_fit_ReReco_Radion.py), 
+   to produce the datacards and Alphabet output. The command for the LL category is:
 
       python HHSRAlphabet_fit_ReReco.py --Selection 
       "jet2_puppi_msoftdrop_TheaCorr > 105 & jet2_puppi_msoftdrop_TheaCorr < 135 
-       & jet2bbtag > 0.3 & (!( jet1bbtag > 0.8 & jet2bbtag > 0.8))" --Cut 0.3
-       --name HH_LL_Data --log True
+      & jet2bbtag > 0.3 & (!( jet1bbtag > 0.8 & jet2bbtag > 0.8))" --Cut 0.3
+      --name HH_LL_Data --log True
        
-       (python HHSRAlphabet_fit_ReReco_Radion.py --Selection 
+      (python HHSRAlphabet_fit_ReReco_Radion.py --Selection 
       "jet2_puppi_msoftdrop_TheaCorr > 105 & jet2_puppi_msoftdrop_TheaCorr < 135 
-       & jet2bbtag > 0.3 & (!( jet1bbtag > 0.8 & jet2bbtag > 0.8))" --Cut 0.8
-       --name HH_LL_Data_Radion --log True)
+      & jet2bbtag > 0.3 & (!( jet1bbtag > 0.8 & jet2bbtag > 0.8))" --Cut 0.8
+      --name HH_LL_Data_Radion --log True)
        
 
-    The command for the TT category is:
+The command for the TT category is:
 
       python HHSRAlphabet_fit_ReReco.py --Selection 
       "jet2_puppi_msoftdrop_TheaCorr > 105 & jet2_puppi_msoftdrop_TheaCorr < 135 
-       & jet2bbtag > 0.8" --Cut 0.8 --name HH_TT_Data --log True --TT
+      & jet2bbtag > 0.8" --Cut 0.8 --name HH_TT_Data --log True --TT
        
-       (python HHSRAlphabet_fit_ReReco_Radion.py --Selection 
+      (python HHSRAlphabet_fit_ReReco_Radion.py --Selection 
       "jet2_puppi_msoftdrop_TheaCorr > 105 & jet2_puppi_msoftdrop_TheaCorr < 135 
-       & jet2bbtag > 0.8" --Cut 0.8 --name HH_TT_Data_Radion --log True --TT)
+      & jet2bbtag > 0.8" --Cut 0.8 --name HH_TT_Data_Radion --log True --TT)
 
-  2) There is one script, Background.c(Background_Radion.c), that creates the background and Obs WS
-     from the output of 1). To run for the TT region you must change the variable
-     LLregion to false inside of the script. The command to run is:
+2) There is one script, Background.c(Background_Radion.c), that creates the background and Obs WS
+   from the output of 1). To run for the TT region you must change the variable
+   LLregion to false inside of the script. The command to run is:
      
        root -l -b Background.c (root -l -b Background_Radion.c)
         
