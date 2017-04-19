@@ -16,7 +16,7 @@ rate                                            11.7289035  1.00
 -------------------------------------------------------------------------------
 lumi_13TeV lnN                          1.025       -
 CMS_eff_tau21_sf lnN                    1.30/0.74       -
-CMS_eff_Htag lnN                    1.136846       -
+CMS_eff_Htag lnN                    1.1734885       -
 CMS_JEC lnN 		     1.010178        -
 CMS_massJEC lnN                 1.020000        -
 CMS_eff_bbtag_sf lnN                    1.080174/0.919826       -
