@@ -12,7 +12,7 @@ observation                                    -1.000000
 bin                                             HH4b            HH4b
 process                                          0      1
 process                                         Signal_mX_3000_HH_TT_Data  HH_TT_DataEST
-rate                                            11.025674  1.00
+rate                                            9.198562   1.00
 -------------------------------------------------------------------------------
 lumi_13TeV lnN                          1.025       -
 CMS_eff_tau21_sf lnN                    1.30/0.74        -
