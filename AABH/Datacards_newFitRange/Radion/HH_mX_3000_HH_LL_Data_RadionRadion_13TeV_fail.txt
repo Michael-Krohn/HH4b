@@ -12,7 +12,7 @@ observation                                    -1.0
 bin                                             HH4b            HH4b  
 process                                         Signal_mX_antitag_3000_HH_LL_Data_Radion  HH_LL_Data_RadionEST_antitag
 process                                          0      1     
-rate                                            4.228125    1.0000  
+rate                                            4.270833    1.0000  
 -------------------------------------------------------------------------------
 lumi_13TeV lnN                          1.025       -
 CMS_eff_tau21_sf lnN                    1.30/0.74        -
