@@ -8,7 +8,7 @@ do
 
 	echo "mass point $i"
 	mkdir Limits_Combined_AABH_BG_Moriond/sigH$i
-        combine outputs/datacards/HH_mX_$i\_Alphabet_13TeV.txt -M Asymptotic &> CMS_HH_$i\_13TeV_asymptoticCLs.out
+        combine outputs/datacards/HH_mX_$i\_Alphabet_13TeV.txt -m $i -M Asymptotic &> CMS_HH_$i\_13TeV_asymptoticCLs.out
 #	combine outputs/datacards/HH_mX_$i\_Alphabet_13TeV.txt -t -1 -m $i -M Asymptotic --rMax 20 --rMin 0.01 &> CMS_HH_$i\_13TeV_asymptoticCLs.out
 	mv higgsCombineTest.Asymptotic.mH120.root Limits_Combined_AABH_BG_Moriond/CMS_$i\_HH4b_13TeV_asymptoticCLs.root
 

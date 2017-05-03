@@ -7,7 +7,7 @@ do
 	mkdir Limits_Combined_AABH_BG_Moriond/sig$i
 	text2workspace.py outputs/datacards/HH_mX_$i\_bump_13TeV.txt  -o outputs/datacards/HH_mX_$i\_bump_13TeV.root
 #        combine -M MaxLikelihoodFit --rMin=-50 --rMax=50 --saveNormalizations --plot --saveShapes --saveWithUncertainties  -v 4 outputs/datacards/HH_mX_$i\_bump_13TeV.txt
-        combine outputs/datacards/HH_mX_$i\_bump_13TeV.txt -M Asymptotic &> CMS_HH4b_$i\_13TeV_asymptoticCLs.out
+        combine outputs/datacards/HH_mX_$i\_bump_13TeV.txt -m $i -M Asymptotic &> CMS_HH4b_$i\_13TeV_asymptoticCLs.out
 #	combine outputs/datacards/HH_mX_$i\_bump_13TeV.txt --noFitAsimov -m $i -M Asymptotic &> CMS_HH4b_$i\_13TeV_asymptoticCLs.out
 	mv higgsCombineTest.Asymptotic.mH$i\.root Limits_Combined_AABH_BG_Moriond/CMS_$i\_HH4b_13TeV_asymptoticCLs.root
 #	combine -M MaxLikelihoodFit --rMin=-100 --rMax=100 --saveNormalizations --plot --saveShapes --saveWithUncertainties  -v 4 outputs/datacards/HH_mX_$i\_bump_13TeV.txt --out outputs/datacards
